@@ -3739,7 +3739,6 @@
 			-ms-transition: opacity 1s ease, -ms-transform 1s ease;
 			transition: opacity 1s ease, transform 1s ease;
 			opacity: 1;
-			position: relative;
 			z-index: 2;
 		}
 
@@ -3796,6 +3795,7 @@
 			z-index: 1;
 		}
 */
+/*
 		@media screen and (max-width: 1280px) {
 
 			#banner video {
@@ -3803,8 +3803,8 @@
 			}
 
 		}
-
-		@media screen and (max-width: 736px) {
+*/
+		@media screen {
 
 			#banner {
 				min-height: 100;
@@ -3831,11 +3831,16 @@
 				}
 
 				#banner .button {
+					width: 90%;
+				}
+				#banner img {
 					width: 100%;
+					position: relative;
+					padding-bottom:60%;
 				}
 
 		}
-
+/*
 		@media screen and (max-width: 480px) {
 
 			#banner p {
@@ -3843,7 +3848,7 @@
 			}
 
 		}
-
+*/
 		body.is-loading #banner .inner {
 			-moz-transform: scale(0.99);
 			-webkit-transform: scale(0.99);
