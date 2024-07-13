@@ -3714,9 +3714,9 @@
 		-webkit-justify-content: center;
 		-ms-justify-content: center;
 		justify-content: center;
-		background-image: url("../../images/banner.png");
-		background-position: center;
-		background-size: contain;
+		background-image: url("../../images/banner.png"), url("../../images/bbg.png");
+		background-position: center, left top;
+		background-size: contain, cover;
 		background-repeat: no-repeat;
 		border-top: 0;
 		min-height: 100vh;
@@ -3776,9 +3776,9 @@
 	-webkit-justify-content: center;
 	-ms-justify-content: center;
 	justify-content: center;
-	background-image: url("../../images/event_menu_bg.png");
-	background-position: center;
-	background-size: contain;
+	background-image: url("../../images/event_menu_bg.png"), url("../../images/bbg.png");
+	background-position: center, left top;
+	background-size: contain, cover;
 	background-repeat: no-repeat;
 	border-top: 0;
 	min-height: 100vh;
