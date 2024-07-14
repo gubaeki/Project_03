@@ -3788,20 +3788,8 @@
 	position: relative;
 	text-align: center;
 	overflow: hidden;
+	z-index: 1;
 }
-
-	#banner2 .inner {
-		-moz-transform: scale(1.0);
-		-webkit-transform: scale(1.0);
-		-ms-transform: scale(1.0);
-		transform: scale(1.0);
-		-moz-transition: opacity 1s ease, -moz-transform 1s ease;
-		-webkit-transition: opacity 1s ease, -webkit-transform 1s ease;
-		-ms-transition: opacity 1s ease, -ms-transform 1s ease;
-		transition: opacity 1s ease, transform 1s ease;
-		opacity: 1;
-		z-index: 2;
-	}
 
 	#banner2 h1 {
 		font-size: 4rem;
@@ -3819,6 +3807,20 @@
 		color: #070000;
 		text-decoration: none;
 	}
+
+#moving_tiger{
+	position: absolute;
+	z-index: 2;
+	top:50%;
+	left:48%;
+	max-width:166px;
+	max-height:186px;
+}
+
+	
+		
+
+
 
 
 
