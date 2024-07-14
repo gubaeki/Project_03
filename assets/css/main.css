@@ -3811,8 +3811,8 @@
 #moving_tiger{
 	position: absolute;
 	z-index: 2;
-	top:53%;
-	left:48%;
+	top:53vh;
+	left:48vw;
 	max-width:117px;
 	max-height:131px;
 }
