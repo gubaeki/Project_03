@@ -52,7 +52,7 @@ document.addEventListener('click', function(event) {
         message.textContent = `확인! 현재 좌표: (${gifRect.left}, ${gifRect.top}, ${kboat_minX}, ${kboat_minY})`;
         message.style.display = 'block';
     
-
+        /*
         if (gifRect.left >= 0) {
             message.textContent = `x는 0보다 큼! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
             message.style.display = 'block';
@@ -60,26 +60,27 @@ document.addEventListener('click', function(event) {
             message.textContent = `x는 0보다 작음! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
             message.style.display = 'block';
         }
-        /*
+        */
+        
         // 범위 안에 있는지 검사
-        if (gitRect_left >= kboat_minX && gitRect_right <= kboat_maxX && gitRect_top >= kboat_minY && gitRect_bottom <= kboat_maxY) {
+        if (gifRect.left >= kboat_minX && gifRect.right <= kboat_maxX && gifRect.top >= kboat_minY && gifRect.bottom <= kboat_maxY) {
             //var message = document.getElementById('event_sub');
-            message.textContent = `경정! 현재 좌표: (${gifRect_left}, ${gifRect_top})`;
+            message.textContent = `경정! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
             message.style.display = 'block';
-        } else if (gitRect_left >= krace_minX && gitRect_right <= krace_maxX && gifRect_top >= krace_minY && gifRect_bottom <= krace_maxY) {
+        } else if (gifRect.left >= krace_minX && gifRect.right <= krace_maxX && gifRect.top >= krace_minY && gifRect.bottom <= krace_maxY) {
             //var message = document.getElementById('event_sub');
-            message.textContent = `경륜! 현재 좌표: (${gifRect_left}, ${gifRect_top})`;
+            message.textContent = `경륜! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
             message.style.display = 'block';
-        } else if (gifRect_left >= krun_minX && gifRect_right <= krun_maxX && gifRect_top >= krun_minY && gifRect_bottom <= krun_maxY) {
+        } else if (gifRect.left >= krun_minX && gifRect.right <= krun_maxX && gifRect.top >= krun_minY && gifRect.bottom <= krun_maxY) {
             //var message = document.getElementById('event_sub');
-            message.textContent = `달리기! 현재 좌표: (${gifRect_left}, ${gifRect_top})`;
+            message.textContent = `달리기! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
             message.style.display = 'block';
         } else {
-            message.textContent = `조건불일치! 현재좌표: (${gifRect_left}, ${gifRect_top})`;
-            //message.textContent = `조건불일치! 현재좌표: (${gifRect_left}, ${gifRect_top}, ${kboat_minX}, ${kboat_maxX}, ${kboat_minY} ,${kboat_maxY})`;
+            message.textContent = `조건불일치! 현재좌표: (${gifRect.left}, ${gifRect.top})`;
+            //message.textContent = `조건불일치! 현재좌표: (${gifRect.left}, ${gifRect.top}, ${kboat_minX}, ${kboat_maxX}, ${kboat_minY} ,${kboat_maxY})`;
             message.style.display = 'block';
         }
-        */
+        
     }, 2100); // 2100ms 후 검사
 
     
