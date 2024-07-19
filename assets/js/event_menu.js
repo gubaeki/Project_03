@@ -14,11 +14,11 @@ document.addEventListener('click', function(event) {
         var gifRect = moving_tiger.getBoundingClientRect();
          var message = document.getElementById('event_sub');
         // 뷰포트 크기 계산
-        //var viewportHeight = window.innerHeight;
-        //var viewportWidth = window.innerWidth;
-        //var kboat_minX = 56.3 * viewportWidth / 100, kboat_maxX = 97.6 * viewportWidth / 100;
-        //message.textContent = `현재 좌표: (${viewportWidth}, ${viewportHeight}`;
-        message.textContent = `나오나?`;
+        var viewportHeight = window.innerHeight;
+        var viewportWidth = window.innerWidth;
+        var kboat_minX = 56.3 * viewportWidth / 100, kboat_maxX = 97.6 * viewportWidth / 100;
+        message.textContent = `현재 좌표: (${viewportWidth}, ${viewportHeight}, ${kboat_minX}, ${kboat_maxX}`;
+        //message.textContent = `나오나?`;
         message.style.display = 'block';
         /*
         // 특정 범위 정의 (예: x 100-200, y 100-200)
