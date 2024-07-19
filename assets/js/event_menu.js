@@ -18,8 +18,8 @@ document.addEventListener('click', function(event) {
         var viewportWidth = window.innerWidth;
         
         // 특정 범위 정의 (예: x 100-200, y 100-200)
-        var kboat_minX = parseInt(52 * viewportWidth / 100, kboat_maxX = 96 * viewportWidth / 100);
-        var kboat_minY = parseInt(23 * viewportHeight / 100, kboat_maxY = 35.5 * viewportHeight / 100);
+        var kboat_minX = parseInt(52 * viewportWidth / 100), kboat_maxX = parseInt(96 * viewportWidth / 100);
+        var kboat_minY = parseInt(23 * viewportHeight / 100), kboat_maxY = parseInt(35.5 * viewportHeight / 100);
         var krace_minX = 10 * viewportWidth / 100, krace_maxX = 37.3 * viewportWidth / 100;
         var krace_minY = 45 * viewportHeight / 100, krace_maxY = 62.7 * viewportHeight / 100;
         var krun_minX = 61.6 * viewportWidth / 100, krun_maxX = 96 * viewportWidth / 100;
@@ -45,7 +45,7 @@ document.addEventListener('click', function(event) {
             message.style.display = 'block';
         } else {
             //message.textContent = `조건불일치! 현재좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)})`;
-            message.textContent = `조건불일치! 현재좌표: (${gifRect.left}, ${gifRect.top}, ${kboat_minX}, ${kboat_minY}, ${gifRect.top.toFixed(2)} ,${gifRect.top.toFixed(2)})`;
+            message.textContent = `조건불일치! 현재좌표: (${parseInt(gifRect.left)}, ${parseInt(gifRect.top)}, ${kboat_minX}, ${kboat_maxX}, ${kboat_minY} ,${kboat_maxY})`;
             message.style.display = 'block';
         }
         
