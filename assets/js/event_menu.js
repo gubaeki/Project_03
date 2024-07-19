@@ -12,15 +12,11 @@ document.addEventListener('click', function(event) {
     // 특정 시간 후 위치 검사 (transition 시간이 2.0초이므로 2.1초 후 검사)
     setTimeout(function() {
         var gifRect = moving_tiger.getBoundingClientRect();
-         var message = document.getElementById('event_sub');
+        
         // 뷰포트 크기 계산
         var viewportHeight = window.innerHeight;
         var viewportWidth = window.innerWidth;
-        var kboat_minX = 56.3 * viewportWidth / 100, kboat_maxX = 97.6 * viewportWidth / 100;
-        message.textContent = `현재 좌표: (${viewportWidth}, ${viewportHeight}, ${kboat_minX}, ${kboat_maxX}`;
-        //message.textContent = `나오나?`;
-        message.style.display = 'block';
-        /*
+        
         // 특정 범위 정의 (예: x 100-200, y 100-200)
         var kboat_minX = 56.3 * viewportWidth / 100, kboat_maxX = 97.6 * viewportWidth / 100;
         var kboat_minY = 18.4 * viewportHeight / 100, kboat_maxY = 35.5 * viewportHeight / 100;
@@ -28,7 +24,7 @@ document.addEventListener('click', function(event) {
         var krace_minY = 45 * viewportHeight / 100, krace_maxY = 62.7 * viewportHeight / 100;
         var krun_minX = 61.6 * viewportWidth / 100, krun_maxX = 96 * viewportWidth / 100;
         var krun_minY = 75.9 * viewportHeight / 100, krun_maxY = 89 * viewportHeight / 100;
-
+        
         var message = document.getElementById('event_sub');
         
         // 범위 안에 있는지 검사
@@ -42,10 +38,10 @@ document.addEventListener('click', function(event) {
             message.textContent = `달리기! 현재 좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)})`;
             message.style.display = 'block';
         } else {
-            message.style.display = 'none';
-            return;
+            //message.style.display = 'none';
+            //return;
         }
-        */
+        
     }, 2100); // 600ms 후 검사
 
     
