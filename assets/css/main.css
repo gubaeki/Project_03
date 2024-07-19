@@ -3823,7 +3823,7 @@
 
 #event_sub {
             position: absolute;
-	    z-index: 3;
+	    z-index: 10;
             top: 50vh;
             left: 50vw;
             transform: translate(-50%, -50%);
