@@ -12,7 +12,7 @@ document.addEventListener('click', function(event) {
     // 특정 시간 후 위치 검사 (transition 시간이 2.0초이므로 2.1초 후 검사)
     setTimeout(function() {
         var gifRect = moving_tiger.getBoundingClientRect();
-
+         var message = document.getElementById('event_sub');
         // 뷰포트 크기 계산
         //var viewportHeight = window.innerHeight;
         //var viewportWidth = window.innerWidth;
