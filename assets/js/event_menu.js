@@ -51,7 +51,7 @@ document.addEventListener('click', function(event) {
         var message = document.getElementById('event_sub');
         message.textContent = `확인! 현재 좌표: (${gifRect.left}, ${gifRect.top}, ${kboat_minX}, ${kboat_minY})`;
         message.style.display = 'block';
-        
+    
 
         if (gifRect.left >= 0) {
             message.textContent = `x는 0보다 큼! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
