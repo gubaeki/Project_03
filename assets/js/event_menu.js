@@ -53,7 +53,7 @@ document.addEventListener('click', function(event) {
         message.style.display = 'block';
         
 
-        if (1 == 1) {
+        if (1) {
             message.textContent = `테스트! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
             message.style.display = 'block';
         } else {
