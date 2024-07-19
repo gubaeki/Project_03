@@ -27,7 +27,8 @@ document.addEventListener('click', function(event) {
         
         var message = document.getElementById('event_sub');
          message.textContent = `경정! 현재 좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)}, ${kboat_minX}, ${kboat_minY})`;
-
+        message.style.display = 'block';
+        
         /*
         // 범위 안에 있는지 검사
         if (gifRect.left >= kboat_minX && gifRect.right <= kboat_maxX && gifRect.top >= kboat_minY && gifRect.bottom <= kboat_maxY) {
