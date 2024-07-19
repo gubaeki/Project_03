@@ -18,8 +18,8 @@ document.addEventListener('click', function(event) {
         var viewportWidth = window.innerWidth;
         
         // 특정 범위 정의 (예: x 100-200, y 100-200)
-        var kboat_minX = 56.3 * viewportWidth / 100, kboat_maxX = 97.6 * viewportWidth / 100;
-        var kboat_minY = 18.4 * viewportHeight / 100, kboat_maxY = 35.5 * viewportHeight / 100;
+        var kboat_minX = 52 * viewportWidth / 100, kboat_maxX = 96 * viewportWidth / 100;
+        var kboat_minY = 23 * viewportHeight / 100, kboat_maxY = 35.5 * viewportHeight / 100;
         var krace_minX = 10 * viewportWidth / 100, krace_maxX = 37.3 * viewportWidth / 100;
         var krace_minY = 45 * viewportHeight / 100, krace_maxY = 62.7 * viewportHeight / 100;
         var krun_minX = 61.6 * viewportWidth / 100, krun_maxX = 96 * viewportWidth / 100;
@@ -29,11 +29,11 @@ document.addEventListener('click', function(event) {
          message.textContent = `경정! 현재 좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)}, ${kboat_minX}, ${kboat_minY})`;
         message.style.display = 'block';
         
-        /*
+        
         // 범위 안에 있는지 검사
         if (gifRect.left >= kboat_minX && gifRect.right <= kboat_maxX && gifRect.top >= kboat_minY && gifRect.bottom <= kboat_maxY) {
-            var message = document.getElementById('event_sub');
-            message.textContent = `경정! 현재 좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)})`;
+           // var message = document.getElementById('event_sub');
+            message.textContent = `확인! 현재 좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)})`;
             message.style.display = 'block';
         } else if (gifRect.left >= krace_minX && gifRect.right <= krace_maxX && gifRect.top >= krace_minY && gifRect.bottom <= krace_maxY) {
             var message = document.getElementById('event_sub');
@@ -47,7 +47,7 @@ document.addEventListener('click', function(event) {
             //message.style.display = 'none';
             //return;
         }
-        */
+        
     }, 2100); // 600ms 후 검사
 
     
