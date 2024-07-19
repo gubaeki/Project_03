@@ -50,23 +50,18 @@ document.addEventListener('click', function(event) {
         
         // 범위 안에 있는지 검사
         if (gifRect.left >= kboat_minX && gifRect.left <= kboat_maxX && gifRect.top >= kboat_minY && gifRect.top <= kboat_maxY) {
-            //var message = document.getElementById('event_sub');
-            message.textContent = `경정! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
+            message.textContent = `Kboat(경정)에 도전하시겠습니까? 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
             message.style.display = 'block';
-        } else if (gifRect.left >= krace_minX && gifRect.right <= krace_maxX && gifRect.top >= krace_minY && gifRect.bottom <= krace_maxY) {
-            //var message = document.getElementById('event_sub');
-            message.textContent = `경륜! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
+        } else if (gifRect.left >= krace_minX && gifRect.left <= krace_maxX && gifRect.top >= krace_minY && gifRect.top <= krace_maxY) {
+            message.textContent = `Krace(경륜)에 도전하시겠습니까? 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
             message.style.display = 'block';
-        } else if (gifRect.left >= krun_minX && gifRect.right <= krun_maxX && gifRect.top >= krun_minY && gifRect.bottom <= krun_maxY) {
-            //var message = document.getElementById('event_sub');
-            message.textContent = `달리기! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
+        } else if (gifRect.left >= krun_minX && gifRect.left <= krun_maxX && gifRect.top >= krun_minY && gifRect.top <= krun_maxY) {
+            message.textContent = `국민체력100(달리기)에 도전하시겠습니까? 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
             message.style.display = 'block';
         } else {
-            message.textContent = `조건불일치! 현재좌표: (${gifRect.left}, ${gifRect.top}, ${kboat_minX}, ${kboat_maxX}, ${kboat_minY} ,${kboat_maxY})`;
             //message.textContent = `조건불일치! 현재좌표: (${gifRect.left}, ${gifRect.top}, ${kboat_minX}, ${kboat_maxX}, ${kboat_minY} ,${kboat_maxY})`;
-            message.style.display = 'block';
+            message.style.display = 'none';
         }
-        
     }, 2100); // 2100ms 후 검사
 
     
