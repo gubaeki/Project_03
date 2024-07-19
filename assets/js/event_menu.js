@@ -49,7 +49,7 @@ document.addEventListener('click', function(event) {
         */
         
         // 범위 안에 있는지 검사
-        if (gifRect.left >= kboat_minX && gifRect.right <= kboat_maxX && gifRect.top >= kboat_minY && gifRect.bottom <= kboat_maxY) {
+        if (gifRect.left >= kboat_minX && gifRect.left <= kboat_maxX && gifRect.top >= kboat_minY && gifRect.top <= kboat_maxY) {
             //var message = document.getElementById('event_sub');
             message.textContent = `경정! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
             message.style.display = 'block';
