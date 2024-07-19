@@ -3811,8 +3811,8 @@
 #moving_tiger{
 	position: absolute;
 	z-index: 2;
-	top:53vh;
-	left:48vw;
+	top:56vh;
+	left:51vw;
 	max-width:117px;
 	max-height:131px;
 	/*부드럽게 이동*/
