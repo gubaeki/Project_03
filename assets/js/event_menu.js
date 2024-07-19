@@ -26,6 +26,7 @@ document.addEventListener('click', function(event) {
         var krun_minX_float = 61.6 * viewportWidth / 100, krun_maxX_float = 96 * viewportWidth / 100;
         var krun_minY_float = 75.9 * viewportHeight / 100, krun_maxY_float = 89 * viewportHeight / 100;
 
+        /*
         // 정수화
         var kboat_minX = parseInt(kboat_minX_float), kboat_minX = parseInt(kboat_minX_float);
         var kboat_minY = parseInt(kboat_minY_float), kboat_maxY = parseInt(kboat_maxY_float);
@@ -35,17 +36,28 @@ document.addEventListener('click', function(event) {
         var krun_minY = parseInt(krun_minY_float), krun_maxY = parseInt(krun_maxY_float);
         var gitRect_left = parseInt(gitRect_left_float), gitRect_right = parseInt(gitRect_right_float);
         var gitRect_top = parseInt(gitRect_top_float), gitRect_bottom = parseInt(gitRect_bottom_float);
+        */
+        
+        // 정수화
+        var kboat_minX = Math.round(kboat_minX_float), kboat_minX = Math.round(kboat_minX_float);
+        var kboat_minY = Math.round(kboat_minY_float), kboat_maxY = Math.round(kboat_maxY_float);
+        var krace_minX = Math.round(krace_minX_float), krace_maxX = Math.round(krace_maxX_float);
+        var krace_minY = Math.round(krace_minY_float), krace_maxY = Math.round(krace_maxY_float);
+        var krun_minX = Math.round(krun_minX_float), krun_maxX = Math.round(krun_maxX_float);
+        var krun_minY = Math.round(krun_minY_float), krun_maxY = Math.round(krun_maxY_float);
+        var gitRect_left = Math.round(gitRect_left_float), gitRect_right = Math.round(gitRect_right_float);
+        var gitRect_top = Math.round(gitRect_top_float), gitRect_bottom = Math.round(gitRect_bottom_float);
         
         var message = document.getElementById('event_sub');
-         message.textContent = `확인! 현재 좌표: (${gifRect_left}, ${gifRect_top}, ${kboat_minX}, ${kboat_minY})`;
+        message.textContent = `확인! 현재 좌표: (${gifRect_left}, ${gifRect_top}, ${kboat_minX}, ${kboat_minY})`;
         message.style.display = 'block';
         
 
         if (2 >= 1) {
-            message.textContent = `테스트! 현재 좌표`;
+            message.textContent = `테스트! 현재 좌표: (${gifRect_left}, ${gifRect_top})`;
             message.style.display = 'block';
         } else {
-            message.textContent = `역테스트! 현재 좌표`;
+            message.textContent = `역테스트! 현재 좌표: (${gifRect_left}, ${gifRect_top})`;
             message.style.display = 'block';
         }
         /*
@@ -68,7 +80,7 @@ document.addEventListener('click', function(event) {
             message.style.display = 'block';
         }
         */
-    }, 2100); // 600ms 후 검사
+    }, 2100); // 2100ms 후 검사
 
     
 });
