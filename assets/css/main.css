@@ -3828,13 +3828,13 @@
             left: 50vw;
             transform: translate(-50%, -50%);
             background-color: rgba(255, 255, 204, 1.0);
-            color: white;
+            color: black;
             padding: 10px 20px;
             border-radius: 5px;
             display: block; /* 기본적으로 메시지를 숨깁니다 */
 	    text-align: center;
         }
-	
+	/*
         #event_sub button {
             background-color: #4CAF50;
             border: none;
@@ -3855,7 +3855,7 @@
 
         #event_sub .no-btn:hover {
             background-color: #e53935;
-        }
+        }*/
 
 .btn-gradient {
   all: initial;
