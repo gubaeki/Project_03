@@ -37,14 +37,14 @@ document.addEventListener('click', function(event) {
         var gitRect_top = parseInt(gitRect_top_float), gitRect_bottom = parseInt(gitRect_bottom_float);
         
         var message = document.getElementById('event_sub');
-         message.textContent = `경정! 현재 좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)}, ${kboat_minX}, ${kboat_minY})`;
+         message.textContent = `확인! 현재 좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)}, ${kboat_minX}, ${kboat_minY})`;
         message.style.display = 'block';
         
         
         // 범위 안에 있는지 검사
         if (gitRect_left >= kboat_minX && gitRect_right <= kboat_maxX && gitRect_top >= kboat_minY && gitRect_bottom <= kboat_maxY) {
             //var message = document.getElementById('event_sub');
-            message.textContent = `확인! 현재 좌표: (${gifRect_left}, ${gifRect_top})`;
+            message.textContent = `경정! 현재 좌표: (${gifRect_left}, ${gifRect_top})`;
             message.style.display = 'block';
         } else if (gitRect_left >= krace_minX && gitRect_right <= krace_maxX && gifRect_top >= krace_minY && gifRect_bottom <= krace_maxY) {
             //var message = document.getElementById('event_sub');
