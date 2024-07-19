@@ -3859,7 +3859,9 @@
   all: initial;
   text-decoration: none;
   color: white;
-  padding: 10px 30px;
+  padding: 10px 20px;
+  width: 60px;
+  text-align: center;
   display: inline-block;
   position: relative;
   border: 1px solid rgba(0,0,0,0.21);
