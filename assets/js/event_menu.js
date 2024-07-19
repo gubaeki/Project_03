@@ -25,8 +25,10 @@ document.addEventListener('click', function(event) {
         var krun_minX = 61.6 * viewportWidth / 100, krun_maxX = 96 * viewportWidth / 100;
         var krun_minY = 75.9 * viewportHeight / 100, krun_maxY = 89 * viewportHeight / 100;
         
-        
-        
+        var message = document.getElementById('event_sub');
+         message.textContent = `경정! 현재 좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)}, ${kboat_minX}, ${kboat_minY})`;
+
+        /*
         // 범위 안에 있는지 검사
         if (gifRect.left >= kboat_minX && gifRect.right <= kboat_maxX && gifRect.top >= kboat_minY && gifRect.bottom <= kboat_maxY) {
             var message = document.getElementById('event_sub');
@@ -44,7 +46,7 @@ document.addEventListener('click', function(event) {
             //message.style.display = 'none';
             //return;
         }
-        
+        */
     }, 2100); // 600ms 후 검사
 
     
