@@ -3848,29 +3848,12 @@
             border-radius: 5px;
             display: block; /* 기본적으로 메시지를 숨깁니다 */
 	    text-align: center;
+	    font-family: "Dongle", sans-serif;
+     	    font-weight: 700;
+  	    font-style: normal;
+  	    font-size: 2rem;
         }
-	/*
-        #event_sub button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            margin: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #event_sub button:hover {
-            background-color: #45a049;
-        }
-
-        #event_sub .no-btn {
-            background-color: #f44336;
-        }
-
-        #event_sub .no-btn:hover {
-            background-color: #e53935;
-        }*/
+	
 
 .btn-gradient {
   all: initial;
@@ -3883,6 +3866,10 @@
   border-bottom: 4px solid rgba(0,0,0,0.21);
   border-radius: 4px;
   text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+  font-family: "Dongle", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 2rem;
 }
 
 .btn-gradient.red{ 
