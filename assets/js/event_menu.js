@@ -16,7 +16,10 @@ document.addEventListener('click', function(event) {
         // 뷰포트 크기 계산
         var viewportHeight = window.innerHeight;
         var viewportWidth = window.innerWidth;
-
+        var kboat_minX = 56.3 * viewportWidth / 100, kboat_maxX = 97.6 * viewportWidth / 100;
+        message.textContent = `현재 좌표: (${viewportWidth}, ${viewportHeight}, ${kboat_minX}, ${kboat_maxX})`;
+        message.style.display = 'block';
+        /*
         // 특정 범위 정의 (예: x 100-200, y 100-200)
         var kboat_minX = 56.3 * viewportWidth / 100, kboat_maxX = 97.6 * viewportWidth / 100;
         var kboat_minY = 18.4 * viewportHeight / 100, kboat_maxY = 35.5 * viewportHeight / 100;
@@ -41,7 +44,7 @@ document.addEventListener('click', function(event) {
             message.style.display = 'none';
             return;
         }
-        
+        */
     }, 2100); // 600ms 후 검사
 
     
