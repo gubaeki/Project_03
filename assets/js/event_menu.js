@@ -32,15 +32,15 @@ document.addEventListener('click', function(event) {
         
         // 범위 안에 있는지 검사
         if (gifRect.left >= kboat_minX && gifRect.right <= kboat_maxX && gifRect.top >= kboat_minY && gifRect.bottom <= kboat_maxY) {
-            var message = document.getElementById('event_sub');
+            //var message = document.getElementById('event_sub');
             message.textContent = `확인! 현재 좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)})`;
             message.style.display = 'block';
         } else if (gifRect.left >= krace_minX && gifRect.right <= krace_maxX && gifRect.top >= krace_minY && gifRect.bottom <= krace_maxY) {
-            var message = document.getElementById('event_sub');
+            //var message = document.getElementById('event_sub');
             message.textContent = `경륜! 현재 좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)})`;
             message.style.display = 'block';
         } else if (gifRect.left >= krun_minX && gifRect.right <= krun_maxX && gifRect.top >= krun_minY && gifRect.bottom <= krun_maxY) {
-            var message = document.getElementById('event_sub');
+            //var message = document.getElementById('event_sub');
             message.textContent = `달리기! 현재 좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)})`;
             message.style.display = 'block';
         } else {
