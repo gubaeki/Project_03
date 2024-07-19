@@ -53,11 +53,11 @@ document.addEventListener('click', function(event) {
         message.style.display = 'block';
         
 
-        if (1) {
-            message.textContent = `테스트! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
+        if (gifRect.left >= 0) {
+            message.textContent = `x는 0보다 큼! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
             message.style.display = 'block';
         } else {
-            message.textContent = `역테스트! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
+            message.textContent = `x는 0보다 작음! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
             message.style.display = 'block';
         }
         /*
