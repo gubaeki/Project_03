@@ -18,12 +18,17 @@ document.addEventListener('click', function(event) {
         var viewportWidth = window.innerWidth;
         
         // 특정 범위 정의 (예: x 100-200, y 100-200)
-        var kboat_minX = parseInt(52 * viewportWidth / 100), kboat_maxX = parseInt(96 * viewportWidth / 100);
-        var kboat_minY = parseInt(23 * viewportHeight / 100), kboat_maxY = parseInt(35.5 * viewportHeight / 100);
+        var kboat_minX_float = 52 * viewportWidth / 100, kboat_maxX_float = 96 * viewportWidth / 100;
+        var kboat_minY_float = 23 * viewportHeight / 100, kboat_maxY_float = 35.5 * viewportHeight / 100;
         var krace_minX = 10 * viewportWidth / 100, krace_maxX = 37.3 * viewportWidth / 100;
         var krace_minY = 45 * viewportHeight / 100, krace_maxY = 62.7 * viewportHeight / 100;
         var krun_minX = 61.6 * viewportWidth / 100, krun_maxX = 96 * viewportWidth / 100;
         var krun_minY = 75.9 * viewportHeight / 100, krun_maxY = 89 * viewportHeight / 100;
+
+        // 정수화
+        var kboat_minX = parseInt(kboat_minX_float), kboat_minX = parseInt(kboat_minX_float);
+        var kboat_minY = parseInt(kboat_minY_float), kboat_maxY = parseInt(kboat_maxY_float);
+        
         
         var message = document.getElementById('event_sub');
          message.textContent = `경정! 현재 좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)}, ${kboat_minX}, ${kboat_minY})`;
@@ -45,7 +50,7 @@ document.addEventListener('click', function(event) {
             message.style.display = 'block';
         } else {
             //message.textContent = `조건불일치! 현재좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)})`;
-            message.textContent = `조건불일치! 현재좌표: (${parseInt(gifRect.left)}, ${parseInt(gifRect.top)}, ${kboat_minX}, ${kboat_maxX}, ${kboat_minY} ,${kboat_maxY})`;
+            message.textContent = `조건불일치! 현재좌표: (${parseInt(gifRect.left.toFixed(2))}, ${parseInt(gifRect.top.toFixed(2))}, ${kboat_minX}, ${kboat_maxX}, ${kboat_minY} ,${kboat_maxY})`;
             message.style.display = 'block';
         }
         
