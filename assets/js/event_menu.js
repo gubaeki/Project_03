@@ -50,7 +50,7 @@ document.addEventListener('click', function(event) {
             message.style.display = 'block';
         } else {
             //message.textContent = `조건불일치! 현재좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)})`;
-            message.textContent = `조건불일치! 현재좌표: (${parseInt(gifRect.left.toFixed(2))}, ${parseInt(gifRect.top.toFixed(2))}, ${kboat_minX}, ${kboat_maxX}, ${kboat_minY} ,${kboat_maxY})`;
+            message.textContent = `조건불일치! 현재좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)}, ${kboat_minX}, ${kboat_maxX}, ${kboat_minY} ,${kboat_maxY})`;
             message.style.display = 'block';
         }
         
