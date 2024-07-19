@@ -12,7 +12,7 @@ document.addEventListener('click', function(event) {
     // 특정 시간 후 위치 검사 (transition 시간이 2.0초이므로 2.1초 후 검사)
     setTimeout(function() {
         var gifRect = moving_tiger.getBoundingClientRect();
-        //var gitRect_left_float = gifRect.left, gitRect_right_float = gifRect.right, gitRect_top_float = gifRect.top, gitRect_bottom_float = gifRect.bottom;
+        //var gifRect_left_float = gifRect.left, gifRect_right_float = gifRect.right, gifRect_top_float = gifRect.top, gifRect_bottom_float = gifRect.bottom;
         
         // 뷰포트 크기 계산
         var viewportHeight = window.innerHeight;
@@ -34,8 +34,8 @@ document.addEventListener('click', function(event) {
         var krace_minY = parseInt(krace_minY_float), krace_maxY = parseInt(krace_maxY_float);
         var krun_minX = parseInt(krun_minX_float), krun_maxX = parseInt(krun_maxX_float);
         var krun_minY = parseInt(krun_minY_float), krun_maxY = parseInt(krun_maxY_float);
-        var gitRect_left = parseInt(gitRect_left_float), gitRect_right = parseInt(gitRect_right_float);
-        var gitRect_top = parseInt(gitRect_top_float), gitRect_bottom = parseInt(gitRect_bottom_float);
+        var gifRect_left = parseInt(gifRect_left_float), gifRect_right = parseInt(gifRect_right_float);
+        var gifRect_top = parseInt(gifRect_top_float), gifRect_bottom = parseInt(gifRect_bottom_float);
         */
         
         // 정수화
@@ -45,8 +45,8 @@ document.addEventListener('click', function(event) {
         var krace_minY = Math.round(krace_minY_float), krace_maxY = Math.round(krace_maxY_float);
         var krun_minX = Math.round(krun_minX_float), krun_maxX = Math.round(krun_maxX_float);
         var krun_minY = Math.round(krun_minY_float), krun_maxY = Math.round(krun_maxY_float);
-        //var gitRect_left = Math.round(gitRect_left_float), gitRect_right = Math.round(gitRect_right_float);
-        //var gitRect_top = Math.round(gitRect_top_float), gitRect_bottom = Math.round(gitRect_bottom_float);
+        //var gifRect_left = Math.round(gifRect_left_float), gifRect_right = Math.round(gifRect_right_float);
+        //var gifRect_top = Math.round(gifRect_top_float), gifRect_bottom = Math.round(gifRect_bottom_float);
         
         var message = document.getElementById('event_sub');
         message.textContent = `확인! 현재 좌표: (${gifRect.left}, ${gifRect.top}, ${kboat_minX}, ${kboat_minY})`;
