@@ -18,7 +18,7 @@ document.addEventListener('click', function(event) {
 
         // 범위 안에 있는지 검사
         if (gifRect.left >= minX && gifRect.right <= maxX && gifRect.top >= minY && gifRect.bottom <= maxY) {
-            var message = document.getElementById('message');
+            var message = document.getElementById('event_sub');
             message.textContent = `GIF가 특정 범위 안에 있습니다! 현재 좌표: (${gifRect.left.toFixed(2)}, ${gifRect.top.toFixed(2)})`;
             message.style.display = 'block';
         }
