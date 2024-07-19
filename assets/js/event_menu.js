@@ -14,7 +14,7 @@ document.addEventListener('click', function(event) {
         var gifRect = moving_tiger.getBoundingClientRect();
         
         // 특정 범위 정의 (예: x 100-200, y 100-200)
-        var minX = 100, maxX = 200, minY = 100, maxY = 200;
+        var minX = 100, maxX = 2000, minY = 100, maxY = 2000;
 
         // 범위 안에 있는지 검사
         if (gifRect.left >= minX && gifRect.right <= maxX && gifRect.top >= minY && gifRect.bottom <= maxY) {
