@@ -35,33 +35,36 @@ document.addEventListener('click', function(event) {
         var krun_minY = Math.round(krun_minY_float), krun_maxY = Math.round(krun_maxY_float);
 
         var message = document.getElementById('event_sub');
-        message.textContent = `확인! 현재 좌표: (${gifRect.left}, ${gifRect.top}, ${kboat_minX}, ${kboat_minY})`;
-        message.style.display = 'block';
+        var messageElement = document.getElementById('event_message');
+        //messageElement.textContent = `확인! 현재 좌표: (${gifRect.left}, ${gifRect.top}, ${kboat_minX}, ${kboat_minY})`;
+        //message.style.display = 'block';
     
-        /*
-        if (gifRect.left >= 0) {
-            message.textContent = `x는 0보다 큼! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
-            message.style.display = 'block';
-        } else {
-            message.textContent = `x는 0보다 작음! 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
-            message.style.display = 'block';
-        }
-        */
-        
         // 범위 안에 있는지 검사
         if (gifRect.left >= kboat_minX && gifRect.left <= kboat_maxX && gifRect.top >= kboat_minY && gifRect.top <= kboat_maxY) {
-            message.textContent = `Kboat(경정)에 도전하시겠습니까? 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
+            messageElement.textContent = `Kboat(경정)에 도전하시겠습니까? 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
             message.style.display = 'block';
         } else if (gifRect.left >= krace_minX && gifRect.left <= krace_maxX && gifRect.top >= krace_minY && gifRect.top <= krace_maxY) {
-            message.textContent = `Krace(경륜)에 도전하시겠습니까? 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
+            messageElement.textContent = `Krace(경륜)에 도전하시겠습니까? 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
             message.style.display = 'block';
         } else if (gifRect.left >= krun_minX && gifRect.left <= krun_maxX && gifRect.top >= krun_minY && gifRect.top <= krun_maxY) {
-            message.textContent = `국민체력100(달리기)에 도전하시겠습니까? 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
+            messageElement.textContent = `국민체력100(달리기)에 도전하시겠습니까? 현재 좌표: (${gifRect.left}, ${gifRect.top})`;
             message.style.display = 'block';
         } else {
             //message.textContent = `조건불일치! 현재좌표: (${gifRect.left}, ${gifRect.top}, ${kboat_minX}, ${kboat_maxX}, ${kboat_minY} ,${kboat_maxY})`;
             message.style.display = 'none';
         }
+
+         // 예/아니오 버튼 이벤트 핸들러 설정
+        document.querySelector('.yes-btn').addEventListener('click', function() {
+            alert('예 버튼을 클릭했습니다.');
+            message.style.display = 'none';
+        });
+
+        document.querySelector('.no-btn').addEventListener('click', function() {
+            alert('아니오 버튼을 클릭했습니다.');
+            message.style.display = 'none';
+        });
+        
     }, 2100); // 2100ms 후 검사
 
     
