@@ -3815,6 +3815,10 @@
 	left:48vw;
 	max-width:117px;
 	max-height:131px;
+	/*부드럽게 이동*/
+        transform: translate(-50%, -50%);
+        transition: top 0.5s ease, left 0.5s ease;
+	
 }
 
 	
