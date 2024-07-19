@@ -3858,6 +3858,7 @@
         }
 
 .btn-gradient {
+  all: initial;
   text-decoration: none;
   color: white;
   padding: 10px 30px;
