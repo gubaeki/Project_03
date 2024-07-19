@@ -3831,7 +3831,7 @@
             color: white;
             padding: 10px 20px;
             border-radius: 5px;
-            display: none; /* 기본적으로 메시지를 숨깁니다 */
+            display: block; /* 기본적으로 메시지를 숨깁니다 */
         }
 	
 		
