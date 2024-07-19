@@ -42,10 +42,10 @@ document.addEventListener('click', function(event) {
         
 
         if (2 >= 1) {
-            message.textContent = `테스트! 현재 좌표: (${gifRect_left}, ${gifRect_top})`;
+            message.textContent = `테스트! 현재 좌표`;
             message.style.display = 'block';
         } else {
-            message.textContent = `역테스트! 현재 좌표: (${gifRect_left}, ${gifRect_top})`;
+            message.textContent = `역테스트! 현재 좌표`;
             message.style.display = 'block';
         }
         /*
