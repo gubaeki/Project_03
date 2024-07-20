@@ -55,12 +55,12 @@ document.addEventListener('click', function(event) {
         }
 
          // 예/아니오 버튼 이벤트 핸들러 설정
-        document.querySelector('.yes-btn').addEventListener('click', function() {
+        document.querySelector('#yes-btn').addEventListener('click', function() {
             //alert('예 버튼을 클릭했습니다.');
             message.style.display = 'none';
         });
 
-        document.querySelector('.no-btn').addEventListener('click', function() {
+        document.querySelector('#no-btn').addEventListener('click', function() {
             //alert('아니오 버튼을 클릭했습니다.');
             message.style.display = 'none';
         });
