@@ -3875,6 +3875,7 @@
 }
 
 .btn-gradient.red{ 
+  color: white;
   background: rgba(250,90,90,1);
   background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(250,90,90,1)), to(rgba(232,81,81,1)));
   background: -webkit-linear-gradient(rgba(250,90,90,1) 0%, rgba(232,81,81,1) 100%);
@@ -3885,6 +3886,7 @@
 }
 
 .btn-gradient.blue {
+  color: white;
   background: rgba(102,152,203,1);
   background: -moz-linear-gradient(top, rgba(102,152,203,1) 0%, rgba(92,138,184,1) 100%);
   background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(102,152,203,1)), color-stop(100%, rgba(92,138,184,1)));
