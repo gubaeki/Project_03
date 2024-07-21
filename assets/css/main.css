@@ -3905,8 +3905,11 @@
     font-weight: 700;
 	font-style: normal;
   	font-size: 7vw;
+	top: 2%;
+	left: 40%;
+	/*몸 아래
 	top: 69%;
-	left: 25.5%;
+	left: 25.5%;*/
 	/*머리위
 	top: 51%;
 	left: 25.5%;*/
@@ -4007,8 +4010,8 @@
 	max-width:117px;
 	max-height:131px;
 	/*부드럽게 이동*/
-        transform: translate(-50%, -50%);
-        transition: top 2.0s ease-in, left 2.0s ease-in;
+    transform: translate(-50%, -50%);
+    transition: top 2.0s ease-in, left 2.0s ease-in;
 }
 
 #running_tiger{
@@ -4018,6 +4021,9 @@
 	left:10%;
 	max-width:50%;
 	max-height:50%;
+	/*부드럽게 이동*/
+	
+	transition: top 2.0s ease-in, left 2.0s ease-in;
 
 }
 
