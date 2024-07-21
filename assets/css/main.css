@@ -4008,7 +4008,7 @@
 	max-height:131px;
 	/*부드럽게 이동*/
         transform: translate(-50%, -50%);
-        transition: top 2.0s ease, left 2.0s ease;
+        transition: top 2.0s ease-in, left 2.0s ease-in;
 }
 
 #running_tiger{
