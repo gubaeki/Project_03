@@ -68,10 +68,10 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#yes-btn').addEventListener('click', function(event) {
         if(select_event===1){
             console.log('경정선택');
-            location.href='krun.html';
+            location.href='kboat.html';
         }else if(select_event===2){
             console.log('경륜선택');
-            location.href='krun.html';
+            location.href='krace.html';
         }
         else{
             console.log('달리기선택');
