@@ -3816,22 +3816,154 @@
 	z-index: 1;
 }
 
-	#banner2 h1 {
-		font-size: 4rem;
-		margin-bottom: 1rem;
-		color: #080000;
-	}
+#banner2 h1 {
+	font-size: 4rem;
+	margin-bottom: 1rem;
+	color: #080000;
+}
 
-	#banner2 p {
-		color: rgba(7, 0, 0, 0.65);
-		font-size: 1.5rem;
-		margin-bottom: 3rem;
-	}
+#banner2 p {
+	color: rgba(7, 0, 0, 0.65);
+	font-size: 1.5rem;
+	margin-bottom: 3rem;
+}
 
-	#banner2 a {
-		color: #070000;
-		text-decoration: none;
+#banner2 a {
+	color: #070000;
+	text-decoration: none;
+}
+
+/* Banner */
+#banner3 {
+	display: -ms-flexbox;
+	-ms-flex-pack: center;
+	-ms-flex-align: center;
+	-moz-align-items: center;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	align-items: center;
+	display: -moz-flex;
+	display: -webkit-flex;
+	display: -ms-flex;
+	display: flex;
+	-moz-justify-content: center;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	justify-content: center;
+	background-image: url("../../images/bbg.png");
+	background-position: left top;
+	background-size: cover;
+	background-repeat: no-repeat;
+	border-top: 0;
+	min-height: 100vh;
+	height: 100%;
+	/*height: 100vh !important;*/
+	width: 100%;
+	position: relative;
+	text-align: center;
+	overflow: hidden;
+	z-index: 1;
+}
+
+#banner3 .base_container {
+	width: 100%;
+	max-width: 100%;
+	position: relative;
+	padding-top: 216.36%;
+	background-color: rgb(223, 224, 210); /* For demonstration */
+	overflow: hidden;
+}
+
+#banner3 .bg_river {
+	z-index: 2;
+	width: 200%; /* Background image width should be greater than 100% */
+	height: 50%;
+	background-image: url("../../images/river.png"); /* Replace with your image URL */
+	background-size: cover;
+	position: absolute;
+	top: 10%;
+	left: 0;
+	animation: slide-left10 10s linear infinite;
+}
+
+#banner3 .bg_road {
+	z-index: 3;
+	width: 200%; /* Background image width should be greater than 100% */
+	height: 75%;
+	background-image: url("../../images/road.png"); /* Replace with your image URL */
+	background-size: cover;
+	position: absolute;
+	top: 0;
+	left: 0;
+	animation: slide-left2 2s linear infinite;
+}
+
+#banner3 .top_section {
+	z-index: 4;
+	display: grid;
+	grid-template-columns: 25% 25% 25% 25%;
+	grid-template-rows: 50% 50%;
+	top: 0;
+	width: 100%;
+	height: 10%;
+	position: absolute;
+	font-family: "Dongle", sans-serif;
+    font-weight: 700;
+	font-style: normal;
+  	font-size: 7vw;
+	color: rgb(0, 0, 0);
+	border: 5px solid;
+	
+}
+
+#banner3 .top_section .stopwatch {
+	grid-area:1/2/3/3;
+	font-size: 10vw;
+	width:100%;
+	border-right: 3px solid;	
+	padding-top: 5%;
+	background-color: rgb(185, 247, 70); /* For demonstration */
+}
+#banner3 .top_section .speed_present {
+	grid-area:1/4/2/5;
+	width:100%;
+	background-color: rgb(111, 202, 255); /* For demonstration */
+}
+#banner3 .top_section .speed_high {
+	grid-area:2/4/3/5;
+	width:100%;
+	background-color: rgb(111, 202, 255); /* For demonstration */
+}
+
+#banner3 .bottom_section {
+	z-index: 3;
+	top: 75%;
+	width: 100%;
+	height: 25%;
+	position: absolute;
+	background-image: url("../../images/touchpad.png");
+	background-size: 100% 100%;
+	background-color: rgb(223, 224, 210); /* For demonstration */
+}
+
+
+
+@keyframes slide-left10 {
+	0% {
+		left: 0;
 	}
+	100% {
+		left: -100%;
+	}
+}
+@keyframes slide-left2 {
+	0% {
+		left: 0;
+	}
+	100% {
+		left: -100%;
+	}
+}
 
 .highlight-kboat-zone {
     position: absolute;
@@ -3863,6 +3995,26 @@
         transform: translate(-50%, -50%);
         transition: top 2.0s ease, left 2.0s ease;
 }
+
+#running_tiger{
+	position: absolute;
+	z-index: 6;
+	top:50%;
+	left:10%;
+	max-width:50%;
+	max-height:50%;
+
+}
+
+#touch_Info{
+	position: absolute;
+	z-index: 5;
+	top:25%;
+	left:22%;
+	max-width:50%;
+	max-height:50%;
+}
+
 
 #moving_click1{
 	position: absolute;
