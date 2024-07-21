@@ -3898,6 +3898,21 @@
 	animation: slide-left2 2s linear infinite;
 }
 
+#banner3 .speed_head {
+	z-index: 10;
+	position: absolute;
+	font-family: "Dongle", sans-serif;
+    font-weight: 700;
+	font-style: normal;
+  	font-size: 7vw;
+	top: 69%;
+	left: 25.5%;
+	/*머리위
+	top: 51%;
+	left: 25.5%;*/
+	color: black;
+}
+
 #banner3 .top_section {
 	z-index: 4;
 	display: grid;
@@ -4096,6 +4111,7 @@
   background: linear-gradient(to bottom, rgba(102,152,203,1) 0%, rgba(92,138,184,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6698cb', endColorstr='#5c8ab8', GradientType=0 );
 }
+
 
 /*
 		#banner video {
