@@ -3,6 +3,7 @@ const speed_present = document.getElementById('speed_present');
 const speed_high = document.getElementById('speed_high');
 var bg_road = document.getElementById('bg_road_id');
 const speed_head = document.getElementById('speed_head_id');
+const running_tiger = document.getElementById('running_tiger');
 
 let lastTouchTime = 0;
 let touchCount = 0;
@@ -34,8 +35,10 @@ touchArea.addEventListener('touchstart', () => {
         speed_present.textContent = `${currentSpeed} km/h`;
         speed_head.textContent = `${currentSpeed} km/h`;
 
+        // 백호돌이 전진
+        running_tiger.style.left = 50 + '%';
         
-        //최고속도 갱신
+        // 최고속도 갱신
         if(currentSpeed >= highSpeed){
             highSpeed = currentSpeed;
             speed_high.textContent = `${highSpeed} km/h`;
@@ -43,8 +46,6 @@ touchArea.addEventListener('touchstart', () => {
 
         // Update previous speed
          previousSpeed = currentSpeed;
-
-        
 
         // Reset for the next measurement
         touchCount = 0;
@@ -59,7 +60,13 @@ const clickcheck = () => {
         previousSpeed = currentSpeed;
         speed_present.textContent = `${currentSpeed} km/h`;
         speed_head.textContent = `${currentSpeed} km/h`;
+
+        // 클릭하지 않으면 백호돌이 후진
+        running_tiger.style.left = 10 + '%';
     }
+
+    
+    
 }
 
 // Set interval to update speed every second
