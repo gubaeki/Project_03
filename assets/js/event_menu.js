@@ -15,21 +15,21 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     var message = document.getElementById('event_sub');
-    var moving_click1 = document.getElementById('moving_click1');
-    var moving_click2 = document.getElementById('moving_click2');
-    var moving_click3 = document.getElementById('moving_click3');
-    var moving_tiger = document.getElementById('moving_tiger');
+    //var moving_click1 = document.getElementById('moving_click1');
+    //var moving_click2 = document.getElementById('moving_click2');
+    //var moving_click3 = document.getElementById('moving_click3');
+    //var moving_tiger = document.getElementById('moving_tiger');
     var highlightKboat = document.getElementById('highlight_kboat');
     var highlightKrace = document.getElementById('highlight_krace');
     var highlightKrun = document.getElementById('highlight_krun');
 
     // 선택구역 나누기
-    var kboat_minX_float = centerbanner2X + (innerbanner2Width * 10 /100), kboat_maxX_float = centerbanner2X + (innerbanner2Width * 47 /100);
-    var kboat_minY_float = 30 * banner2Height / 100, kboat_maxY_float = 47 * banner2Height / 100;
-    var krace_minX_float = centerbanner2X - (innerbanner2Width * 47 /100), krace_maxX_float = centerbanner2X - (innerbanner2Width * 5 /100);
-    var krace_minY_float = 55 * banner2Height / 100, krace_maxY_float = 72 * banner2Height / 100;
-    var krun_minX_float = centerbanner2X + (innerbanner2Width * 11 /100), krun_maxX_float = centerbanner2X + (innerbanner2Width * 47 /100);
-    var krun_minY_float = 75 * banner2Height / 100, krun_maxY_float = 92 * banner2Height / 100;
+    var kboat_minX_float = centerbanner2X - (innerbanner2Width * 44 /100), kboat_maxX_float = centerbanner2X - (innerbanner2Width * 5 /100);
+    var kboat_minY_float = 35 * banner2Height / 100, kboat_maxY_float = 53 * banner2Height / 100;
+    var krace_minX_float = centerbanner2X + (innerbanner2Width * 5 /100), krace_maxX_float = centerbanner2X + (innerbanner2Width * 42 /100);
+    var krace_minY_float = 27 * banner2Height / 100, krace_maxY_float = 44 * banner2Height / 100;
+    var krun_minX_float = centerbanner2X - (innerbanner2Width * 41 /100), krun_maxX_float = centerbanner2X - (innerbanner2Width * 2 /100);
+    var krun_minY_float = 11 * banner2Height / 100, krun_maxY_float = 28 * banner2Height / 100;
 
     var kboat_minX = Math.round(kboat_minX_float), kboat_maxX = Math.round(kboat_maxX_float);
     var kboat_minY = Math.round(kboat_minY_float), kboat_maxY = Math.round(kboat_maxY_float);
@@ -57,12 +57,15 @@ document.addEventListener('DOMContentLoaded', function() {
     */
 
     // Click.gif 위치 정의
+    /*
     moving_click1.style.left = kboat_minX + (innerbanner2Width * 5 /100) + 'px';
     moving_click1.style.top = kboat_maxY - (banner2Height * 4 /100) + 'px';
     moving_click2.style.left = krace_minX + (innerbanner2Width * 5 /100)+ 'px';
     moving_click2.style.top = krace_maxY - (banner2Height * 4 /100)+ 'px';
     moving_click3.style.left = krun_minX + (innerbanner2Width * 5 /100)+ 'px';
     moving_click3.style.top = krun_maxY - (banner2Height * 4 /100)+ 'px';
+    */
+
 
     // 예/아니오 버튼 이벤트 핸들러 설정
     document.querySelector('#yes-btn').addEventListener('click', function(event) {
@@ -93,12 +96,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var x = event.clientX;
         var y = event.clientY;
+        
+        var messageElement = document.getElementById('event_message');
 
+        if (x >= kboat_minX && x <= kboat_maxX && y >= kboat_minY && y <= kboat_maxY) {
+            messageElement.textContent = `Kboat(경정)에 도전하시겠습니까?`;
+            message.style.display = 'block';
+            select_event = 1;
+        } else if (x >= krace_minX && x <= krace_maxX && y >= krace_minY && y <= krace_maxY) {
+            messageElement.textContent = `Krace(경륜)에 도전하시겠습니까?`;
+            message.style.display = 'block';
+            select_event = 2;
+        } else if (x >= krun_minX && x <= krun_maxX && y >= krun_minY && y <= krun_maxY) {
+            messageElement.textContent = `국민체력100(달리기)에 도전하시겠습니까?`;
+            message.style.display = 'block';
+            select_event = 3;
+        } else {
+            message.style.display = 'none';
+        }
+
+
+        /* // moving_tiger 이용하는 경우
         moving_tiger.style.left = x + 'px';
         moving_tiger.style.top = y + 'px';
 
         setTimeout(function() {
-            var gifRect = moving_tiger.getBoundingClientRect();
+            //var gifRect = moving_tiger.getBoundingClientRect();
             var gifRectCenterX = (gifRect.left + gifRect.right) / 2;
             var gifRectCenterY = (gifRect.top + gifRect.bottom) / 2;
             var messageElement = document.getElementById('event_message');
@@ -120,5 +143,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
         }, 2100); // 2100ms 후 검사
+        */
     });
 });
