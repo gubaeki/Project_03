@@ -3801,7 +3801,7 @@
 	-webkit-justify-content: center;
 	-ms-justify-content: center;
 	justify-content: center;
-	background-image: url("../../images/event_menu_bg.png"), url("../../images/bbg.png");
+	background-image: url("../../images/event_menu_bg.gif"), url("../../images/bbg.png");
 	background-position: center, left top;
 	background-size: contain, cover;
 	background-repeat: no-repeat;
@@ -4013,7 +4013,6 @@
     transform: translate(-50%, -50%);
     transition: top 2.0s ease-in, left 2.0s ease-in;
 }
-
 #running_tiger{
 	position: absolute;
 	z-index: 6;
@@ -4036,7 +4035,7 @@
 	max-height:50%;
 }
 
-
+/*
 #moving_click1{
 	position: absolute;
 	z-index: 3;
@@ -4055,7 +4054,7 @@
 	max-width:112.5px;
 	max-height:48.5px;
 }
-
+*/
 #event_sub {
             position: absolute;
 	    z-index: 10;
