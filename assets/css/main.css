@@ -3738,7 +3738,7 @@
 		-webkit-justify-content: center;
 		-ms-justify-content: center;
 		justify-content: center;
-		background-image: url("../../images/banner.png"), url("../../images/bbg.png");
+		background-image: url("../../images/banner.gif"), url("../../images/bbg.png");
 		background-position: center, left top;
 		background-size: contain, cover;
 		background-repeat: no-repeat;
@@ -3982,6 +3982,13 @@
 		left: -100%;
 	}
 }
+
+.highlight-start-zone {
+    position: absolute;
+	z-index: 10;
+    background-color: rgba(255, 0, 0, 0.3); /* 투명한 빨간색  */
+    pointer-events: none; /* 이 영역이 클릭 이벤트를 방해하지 않도록 */
+  }
 
 .highlight-kboat-zone {
     position: absolute;
