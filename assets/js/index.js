@@ -22,11 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
     var start_minY = Math.round(start_minY_float), start_maxY = Math.round(start_maxY_float);
 
     // 선택구역 하이라이트(평소엔 비활성화)
+    /*
     highlightstart.style.left = start_minX + 'px';
     highlightstart.style.top = start_minY + 'px';
     highlightstart.style.width = (start_maxX - start_minX) + 'px';
     highlightstart.style.height = (start_maxY - start_minY) + 'px';
-
+    */
     
 
     // 예/아니오 버튼 이벤트 핸들러 설정
