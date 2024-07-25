@@ -4009,6 +4009,15 @@
     pointer-events: none; /* 이 영역이 클릭 이벤트를 방해하지 않도록 */
   }
 
+#moving_hurdle{
+	position: absolute;
+	z-index: 5;
+	top:59vh;
+	left:80vw;
+	max-width:117px;
+	max-height:131px;
+}
+
 #moving_tiger{
 	position: absolute;
 	z-index: 5;
