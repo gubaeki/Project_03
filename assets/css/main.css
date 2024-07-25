@@ -4040,7 +4040,7 @@
 	max-width:50%;
 	max-height:50%;
 	/*부드럽게 이동*/
-	/*transition: top 1.0s ease-in, left 1.0s ease-in;*/
+	transition: top 1.0s ease-in, left 1.0s ease-in;
 
 }
 
