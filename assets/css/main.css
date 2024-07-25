@@ -4038,10 +4038,10 @@
 
 @keyframes jump {
 	0%, 100% {
-		top: 500px;
+		top: 50%;
             	}
             50% {
-                top: 400px;
+                top: 40%;
             }
 }
 
