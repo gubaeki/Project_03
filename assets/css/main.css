@@ -4040,12 +4040,12 @@
 	max-width:50%;
 	max-height:50%;
 	/*부드럽게 이동*/
-	transition: top 1.0s ease-in, left 1.0s ease-in;
+	/*transition: top 1.0s ease-in, left 1.0s ease-in;*/
 
 }
 
 .jump {
-            animation: jump 1s cubic-bezier(0.2, 0.8);
+            animation: jump 1s cubic-bezier(1.0, 0.25, 0.1, 0.25);
         }
 
 @keyframes jump {
