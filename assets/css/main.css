@@ -4032,19 +4032,6 @@
     transition: top 2.0s ease-in, left 2.0s ease-in;
 }
 
-.jump {
-            animation: jump 1s ease infinite;
-        }
-
-@keyframes jump {
-	0%, 100% {
-		top: 50%;
-            	}
-            50% {
-                top: 40%;
-            }
-}
-
 #running_tiger{
 	position: absolute;
 	z-index: 6;
@@ -4055,6 +4042,20 @@
 	/*부드럽게 이동*/
 	transition: top 1.0s ease-in, left 1.0s ease-in;
 
+}
+
+.jump {
+            animation: jump 1s;
+            animation-timing-function : cubic-bezier(0.1, 0.7, 1, 0.1);
+        }
+
+@keyframes jump {
+	0%, 100% {
+		top: 50%;
+            	}
+            50% {
+                top: 40%;
+            }
 }
 
 #touch_Info{
