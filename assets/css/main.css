@@ -4045,7 +4045,7 @@
 }
 
 .jump {
-            animation: jump 0.5s 0s 2 ease-out alternate;
+            animation: jump 0.5s 0s ease-out alternate;
         }
 
 @keyframes jump {
