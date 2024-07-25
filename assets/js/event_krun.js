@@ -28,13 +28,14 @@ function isCollide(img1, img2) {
         }
 
 //시작시 허들 왼쪽으로 이동
-
+moving_hurdle.style.left = 20 + '%';
 
 touchArea.addEventListener('touchstart', () => {
-            moving_hurdle.style.left = 20 + '%';
+            
             running_tiger.style.top = 30 + '%';   
             running_tiger.style.top = 59 + '%'; 
-}
+            
+});
 
 /*
 touchArea.addEventListener('touchstart', () => {
