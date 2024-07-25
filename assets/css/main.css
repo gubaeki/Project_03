@@ -4045,14 +4045,14 @@
 }
 
 .jump {
-            animation: jump 0.5s 2 ease-out alternate;
+            animation: jump 0.5s 0s 2 ease-out alternate;
         }
 
 @keyframes jump {
-	0%, 100% {
+	0% {
 		top: 50%;
             	}
-            50% {
+            100% {
                 top: 40%;
             }
 }
