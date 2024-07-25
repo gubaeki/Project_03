@@ -3883,7 +3883,7 @@
 	position: absolute;
 	top: 10%;
 	left: 0;
-	animation: slide-left10 10s linear infinite;
+
 }
 
 #banner3 .bg_road {
@@ -3895,7 +3895,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	animation: slide-left2 2s linear infinite;
+
 }
 
 #banner3 .speed_head {
@@ -4020,7 +4020,14 @@
 .highlight-hurdle-zone {
     position: absolute;
 	z-index: 7;
-    background-color: rgba(102, 255, 102, 0.3); /* 투명한 파란색 */
+    background-color: rgba(255, 0, 0, 0.3); /* 투명한 빨간색 */
+    pointer-events: none; /* 이 영역이 클릭 이벤트를 방해하지 않도록 */
+  }
+  .highlight-hurdle-zone2 {
+	display: none;
+    position: absolute;
+	z-index: 7;
+    background-color: rgba(255, 0, 0, 0.3); /* 투명한 빨간색 */
     pointer-events: none; /* 이 영역이 클릭 이벤트를 방해하지 않도록 */
   }
 
@@ -4028,12 +4035,23 @@
 #moving_hurdle{
 	position: absolute;
 	z-index: 5;
-	top:60%;
+	top:58.5%;
+	left:100%;
+	max-width:100px;
+	max-height:117px;
+	/*부드럽게 이동*/
+	transition: left 4.0s linear;
+}
+#moving_hurdle2{
+	display: none;
+	position: absolute;
+	z-index: 5;
+	top:58.5%;
 	left:70%;
 	max-width:100px;
 	max-height:117px;
 	/*부드럽게 이동*/
-	transition: top 2.0s ease-in, left 2.0s ease-in;
+	transition: left 1.0s linear;
 }
 
 #moving_tiger{
@@ -4081,6 +4099,13 @@
 	max-width:50%;
 	max-height:50%;
 }
+
+#temp_bt{
+	position: absolute;
+	z-index: 5;
+	left:40%;
+}
+
 
 /*
 #moving_click1{
