@@ -4045,7 +4045,7 @@
 }
 
 .jump {
-            animation: jump 1s cubic-bezier(0.1, 0.7, 1, 0.1);
+            animation: jump 1s cubic-bezier(0.2, 0.8);
         }
 
 @keyframes jump {
