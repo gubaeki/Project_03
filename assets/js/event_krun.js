@@ -33,6 +33,9 @@ function startJump() {
 
 
 touchArea.addEventListener('touchstart', () => {
+
+            touchCount++;
+            speed_head.textContent = `${touchCount}`;
             // 허들 왼쪽으로 이동
             moving_hurdle.style.left = 20 + '%';
             // 점프를 시작합니다
