@@ -4012,7 +4012,7 @@
 #moving_hurdle{
 	position: absolute;
 	z-index: 5;
-	top:65%;
+	top:60%;
 	left:70%;
 	max-width:100px;
 	max-height:117px;
