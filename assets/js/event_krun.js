@@ -5,7 +5,7 @@ var bg_road = document.getElementById('bg_road_id');
 const speed_head = document.getElementById('speed_head_id');
 const running_tiger = document.getElementById('running_tiger');
 const moving_hurdle = document.getElementById('moving_hurdle');
-const highlightrunning = document.getElementById('highlightrunning');
+const highlightrunning = document.getElementById('highlight_running');
 
 let lastTouchTime = 0;
 let touchCount = 0;
