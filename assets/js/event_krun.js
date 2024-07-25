@@ -29,7 +29,6 @@ function isCollide(img1, img2) {
 
 function startJump() {
             running_tiger.classList.add('jump');
-            running_tiger.classList.remove('jump');
         }
 
 
@@ -41,6 +40,7 @@ touchArea.addEventListener('touchstart', () => {
             moving_hurdle.style.left = 20 + '%';
             // 점프를 시작합니다
             startJump();
+            running_tiger.classList.remove('jump');
             
             //running_tiger.style.top = 30 + '%';   
             //running_tiger.style.top = 59 + '%'; 
