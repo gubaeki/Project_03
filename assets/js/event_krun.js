@@ -26,10 +26,22 @@ function isCollide(img1, img2) {
             let rect_tiger = running_tiger.getBoundingClientRect();
             let rect_hurdle = moving_hurdle.getBoundingClientRect();
 
-            highlightrunning.style.left = kboat_minX + 'px';
-            highlightrunning.style.top = kboat_minY + 'px';
-            highlightrunning.style.width = (kboat_maxX - kboat_minX) + 'px';
-            highlightrunning.style.height = (kboat_maxY - kboat_minY) + 'px';
+            // 여기 수정해야함
+            let inner_tiger_right = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
+            let inner_tiger_left = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
+            let inner_tiger_top = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
+            let inner_tiger_bottom = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
+            let inner_hurdle_right = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
+            let inner_hurdle_left = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
+            let inner_hurdle_top = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
+            let inner_hurdle_bottom = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
+
+
+            // 충돌영역 하이라이트
+            highlightrunning.style.left = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
+            highlightrunning.style.top = (rect_tiger.top + (rect_tiger.height * 0.2)) + 'px';
+            highlighthurdle.style.left = (rect_hurdle.left + (rect_hurdle.width * 0.2)) + 'px';
+            highlighthurdle.style.top = (rect_hurdle.top + (rect_hurdle.height * 0.2)) + 'px';
             
             return !(rect_tiger.right < rect_hurdle.left || 
                      rect_tiger.left > rect_hurdle.right || 
