@@ -4,6 +4,7 @@ const speed_high = document.getElementById('speed_high');
 var bg_road = document.getElementById('bg_road_id');
 const speed_head = document.getElementById('speed_head_id');
 const running_tiger = document.getElementById('running_tiger');
+const moving_hurdle = document.getElementById('moving_hurdle');
 
 let lastTouchTime = 0;
 let touchCount = 0;
@@ -37,6 +38,12 @@ touchArea.addEventListener('touchstart', () => {
 
         // 백호돌이 전진
         running_tiger.style.left = 50 + '%';
+
+         // 충돌 감지
+            if (isCollide(running_tiger, moving_hurdle)) {
+                alert("이미지들이 서로 닿았습니다!");
+                return;
+            }
         
         // 최고속도 갱신
         if(currentSpeed >= highSpeed){
