@@ -27,6 +27,14 @@ function isCollide(img1, img2) {
                      rect_tiger.top > rect_hurdle.bottom);
         }
 
+//시작시 허들 왼쪽으로 이동
+moving_hurdle.style.left = 20 + '%';
+
+touchArea.addEventListener('touchstart', () => {
+         running_tiger.style.top = 30 + '%';   
+            running_tiger.style.top = 59 + '%'; 
+}
+
 /*
 touchArea.addEventListener('touchstart', () => {
     const currentTime = new Date().getTime();
