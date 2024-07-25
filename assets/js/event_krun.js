@@ -27,7 +27,7 @@ function isCollide(img1, img2) {
                      rect_tiger.top > rect_hurdle.bottom);
         }
 
-
+/*
 touchArea.addEventListener('touchstart', () => {
     const currentTime = new Date().getTime();
     lastTouchTime = currentTime;
@@ -71,6 +71,7 @@ touchArea.addEventListener('touchstart', () => {
         startTime = currentTime;
     }
 });
+*/
 
 const clickcheck = () => {
     currentTime = new Date().getTime();
