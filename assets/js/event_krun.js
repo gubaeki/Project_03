@@ -14,7 +14,7 @@ let currentSpeed = 0;
 let previousSpeed = 0;
 let highSpeed = 0;
 
-const measureDuration = 1000; // Measure speed over 1 second
+const measureDuration = 100; // 체크주기: 0.1초
 
 // 충돌감지 함수
 function isCollide(img1, img2) {
@@ -31,26 +31,26 @@ function startJump() {
             running_tiger.classList.add('jump');
         }
 
-function stopJump() {
-            running_tiger.classList.remove('jump');
-        }
 
-
-
-touchArea.addEventListener('click', function(event) {
+touchArea.addEventListener('touchstart', () => {
             // 허들 왼쪽으로 이동
             moving_hurdle.style.left = 20 + '%';
             // 점프를 시작합니다
             startJump();
+            
             //running_tiger.style.top = 30 + '%';   
             //running_tiger.style.top = 59 + '%'; 
             
 });
 
-
-
-
-        
+const collisioncheck = () => {
+    // 충돌 감지
+    if (isCollide(running_tiger, moving_hurdle)) {
+                moving_hurdle.style.display = 'none';
+                return;
+            }
+}
+setInterval(collisioncheck, measureDuration);
 
 
 /*
