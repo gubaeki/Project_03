@@ -41,7 +41,7 @@ touchArea.addEventListener('touchstart', () => {
 
          // 충돌 감지
             if (isCollide(running_tiger, moving_hurdle)) {
-                alert("이미지들이 서로 닿았습니다!");
+                moving_hurdle.style.display = 'none';
                 return;
             }
         
