@@ -4034,6 +4034,16 @@
 
 .jump {
             animation: jump 1s ease infinite;
+        }
+
+@keyframes jump {
+	0%, 100% {
+		top: 500px;
+            	}
+            50% {
+                top: 400px;
+            }
+}
 
 #running_tiger{
 	position: absolute;
