@@ -4031,6 +4031,10 @@
     transform: translate(-50%, -50%);
     transition: top 2.0s ease-in, left 2.0s ease-in;
 }
+
+.jump {
+            animation: jump 1s ease infinite;
+
 #running_tiger{
 	position: absolute;
 	z-index: 6;
