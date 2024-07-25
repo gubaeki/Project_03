@@ -29,6 +29,7 @@ function isCollide(img1, img2) {
 
 function startJump() {
             running_tiger.classList.add('jump');
+            running_tiger.classList.remove('jump');
         }
 
 
