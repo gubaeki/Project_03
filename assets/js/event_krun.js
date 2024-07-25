@@ -1,11 +1,14 @@
 const touchArea = document.getElementById('bottom_section_id');
 const speed_present = document.getElementById('speed_present');
 const speed_high = document.getElementById('speed_high');
+var bg_river = document.getElementById('bg_river_id');
 var bg_road = document.getElementById('bg_road_id');
 const speed_head = document.getElementById('speed_head_id');
 const running_tiger = document.getElementById('running_tiger');
 const moving_hurdle = document.getElementById('moving_hurdle');
 const highlightrunning = document.getElementById('highlight_running');
+const highlighthurdle = document.getElementById('highlight_hurdle');
+
 
 let lastTouchTime = 0;
 let touchCount = 0;
@@ -23,30 +26,34 @@ const measureDuration = 100; // 체크주기: 0.1초
 
 // 충돌감지 함수
 function isCollide(img1, img2) {
-            let rect_tiger = running_tiger.getBoundingClientRect();
-            let rect_hurdle = moving_hurdle.getBoundingClientRect();
+            let rect_tiger = img1.getBoundingClientRect();
+            let rect_hurdle = img2.getBoundingClientRect();
 
-            // 여기 수정해야함
-            let inner_tiger_right = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
-            let inner_tiger_left = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
-            let inner_tiger_top = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
-            let inner_tiger_bottom = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
-            let inner_hurdle_right = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
-            let inner_hurdle_left = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
-            let inner_hurdle_top = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
-            let inner_hurdle_bottom = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
+            let inner_tiger_left = Math.round((rect_tiger.left + (rect_tiger.width * 0.4)));
+            let inner_tiger_right = Math.round((rect_tiger.right - (rect_tiger.width * 0.4)));
+            let inner_tiger_top = Math.round((rect_tiger.top + (rect_tiger.height * 0.1)));
+            let inner_tiger_bottom = Math.round(rect_tiger.bottom - (rect_tiger.height * 0.7));
 
+            let inner_hurdle_left = Math.round((rect_hurdle.left + (rect_hurdle.width * 0.4)));
+            let inner_hurdle_right = Math.round((rect_hurdle.right - (rect_hurdle.width * 0.4)));
+            let inner_hurdle_top = Math.round((rect_hurdle.top - (rect_hurdle.height * 0.3)));
+            let inner_hurdle_bottom = Math.round((rect_hurdle.bottom - (rect_hurdle.height * 1)));
 
             // 충돌영역 하이라이트
-            highlightrunning.style.left = (rect_tiger.left + (rect_tiger.width * 0.2)) + 'px';
-            highlightrunning.style.top = (rect_tiger.top + (rect_tiger.height * 0.2)) + 'px';
-            highlighthurdle.style.left = (rect_hurdle.left + (rect_hurdle.width * 0.2)) + 'px';
-            highlighthurdle.style.top = (rect_hurdle.top + (rect_hurdle.height * 0.2)) + 'px';
+            highlightrunning.style.left = inner_tiger_left + 'px';
+            highlightrunning.style.top = inner_tiger_top + 'px';
+            highlightrunning.style.width = (inner_tiger_right - inner_tiger_left) + 'px';
+            highlightrunning.style.height = (inner_tiger_bottom - inner_tiger_top) + 'px';
+
+            highlighthurdle.style.left = inner_hurdle_left + 'px';
+            highlighthurdle.style.top = inner_hurdle_top + 'px';
+            highlighthurdle.style.width = (inner_hurdle_right - inner_hurdle_left) + 'px';
+            highlighthurdle.style.height = (inner_hurdle_bottom - inner_hurdle_top) + 'px';
             
-            return !(rect_tiger.right < rect_hurdle.left || 
-                     rect_tiger.left > rect_hurdle.right || 
-                     rect_tiger.bottom < rect_hurdle.top || 
-                     rect_tiger.top > rect_hurdle.bottom);
+            return !(inner_tiger_right < inner_hurdle_left || 
+                     inner_tiger_left > inner_hurdle_right || 
+                     inner_tiger_bottom < inner_hurdle_top || 
+                     inner_tiger_top > inner_hurdle_bottom);
         }
 
 function startJump() {
@@ -56,17 +63,25 @@ function finishJump() {
             running_tiger.classList.remove('jump');
         }
 
-touchArea.addEventListener('touchstart', () => {
-
-            touchCount++;
-            speed_head.textContent = `${touchCount}`;
+function startHurdle() {
             // 허들 왼쪽으로 이동
-            moving_hurdle.style.left = 20 + '%';
-            // 점프를 시작합니다
-            startJump();
-            setTimeout(finishJump, 600);
-            
-            
+            moving_hurdle.style.left = -100 + '%';
+        }
+
+
+
+
+touchArea.addEventListener('touchstart', () => {
+            // 첫 터치에 배경 움직이기 시작
+            if(touchCount===0){
+                bg_river.style.animation = 'slide-left10 10s linear infinite';
+                bg_road.style.animation = 'slide-left2 2s linear infinite';
+                // 1초 후 허들 움직이기 시작
+                setTimeout(startHurdle,1000);
+            }
+            touchCount++;
+            //speed_head.textContent = `${touchCount}`;
+        
             //running_tiger.style.top = 30 + '%';   
             //running_tiger.style.top = 59 + '%'; 
             
@@ -75,12 +90,22 @@ touchArea.addEventListener('touchstart', () => {
 const collisioncheck = () => {
     // 충돌 감지
     if (isCollide(running_tiger, moving_hurdle)) {
-                moving_hurdle.style.display = 'none';
+                //moving_hurdle.style.display = 'none';
+                touchCount = 0;
+                //moving_hurdle.style.left = 100 + '%';
+                console.log('1');
                 return;
             }
 }
 setInterval(collisioncheck, measureDuration);
 
+
+function test() {
+                // 점프를 시작합니다
+                startJump();
+                setTimeout(finishJump, 600);
+
+}
 
 /*
 touchArea.addEventListener('touchstart', () => {
