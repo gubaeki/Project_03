@@ -5,6 +5,7 @@ var bg_road = document.getElementById('bg_road_id');
 const speed_head = document.getElementById('speed_head_id');
 const running_tiger = document.getElementById('running_tiger');
 const moving_hurdle = document.getElementById('moving_hurdle');
+const highlightrunning = document.getElementById('highlightrunning');
 
 let lastTouchTime = 0;
 let touchCount = 0;
@@ -16,11 +17,20 @@ let highSpeed = 0;
 
 const measureDuration = 100; // 체크주기: 0.1초
 
+
+
+
+
 // 충돌감지 함수
 function isCollide(img1, img2) {
             let rect_tiger = running_tiger.getBoundingClientRect();
             let rect_hurdle = moving_hurdle.getBoundingClientRect();
 
+            highlightrunning.style.left = kboat_minX + 'px';
+            highlightrunning.style.top = kboat_minY + 'px';
+            highlightrunning.style.width = (kboat_maxX - kboat_minX) + 'px';
+            highlightrunning.style.height = (kboat_maxY - kboat_minY) + 'px';
+            
             return !(rect_tiger.right < rect_hurdle.left || 
                      rect_tiger.left > rect_hurdle.right || 
                      rect_tiger.bottom < rect_hurdle.top || 
