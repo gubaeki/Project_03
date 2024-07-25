@@ -79,7 +79,7 @@ touchArea.addEventListener('touchstart', () => {
         startTime = currentTime;
     }
 });
-*/
+
 
 const clickcheck = () => {
     currentTime = new Date().getTime();
@@ -99,3 +99,5 @@ const clickcheck = () => {
 
 // Set interval to update speed every second
 setInterval(clickcheck, measureDuration);
+
+*/
