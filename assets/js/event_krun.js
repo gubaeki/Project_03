@@ -29,6 +29,25 @@ function isCollide(img1, img2) {
             let rect_tiger = img1.getBoundingClientRect();
             let rect_hurdle = img2.getBoundingClientRect();
 
+            let tiger_centerX = rect_tiger.left + (rect_tiger.width / 2);
+            let tiger_centerY = rect_tiger.top + (rect_tiger.height / 2);
+            let hurdle_centerX = rect_hurdle.left + (rect_hurdle.width / 2);
+            let hurdle_centerY = rect_hurdle.top + (rect_hurdle.height / 2);
+
+            let inner_tiger_left = Math.round((tiger_centerX - (rect_tiger.width * 0.4)));
+            let inner_tiger_right = Math.round((tiger_centerX + (rect_tiger.width * 0.4)));
+            let inner_tiger_top = Math.round((tiger_centerY - (rect_tiger.height * 0.1)));
+            let inner_tiger_bottom = Math.round(tiger_centerY + (rect_tiger.height * 0.7));
+
+            let inner_hurdle_left = Math.round((hurdle_centerX - (rect_hurdle.width * 0.4)));
+            let inner_hurdle_right = Math.round((hurdle_centerX + (rect_hurdle.width * 0.4)));
+            let inner_hurdle_top = Math.round((hurdle_centerY - (rect_hurdle.height * 0.3)));
+            let inner_hurdle_bottom = Math.round((hurdle_centerY + (rect_hurdle.height * 1)));
+            
+            /*// 기존 방식
+            let rect_tiger = img1.getBoundingClientRect();
+            let rect_hurdle = img2.getBoundingClientRect();
+
             let inner_tiger_left = Math.round((rect_tiger.left + (rect_tiger.width * 0.4)));
             let inner_tiger_right = Math.round((rect_tiger.right - (rect_tiger.width * 0.4)));
             let inner_tiger_top = Math.round((rect_tiger.top + (rect_tiger.height * 0.1)));
@@ -38,7 +57,7 @@ function isCollide(img1, img2) {
             let inner_hurdle_right = Math.round((rect_hurdle.right - (rect_hurdle.width * 0.4)));
             let inner_hurdle_top = Math.round((rect_hurdle.top - (rect_hurdle.height * 0.3)));
             let inner_hurdle_bottom = Math.round((rect_hurdle.bottom - (rect_hurdle.height * 1)));
-
+*/
             // 충돌영역 하이라이트
             highlightrunning.style.left = inner_tiger_left + 'px';
             highlightrunning.style.top = inner_tiger_top + 'px';
