@@ -30,7 +30,7 @@ function isCollide(img1, img2) {
 //시작시 허들 왼쪽으로 이동
 
 
-touchArea.addEventListener('click', () => {
+touchArea.addEventListener('touchstart', () => {
             moving_hurdle.style.left = 20 + '%';
             running_tiger.style.top = 30 + '%';   
             running_tiger.style.top = 59 + '%'; 
