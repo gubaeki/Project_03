@@ -35,10 +35,11 @@ function stopJump() {
             running_tiger.classList.remove('jump');
         }
 
-//시작시 허들 왼쪽으로 이동
-moving_hurdle.style.left = 20 + '%';
+
 
 touchArea.addEventListener('touchstart', () => {
+            // 허들 왼쪽으로 이동
+            moving_hurdle.style.left = 20 + '%';
             // 점프를 시작합니다
             startJump();
             //running_tiger.style.top = 30 + '%';   
