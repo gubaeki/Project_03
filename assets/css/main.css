@@ -4012,10 +4012,12 @@
 #moving_hurdle{
 	position: absolute;
 	z-index: 5;
-	top:65vh;
-	left:75vw;
+	top:65%;
+	left:75%;
 	max-width:100px;
 	max-height:117px;
+	/*부드럽게 이동*/
+	transition: top 2.0s ease-in, left 2.0s ease-in;
 }
 
 #moving_tiger{
@@ -4037,7 +4039,6 @@
 	max-width:50%;
 	max-height:50%;
 	/*부드럽게 이동*/
-	
 	transition: top 2.0s ease-in, left 2.0s ease-in;
 
 }
