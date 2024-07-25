@@ -42,7 +42,7 @@ touchArea.addEventListener('touchstart', () => {
             moving_hurdle.style.left = 20 + '%';
             // 점프를 시작합니다
             startJump();
-            setTimeout(finishJump(), 300);
+            setTimeout(finishJump, 300);
             
             
             //running_tiger.style.top = 30 + '%';   
