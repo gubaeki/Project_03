@@ -16,6 +16,18 @@ let highSpeed = 0;
 
 const measureDuration = 1000; // Measure speed over 1 second
 
+// 충돌감지 함수
+function isCollide(img1, img2) {
+            let rect_tiger = running_tiger.getBoundingClientRect();
+            let rect_hurdle = moving_hurdle.getBoundingClientRect();
+
+            return !(rect_tiger.right < rect_hurdle.left || 
+                     rect_tiger.left > rect_hurdle.right || 
+                     rect_tiger.bottom < rect_hurdle.top || 
+                     rect_tiger.top > rect_hurdle.bottom);
+        }
+
+
 touchArea.addEventListener('touchstart', () => {
     const currentTime = new Date().getTime();
     lastTouchTime = currentTime;
