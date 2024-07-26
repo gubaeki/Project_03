@@ -144,7 +144,7 @@ const collisioncheck = () => {
             }
 
     // 이동거리 증가
-            currentDistance = currentDistance + 0.1;
+            currentDistance = Math.round((currentDistance + 0.1)*10)/10;
             current_distance.textContent = `${currentDistance} m`;
 }
 
