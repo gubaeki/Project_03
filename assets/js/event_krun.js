@@ -1,6 +1,7 @@
 const touchArea = document.getElementById('bottom_section_id');
 const speed_present = document.getElementById('speed_present');
 const speed_high = document.getElementById('speed_high');
+const current_distance = document.getElementById('distance');
 var bg_river = document.getElementById('bg_river_id');
 var bg_road = document.getElementById('bg_road_id');
 const speed_head = document.getElementById('speed_head_id');
@@ -17,6 +18,9 @@ let startTime = 0;
 let currentSpeed = 0;
 let previousSpeed = 0;
 let highSpeed = 0;
+let highDistance = 0;
+let currentDistance = 0.0;
+
 
 const measureDuration = 100; // 체크주기: 0.1초
 
@@ -132,9 +136,18 @@ const collisioncheck = () => {
                 //moving_hurdle.style.display = 'none';
                 touchCount = 0;
                 //moving_hurdle.style.left = 100 + '%';
+
+                highDistance = currentDistance;
+                currentDistance = 0.0;
+                
                 return;
             }
+
+    // 이동거리 증가
+            currentDistance = currentDistance + 0.1;
+            current_distance.textContent = `${currentDistance} m`;
 }
+
 setInterval(collisioncheck, measureDuration);
 
 
