@@ -132,7 +132,6 @@ const collisioncheck = () => {
                 //moving_hurdle.style.display = 'none';
                 touchCount = 0;
                 //moving_hurdle.style.left = 100 + '%';
-                console.log('1');
                 return;
             }
 }
