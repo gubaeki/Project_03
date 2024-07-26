@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var krun_minY = Math.round(krun_minY_float), krun_maxY = Math.round(krun_maxY_float);
 
     // 선택구역 하이라이트(평소엔 비활성화)
-    /*
+    
     highlightKboat.style.left = kboat_minX + 'px';
     highlightKboat.style.top = kboat_minY + 'px';
     highlightKboat.style.width = (kboat_maxX - kboat_minX) + 'px';
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
     highlightKrun.style.top = krun_minY + 'px';
     highlightKrun.style.width = (krun_maxX - krun_minX) + 'px';
     highlightKrun.style.height = (krun_maxY - krun_minY) + 'px';
-    */
+    
 
     // Click.gif 위치 정의
     /*
