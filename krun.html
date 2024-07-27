@@ -3,33 +3,44 @@
 <html><head><title>백호돌이 어드벤처 by NJ</title><meta charset="utf-8"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="assets/css/main.css"></head><body>
 
 
-
+	
 			<section id="banner3">
+				
 				<div class="base_container">
+					<div id="blackmask" class="masking">
+						<img id="countdown" src="images/countdown.gif" />
+						<img id="waiting_krun" src="images/waiting_krun.gif" />
+						<img id="gameover" src="images/gameover.gif" />
+					</div>
 					<div class="top_section">
 						<div style="background-color:rgb(185, 247, 70); grid-area:1/1/3/2; font-size: 10vw; padding-top: 5%;padding-left: 1.5%;">이동거리:</div>
-						<div id="distance" class="distance">00.0m</div>
-						<div style="background-color:rgb(111, 202, 255); grid-area:1/3/2/4;  text-align: center;">현재속도:</div>
-						<div style="background-color:rgb(111, 202, 255); grid-area:2/3/3/4; text-align: center;">최고속도:</div>
-						<div id="speed_present" class="speed_present">0.1 km/h</div>
-						<div id="speed_high" class="speed_high">0.1 km/h</div>
+						<div id="distance" class="distance">00.0 m</div>
+						<div style="background-color:rgb(111, 202, 255); grid-area:1/3/2/4;  text-align: center;">난  도:</div>
+						<div style="background-color:rgb(111, 202, 255); grid-area:2/3/3/4; text-align: center;">최고기록:</div>
+						<div id="difficulty" class="difficulty">1단계</div>
+						<div id="high_distance" class="high_distance">00.0 m</div>
 
 					</div>
 					<div id="bg_river_id" class="bg_river"></div>
 					<div id="bg_road_id" class="bg_road"></div>
 					
+					
 					<img id="running_tiger" src="images/running.gif" />
 					<img id="moving_hurdle" src="images/hurdle1.png" />
 					<img id="moving_hurdle2" src="images/hurdle2.png" />
 
-					
+					<div id="button_section_id" class="button_section">
+						<button id="jump_bt" class="w-btn-outline w-btn-red-outline" onMouseDown="jump()" type="button">Jump</button>
+						<button id="restart_bt" class="w-btn-outline w-btn-blue-outline" onMouseDown="restart()" type="button">Restart</button>
+					</div>
 					<div id="bottom_section_id" class="bottom_section">
 						<!--<div id="speed_head_id" class="speed_head">0.1 km/h</div>-->
-						<button id="temp_bt" onMouseDown="test()">시작/점프</button>
+						<img src="images/leaderboard.png" style="width: 100%; height: 100%;"/>
 					</div>
 				</div>
 				
 			</section>
+			
 			<div id="highlight_running" class="highlight-running-zone"></div>
 			<div id="highlight_hurdle" class="highlight-hurdle-zone"></div>
 
