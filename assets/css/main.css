@@ -3881,7 +3881,7 @@
 	background-image: url("../../images/river.png"); /* Replace with your image URL */
 	background-size: cover;
 	position: absolute;
-	top: 10%;
+	top: 5%;
 	left: 0;
 
 }
@@ -3893,7 +3893,7 @@
 	background-image: url("../../images/road.png"); /* Replace with your image URL */
 	background-size: cover;
 	position: absolute;
-	top: 0;
+	top: -5%;
 	left: 0;
 
 }
@@ -3955,9 +3955,9 @@
 
 #banner3 .bottom_section {
 	z-index: 3;
-	top: 75%;
+	top: 70%;
 	width: 100%;
-	height: 25%;
+	height: 30%;
 	position: absolute;
 	background-image: url("../../images/touchpad.png");
 	background-size: 100% 100%;
@@ -4035,7 +4035,7 @@
 #moving_hurdle{
 	position: absolute;
 	z-index: 5;
-	top:58.5%;
+	top:53.5%;
 	left:100%;
 	max-width:100px;
 	max-height:117px;
@@ -4046,7 +4046,7 @@
 	display: none;
 	position: absolute;
 	z-index: 5;
-	top:58.5%;
+	top:53.5%;
 	left:70%;
 	max-width:100px;
 	max-height:117px;
@@ -4069,7 +4069,7 @@
 #running_tiger{
 	position: absolute;
 	z-index: 6;
-	top:50%;
+	top:45%;
 	left:10%;
 	max-width:50%;
 	max-height:50%;
@@ -4084,10 +4084,10 @@
 
 @keyframes jump {
 	0% {
-		top: 50%;
+		top: 45%;
             	}
             100% {
-                top: 40%;
+                top: 35%;
             }
 }
 
