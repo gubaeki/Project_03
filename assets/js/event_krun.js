@@ -38,15 +38,15 @@ function isCollide(img1, img2) {
             let hurdle_centerX = rect_hurdle.left + (rect_hurdle.width / 2);
             let hurdle_centerY = rect_hurdle.top + (rect_hurdle.height / 2);
 
-            let inner_tiger_left = Math.round((tiger_centerX - 10));
-            let inner_tiger_right = Math.round((tiger_centerX + 10));
-            let inner_tiger_top = Math.round((tiger_centerY - 10));
-            let inner_tiger_bottom = Math.round(tiger_centerY + 10);
+            let inner_tiger_left = Math.round((tiger_centerX - (rect_tiger.width * 0.12)));
+            let inner_tiger_right = Math.round((tiger_centerX + (rect_tiger.width * 0.12)));
+            let inner_tiger_top = Math.round((tiger_centerY - (rect_tiger.height * 0.1)));
+            let inner_tiger_bottom = Math.round(tiger_centerY + (rect_tiger.height * 0.2));
 
-            let inner_hurdle_left = Math.round((hurdle_centerX - 10));
-            let inner_hurdle_right = Math.round((hurdle_centerX + 10));
-            let inner_hurdle_top = Math.round((hurdle_centerY - 10));
-            let inner_hurdle_bottom = Math.round((hurdle_centerY + 10));
+            let inner_hurdle_left = Math.round((hurdle_centerX - (rect_hurdle.width * 0.1)));
+            let inner_hurdle_right = Math.round((hurdle_centerX + (rect_hurdle.width * 0.1)));
+            let inner_hurdle_top = Math.round((hurdle_centerY - (rect_tiger.height * 0.1)));
+            let inner_hurdle_bottom = Math.round((hurdle_centerY + (rect_tiger.height * 0.1)));
 
             
             /*//두번째 방식
@@ -87,6 +87,11 @@ function isCollide(img1, img2) {
             highlightrunning.style.top = inner_tiger_top + 'px';
             highlightrunning.style.width = (inner_tiger_right - inner_tiger_left) + 'px';
             highlightrunning.style.height = (inner_tiger_bottom - inner_tiger_top) + 'px';
+
+            console.log(highlightrunning.style.left);
+            console.log(highlightrunning.style.top);
+            console.log(highlightrunning.style.width);
+            console.log(highlightrunning.style.height);
 
             highlighthurdle.style.left = inner_hurdle_left + 'px';
             highlighthurdle.style.top = inner_hurdle_top + 'px';
