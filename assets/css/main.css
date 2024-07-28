@@ -4285,6 +4285,22 @@
 
 }
 
+#info{
+	display: none;
+	position: absolute;
+	z-index: 7;
+	top:11%;
+	left:10%;
+	width: 80%;
+	height: 20%;
+	font-family: "Dongle", sans-serif;
+  	font-weight: 700;
+  	font-style: normal;
+  	font-size: 2.5rem;
+	color : white;
+	text-shadow: 0px 0px 10px rgb(4, 0, 255);
+	transition: left 1.0s ease-in;
+}
 #attack_icon{
 	position: absolute;
 	z-index: 7;
