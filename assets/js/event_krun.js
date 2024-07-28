@@ -15,9 +15,9 @@ const gameover = document.getElementById('gameover');
 const waiting_krun = document.getElementById('waiting_krun');
 
 
-let lastTouchTime = 0;
-let touchCount = 0;
 
+let touchCount = 0;
+let target_hurdle = moving_hurdle;
 let startTime = 0;
 let highDistance = 0;
 let currentDistance = 0.0;
@@ -52,8 +52,8 @@ function isCollide(img1, img2) {
             let inner_tiger_top = Math.round((tiger_centerY - (rect_tiger.height * 0.1)));
             let inner_tiger_bottom = Math.round(tiger_centerY + (rect_tiger.height * 0.2));
 
-            let inner_hurdle_left = Math.round((hurdle_centerX - (rect_hurdle.width * 0.1)));
-            let inner_hurdle_right = Math.round((hurdle_centerX + (rect_hurdle.width * 0.1)));
+            let inner_hurdle_left = Math.round((hurdle_centerX - (rect_hurdle.width * 0.12)));
+            let inner_hurdle_right = Math.round((hurdle_centerX + (rect_hurdle.width * 0.12)));
             let inner_hurdle_top = Math.round((hurdle_centerY - (rect_tiger.height * 0.1)));
             let inner_hurdle_bottom = Math.round((hurdle_centerY + (rect_tiger.height * 0.1)));
 
@@ -130,7 +130,7 @@ touchAreaBanner.addEventListener('touchstart', () => {
 
 const collisioncheck = () => {
     // 충돌 감지
-    if (isCollide(running_tiger, moving_hurdle)) {
+    if (isCollide(running_tiger, target_hurdle)) {
         //초기화
         blackmssk.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
         blackmssk.style.display = 'block';
@@ -140,6 +140,7 @@ const collisioncheck = () => {
         bg_river.style.animation = 'pause';
         bg_road.style.animation = 'pause';
         moving_hurdle.style.animation = 'pause';
+        moving_hurdle2.style.animation = 'pause';
 
         clearInterval(clearcheck);
         
@@ -150,7 +151,6 @@ const collisioncheck = () => {
             high_distance.textContent = `${highDistance} m`;
         }
         
-    
         currentDistance = 0.0;
                 
         return;
@@ -159,6 +159,16 @@ const collisioncheck = () => {
     // 이동거리 증가
             currentDistance = Math.round((currentDistance + 0.1)*10)/10;
             current_distance.textContent = `${currentDistance} m`;
+
+            //난도 상승(1->2단계)
+            if(currentDistance >= 20){
+                difficulty.textContent = '2단계';
+                moving_hurdle.style.display='none';
+                moving_hurdle2.style.display='block';
+                moving_hurdle2.style.animation = 'slide-left_hurdle 4s linear infinite';
+                target_hurdle = moving_hurdle2;
+            }
+
 }
 
 function jump() {
@@ -181,11 +191,16 @@ function restart() {
     bg_river.style.animation = 'pause';
     bg_road.style.animation = 'pause';
     moving_hurdle.style.animation = 'pause';
+    moving_hurdle2.style.animation = 'pause';
     currentDistance = 0.0;
     game_finish = 0;
     touchCount = 0;
     jumpcheck = 0;
     current_distance.textContent = `0.0 m`;
+    difficulty.textContent = '1단계';
+    target_hurdle = moving_hurdle;
+    moving_hurdle.style.display = 'block';
+    moving_hurdle2.style.display = 'none';
     clearInterval(clearcheck);
 
 }
