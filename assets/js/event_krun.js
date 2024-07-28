@@ -23,6 +23,7 @@ let highDistance = 0;
 let currentDistance = 0.0;
 let clearcheck;
 let jumpcheck = 0;
+let game_finish = 0;
 
 
 const measureDuration = 100; // 체크주기: 0.1초
@@ -96,17 +97,19 @@ function startHurdle() {
 touchAreaBanner.addEventListener('touchstart', () => {
             
             if(touchCount===0){
-
-                // 첫 터치에 마스킹 지우기
-                blackmssk.style.backgroundColor = 'rgba(0, 0, 0, 0)';
-                countdown.setAttribute('src', 'images/countdown.gif');
-                countdown.style.display = 'block';
-                waiting_krun.style.display = 'none';
-                gameover.style.display = 'none';
-                current_distance.textContent = `00.0 m`;
+                if(game_finish===1){
+                    restart();
+                }else{
+                    // 첫 터치에 마스킹 지우기
+                    blackmssk.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+                    countdown.setAttribute('src', 'images/countdown.gif');
+                    countdown.style.display = 'block';
+                    waiting_krun.style.display = 'none';
+                    gameover.style.display = 'none';
+                    current_distance.textContent = `0.0 m`;
                 
-                // 4초(카운트다운) 경과 후 아래함수 시작
-                setTimeout(function(){
+                    // 4초(카운트다운) 경과 후 아래함수 시작
+                    setTimeout(function(){
                     countdown.style.display = 'none';
                     blackmssk.style.display = 'none';
 
@@ -118,25 +121,11 @@ touchAreaBanner.addEventListener('touchstart', () => {
                     bg_river.style.animation = 'slide-left10 10s linear infinite';
                     bg_road.style.animation = 'slide-left2 2s linear infinite';
                     moving_hurdle.style.animation = 'slide-left_hurdle 4s linear infinite';
-                },4000);
-                
-            }else{
-                //moving_hurdle.style.display = 'block';
-                //moving_hurdle2.style.left = 25 + '%';
-                //console.log('why');
-                //moving_hurdle2.style.display = 'block';
-
-                //console.log(touchCount);
-                //startHurdle();
+                    },4000);
+                    touchCount++; 
+                }
             }
-            
-
-            touchCount++;
-
-        
-            //running_tiger.style.top = 30 + '%';   
-            //running_tiger.style.top = 59 + '%'; 
-            
+              
 });
 
 const collisioncheck = () => {
@@ -146,6 +135,7 @@ const collisioncheck = () => {
         blackmssk.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
         blackmssk.style.display = 'block';
         gameover.style.display = 'block';
+        game_finish = 1;
         countdown.setAttribute('src', '');
         bg_river.style.animation = 'pause';
         bg_road.style.animation = 'pause';
@@ -186,14 +176,16 @@ function restart() {
     blackmssk.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
     blackmssk.style.display = 'block';
     waiting_krun.style.display = 'block';
+    gameover.style.display = 'none';
     countdown.setAttribute('src', '');
     bg_river.style.animation = 'pause';
     bg_road.style.animation = 'pause';
     moving_hurdle.style.animation = 'pause';
     currentDistance = 0.0;
+    game_finish = 0;
     touchCount = 0;
     jumpcheck = 0;
-    current_distance.textContent = `00.0 m`;
+    current_distance.textContent = `0.0 m`;
     clearInterval(clearcheck);
 
 }

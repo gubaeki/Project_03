@@ -22,7 +22,7 @@ const enemy = document.getElementById('enemy');
 
 //blackmssk.style.display = 'none';
 
-let touchCount = 0;
+
 
 let mychoice = 3; // 3 상단, 2 중단, 1 하단으로 정의
 let enemychoice = 3;
@@ -159,7 +159,7 @@ function attack_result() {
                         blackmssk.style.display = 'block';
                         win.style.display = 'block';
                         gameover.style.display = 'none';
-                        touchCount = 0;
+  
                         game_finish = 1;
                         break;
                 }
@@ -188,7 +188,7 @@ function attack_result() {
                         blackmssk.style.display = 'block';
                         gameover.style.display = 'block';
                         win.style.display = 'none';
-                        touchCount = 0;
+      
                         game_finish = 1;
                         break;
                 }
@@ -206,7 +206,7 @@ function attack_result() {
 
 blackmssk.addEventListener('touchstart', () => {
             
-    if(touchCount===0){
+    
         if(game_finish === 1){
             restart();
         }else{
@@ -215,7 +215,7 @@ blackmssk.addEventListener('touchstart', () => {
             waiting_fencing.style.display = 'none';
             //gameover.style.display = 'none';
         }
-    }
+    
 });
 
 //초기화
@@ -243,7 +243,7 @@ me.src="images/me.gif";
 enemy.src="images/enemy.gif";
 me.style.left = 0 + '%';
 enemy.style.left = 41 + '%';
-touchCount = 0;
+
 game_finish = 0;
 
 
