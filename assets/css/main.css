@@ -3955,6 +3955,7 @@
 
 #banner3 .button_section {
 	display: flex;
+	text-align: center;
 	margin-left: 1%;
 	z-index: 3;
 	top: 70%;
@@ -4330,7 +4331,7 @@
             }
 }
 
-/*
+
 #jump_bt{
 	position: relative;
 	flex : 1;
@@ -4347,7 +4348,7 @@
 	z-index: 4;
 
 }
-*/
+
 
 .message_yes_bt{
 	position: relative;
