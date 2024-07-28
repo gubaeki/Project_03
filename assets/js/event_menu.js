@@ -106,9 +106,12 @@ document.addEventListener('DOMContentLoaded', function() {
             return; // 메시지가 이미 표시되고 있을 때는 클릭 이벤트를 무시
         }
 
-        var x = event.clientX;
-        var y = event.clientY;
-        
+        //터치좌표 입력 시 clientX 대신 pageX 사용(clientX는 현재보이는 화면 좌측 상단이 무조건 0, pageX는 문서의 좌측 상단이 0이고 스크롤이 생겨도 화면 좌측상단은 0이 아님)
+        //var x = event.clientX;
+        //var y = event.clientY;
+        var x = event.pageX;
+        var y = event.pageY;
+
         var messageElement = document.getElementById('event_message');
 
         if (x >= kboat_minX && x <= kboat_maxX && y >= kboat_minY && y <= kboat_maxY) {
