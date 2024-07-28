@@ -44,11 +44,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 예/아니오 버튼 이벤트 핸들러 설정
     document.addEventListener('click', function(event) {
-        var x = event.clientX;
-        var y = event.clientY;
-        
-        var messageElement = document.getElementById('event_message');
-
+        //var x = event.clientX;
+        //var y = event.clientY;
+        var x = event.pageX;
+        var y = event.pageY;
         if (x >= start_minX && x <= start_maxX && y >= start_minY && y <= start_maxY) {
             location.href='event_menu.html';
         } 
