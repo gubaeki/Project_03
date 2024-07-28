@@ -4225,7 +4225,7 @@
 	position: absolute;
 	z-index: 5;
 	top:53.5%;
-	left:25%;
+	left:100%;
 	max-width:100px;
 	max-height:117px;
 	/*부드럽게 이동*/
