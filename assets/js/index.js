@@ -1,25 +1,37 @@
-    // banner2 크기 정의
-    var banner = document.getElementById('banner');
-    var bannerRect = banner.getBoundingClientRect();
-    var bannerWidth = bannerRect.right - bannerRect.left;
-    var bannerHeight = bannerRect.bottom - bannerRect.top;
-    var innerbannerWidth = Math.round(bannerHeight / 2.1636);
-    var centerbannerX = bannerWidth / 2;
-    var minbannerX = centerbannerX - (innerbannerWidth / 2); 
-    var maxbannerX = centerbannerX + (innerbannerWidth / 2);
+var banner = document.getElementById('banner');
+var bannerRect = banner.getBoundingClientRect();
+var bannerWidth = bannerRect.width;
+var bannerHeight = bannerRect.height;
+
+let windowwidth = $(window).width();
+let windowheight = $(window).height();
+
+console.log(bannerWidth);
+console.log(bannerHeight);
+
+var centerinnerbannerX = windowwidth / 2;
+var innerbannerWidth = Math.round(bannerHeight / 2.1636);
 
 
 document.addEventListener('DOMContentLoaded', function() {
 
     var highlightstart = document.getElementById('highlight_start');
 
+    //선택 구역 나누기
+    var start_minX, start_maxX;
+    var start_minY, start_maxY;
 
-    // 선택구역 나누기
-    var start_minX_float = centerbannerX - (innerbannerWidth * 18 /100), start_maxX_float = centerbannerX + (innerbannerWidth * 25 /100);
-    var start_minY_float = 61 * bannerHeight / 100, start_maxY_float = 69 * bannerHeight / 100;
+    // 배너크기가 최소 320px으로 지정되어있음을 확인
+    if(bannerWidth <= 320){
+        start_minX = 105;
+        start_maxX = 240;
+    }else{
+        start_minX = Math.round(centerinnerbannerX - (innerbannerWidth * 18 /100));
+        start_maxX = Math.round(centerinnerbannerX + (innerbannerWidth * 25 /100));
+    }
+    start_minY = Math.round(61 * bannerHeight / 100);
+    start_maxY = Math.round(69 * bannerHeight / 100);
 
-    var start_minX = Math.round(start_minX_float), start_maxX = Math.round(start_maxX_float);
-    var start_minY = Math.round(start_minY_float), start_maxY = Math.round(start_maxY_float);
 
     // 선택구역 하이라이트(평소엔 비활성화)
     /*
@@ -31,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
     // 예/아니오 버튼 이벤트 핸들러 설정
-
     document.addEventListener('click', function(event) {
         var x = event.clientX;
         var y = event.clientY;
