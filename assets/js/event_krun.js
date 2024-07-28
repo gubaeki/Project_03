@@ -22,6 +22,7 @@ let startTime = 0;
 let highDistance = 0;
 let currentDistance = 0.0;
 let clearcheck;
+let jumpcheck = 0;
 
 
 const measureDuration = 100; // 체크주기: 0.1초
@@ -76,9 +77,11 @@ function isCollide(img1, img2) {
 
 function startJump() {
             running_tiger.classList.add('jump');
+            jumpcheck = 1;
         }
 function finishJump() {
             running_tiger.classList.remove('jump');
+            jumpcheck = 0;
         }
 
 function startHurdle() {
@@ -170,9 +173,12 @@ const collisioncheck = () => {
 
 function jump() {
                 // 점프를 시작합니다
-                startJump();
-                setTimeout(finishJump, 600);
-
+                if(jumpcheck===1){ //점프중이면 실행X
+                    
+                }else{
+                    startJump();
+                    setTimeout(finishJump, 600);
+                }
 }
 
 function restart() {
@@ -186,6 +192,7 @@ function restart() {
     moving_hurdle.style.animation = 'pause';
     currentDistance = 0.0;
     touchCount = 0;
+    jumpcheck = 0;
     current_distance.textContent = `00.0 m`;
     clearInterval(clearcheck);
 
