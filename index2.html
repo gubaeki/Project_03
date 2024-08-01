@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>피카츄 배구</title>
+
+    <link rel="manifest" href="./manifest.json" />
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+  </head>
+
+  <body>
+    <div id="flex-container">
+      <div id="menu-bar">
+        <div class="btn-container right">
+          <button type="button" id="about-btn" class="btn glow">
+            <span class="text-play">게임 시작</span>
+          </button>
+        </div>
+      </div>
+     
+
+      <div id="game-canvas-container">
+        <div class="fade-in-box loading hidden" id="loading-box">
+          <div>
+            <p>게임 스프라이트/사운드 로드 중...</p>
+            <div id="progress-bar-border">
+              <div id="progress-bar" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module">
+      
+      //import { Workbox } from 'https://storage.googleapis.com/workbox-cdn/releases/5.0.0/workbox-window.prod.mjs';
+
+    </script>
+    <script src="assets/js/main2.js"></script>
+  </body>
+</html>
