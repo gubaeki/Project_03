@@ -161,7 +161,7 @@ const collisioncheck = () => {
             current_distance.textContent = `${currentDistance} m`;
 
             //난도 상승(1->2단계)
-            if(currentDistance >= 20){
+            if(currentDistance >= 15){
                 difficulty.textContent = '2단계';
                 moving_hurdle.style.display='none';
                 moving_hurdle2.style.display='block';
