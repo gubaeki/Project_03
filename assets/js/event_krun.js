@@ -7,8 +7,11 @@ var bg_road = document.getElementById('bg_road_id');
 const running_tiger = document.getElementById('running_tiger');
 const moving_hurdle = document.getElementById('moving_hurdle');
 const moving_hurdle2 = document.getElementById('moving_hurdle2');
+const moving_hurdle3 = document.getElementById('moving_hurdle3');
 const highlightrunning = document.getElementById('highlight_running');
 const highlighthurdle = document.getElementById('highlight_hurdle');
+const highlighthurdle2 = document.getElementById('highlight_hurdle2');
+const highlighthurdle3 = document.getElementById('highlight_hurdle3');
 const blackmssk = document.getElementById('blackmask');
 const countdown = document.getElementById('countdown');
 const gameover = document.getElementById('gameover');
@@ -69,6 +72,7 @@ function isCollide(img1, img2) {
             highlighthurdle.style.width = (inner_hurdle_right - inner_hurdle_left) + 'px';
             highlighthurdle.style.height = (inner_hurdle_bottom - inner_hurdle_top) + 'px';
             */
+            
             
             return !(inner_tiger_right < inner_hurdle_left || 
                      inner_tiger_left > inner_hurdle_right || 
@@ -141,6 +145,7 @@ const collisioncheck = () => {
         bg_road.style.animation = 'pause';
         moving_hurdle.style.animation = 'pause';
         moving_hurdle2.style.animation = 'pause';
+        moving_hurdle3.style.animation = 'pause';
 
         clearInterval(clearcheck);
         
@@ -159,14 +164,30 @@ const collisioncheck = () => {
     // 이동거리 증가
             currentDistance = Math.round((currentDistance + 0.1)*10)/10;
             current_distance.textContent = `${currentDistance} m`;
+            moving_hurdle3.style.animation = 'slide-left_hurdle 4s linear infinite';
 
             //난도 상승(1->2단계)
-            if(currentDistance >= 15){
+            if((currentDistance < 31) && (currentDistance >= 15.5)){
                 difficulty.textContent = '2단계';
                 moving_hurdle.style.display='none';
                 moving_hurdle2.style.display='block';
                 moving_hurdle2.style.animation = 'slide-left_hurdle 4s linear infinite';
                 target_hurdle = moving_hurdle2;
+            }else if((currentDistance < 32) && (currentDistance >= 31)){ //난도 상승(2->3단계)
+                difficulty.textContent = '3단계';
+                moving_hurdle2.style.display='none';
+            }
+            else if((currentDistance < 34) && (currentDistance >= 32)){   
+                bg_road.style.animation = 'slide-left2 1s linear infinite';
+            }else if((currentDistance < 49.5) && (currentDistance >= 34)){
+                moving_hurdle2.style.display='block';
+                moving_hurdle2.style.animation = 'slide-left_hurdle 2s linear infinite';
+            }else if(currentDistance >= 49.5){  //난도 상승(3->4단계)
+                difficulty.textContent = '4단계';
+                moving_hurdle2.style.display='none';
+                moving_hurdle3.style.display='block';
+                moving_hurdle3.style.animation = 'slide-left_hurdle 2s linear infinite';
+                target_hurdle = moving_hurdle3;
             }
 
 }
@@ -177,7 +198,7 @@ function jump() {
                     
                 }else{
                     startJump();
-                    setTimeout(finishJump, 600);
+                    setTimeout(finishJump, 800);
                 }
 }
 
@@ -192,6 +213,7 @@ function restart() {
     bg_road.style.animation = 'pause';
     moving_hurdle.style.animation = 'pause';
     moving_hurdle2.style.animation = 'pause';
+    moving_hurdle3.style.animation = 'pause';
     currentDistance = 0.0;
     game_finish = 0;
     touchCount = 0;
@@ -201,6 +223,7 @@ function restart() {
     target_hurdle = moving_hurdle;
     moving_hurdle.style.display = 'block';
     moving_hurdle2.style.display = 'none';
+    moving_hurdle3.style.display = 'none';
     clearInterval(clearcheck);
 
 }
