@@ -4008,6 +4008,24 @@
 	background-color: rgb(238, 255, 0); /* For demonstration */
 	text-align: center;
 }
+
+#banner3 .top_section_volleyball {
+	z-index: 4;
+	display: grid;
+	grid-template-columns: 25% 25% 25% 25%;
+	grid-template-rows: 100%;
+	top: 0;
+	width: 100%;
+	height: 6%;
+	position: absolute;
+	font-family: "Dongle", sans-serif;
+    font-weight: 700;
+	font-style: normal;
+  	font-size: 7vw;
+	color: rgb(0, 0, 0);
+	border: 5px solid;
+}
+
 #banner3 .top_section_fencing .healthbar1{
 	grid-area:1/2/2/3;
 	width:100%;
@@ -4041,6 +4059,80 @@
 	position: absolute;
 }
 
+#banner3 .button_section_volleyball {
+	display: grid;
+	grid-template-columns: 46% 18% 18% 18%;
+	grid-template-rows: 50% 50%;
+	z-index: 3;
+	padding: 2% 1% 0% 5%;
+	top: 59%;
+	width: 100%;
+	height: 13%;
+	border: 5px solid;
+	border-color: #dfa812;
+	border-radius: 2%;
+	background-color: #439aea;
+	position: absolute;
+}
+#banner3 .button_section_volleyball_up{
+	grid-area:1/3/2/4;
+	width:83%;
+	height: 90%;
+	margin-left: 10%;
+	background-image: url("../../images/type_up.png");
+	background-color: rgb(255, 0, 0); /* For demonstration */
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-align: center;
+}
+#banner3 .button_section_volleyball_down{
+	grid-area:2/3/3/4;
+	width:83%;
+	height: 90%;
+	margin-left: 10%;
+	background-image: url("../../images/type_down.png");
+	background-color: rgb(53, 19, 19); /* For demonstration */
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-align: center;
+}
+#banner3 .button_section_volleyball_left{
+	grid-area:2/2/3/3;
+	width:83%;
+	height: 90%;
+	margin-left: 20%;
+	background-image: url("../../images/type_left.png");
+	background-color: rgb(0, 255, 234); /* For demonstration */
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-align: center;
+}
+#banner3 .button_section_volleyball_right{
+	grid-area:2/4/3/5;
+	width:83%;
+	height: 90%;
+	background-image: url("../../images/type_right.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-align: center;
+}
+#banner3 .button_section_volleyball_spacebar{
+	grid-area:2/1/3/2;
+	width:90%;
+	height: 80%;
+	margin-top: 2%;
+	background-image: url("../../images/type_spacebar.png");
+	background-color: rgb(0, 0, 0); /* For demonstration */
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-align: center;
+}
+
 #banner3 .bottom_section_fencing  {
 	z-index: 3;
 	top: 72%;
@@ -4057,6 +4149,16 @@
 	background-position: center;
 	background-repeat: no-repeat;
 	*/
+	background-color: rgb(223, 224, 210); /* For demonstration */
+}
+#banner3 .bottom_section_volleyball  {
+	z-index: 3;
+	top: 72%;
+	width: 100%;
+	height: 28%;
+	position: absolute;
+	max-width: 100%;
+	max-height: 100%;
 	background-color: rgb(223, 224, 210); /* For demonstration */
 }
 #banner3 .bottomhealth_section_fencing {
@@ -4107,14 +4209,24 @@
 
 #banner3 .stage {
 	z-index: 2;
-	width: 100%; /* Background image width should be greater than 100% */
+	width: 100%;
 	height: 56%;
-	background-image: url("../../images/stage.png"); /* Replace with your image URL */
+	background-image: url("../../images/stage.png");
 	background-size: cover;
 	position: absolute;
 	top: 6%;
 	left: 0;
+}
 
+#banner3 .beach {
+	z-index: 2;
+	width: 100%; 
+	height: 53%;
+	background-image: url("../../images/beach.gif"); 
+	background-size: cover;
+	position: absolute;
+	top: 6%;
+	left: 0;
 }
 
 @keyframes slide-left10 {
@@ -4197,6 +4309,13 @@
     background-color: rgba(255, 0, 0, 0.3); /* 투명한 빨간색 */
     pointer-events: none; /* 이 영역이 클릭 이벤트를 방해하지 않도록 */
   }
+  .highlight-hurdle-zone3 {
+	display: none;
+    position: absolute;
+	z-index: 7;
+    background-color: rgba(250, 3, 209, 0.932); /* 투명한 빨간색 */
+    pointer-events: none; /* 이 영역이 클릭 이벤트를 방해하지 않도록 */
+  }
 
 
 .masking {
@@ -4228,6 +4347,16 @@
 	left:100%;
 	max-width:100px;
 	max-height:117px;
+	/*부드럽게 이동*/
+	transition: left 4.0s linear;
+}
+#moving_hurdle3{
+	display: none;
+	position: absolute;
+	z-index: 5;
+	top:49%;
+	left:100%;
+	height: 15%;
 	/*부드럽게 이동*/
 	transition: left 4.0s linear;
 }
@@ -4263,15 +4392,6 @@
 	max-height:60%;
 	transition: left 1.0s linear;
 }
-#me_{
-	position: absolute;
-	z-index: 6;
-	top:32.5%;
-	left:0%;
-	width:auto;
-	height:20%;
-	transition: left 1.0s linear;
-}
 
 #enemy{
 	position: absolute;
@@ -4281,8 +4401,6 @@
 	width:auto;
 	height:21%;
 	transition: left 1.0s linear;
-
-
 }
 
 #info{
@@ -4332,10 +4450,39 @@
 	max-height:auto;
 }
 
+.ball {
+	width: 12%;
+	height: 12%;
+	z-index: 10;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 
+#player1{
+	position: absolute;
+	z-index: 1;
+	top:85%;
+	left:25%;
+	width:auto;
+	height:20%;
+	transform: translate(-50%, -50%);
+	transition: left 1.0 linear;
+}
+#wall{
+	position: absolute;
+	z-index: 1;
+	top:90%;
+	left:51%;
+	width:2%;
+	height:25%;
+	background-color: #000;
+	transform: translate(-50%, -50%)
+}
 
 .jump {
-            animation: jump 0.3s 0s 2 ease-out alternate;
+            animation: jump 0.4s 0s 2 ease-out alternate;
         }
 
 @keyframes jump {
@@ -4345,6 +4492,19 @@
             100% {
                 top: 35%;
             }
+}
+
+.jump_volleyball {
+	animation: jump_volleyball 0.4s 0s 2 ease-out alternate;
+}
+
+@keyframes jump_volleyball {
+0% {
+	top: 85%;
+		}
+	100% {
+		top: 65%;
+	}
 }
 
 
