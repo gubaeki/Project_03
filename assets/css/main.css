@@ -4334,8 +4334,7 @@
 	z-index: 5;
 	top:53.5%;
 	left:100%;
-	max-width:100px;
-	max-height:117px;
+	height: 15%;
 	/*부드럽게 이동*/
 	transition: left 4.0s linear;
 }
@@ -4345,8 +4344,7 @@
 	z-index: 5;
 	top:53.5%;
 	left:100%;
-	max-width:100px;
-	max-height:117px;
+	height: 15%;
 	/*부드럽게 이동*/
 	transition: left 4.0s linear;
 }
