@@ -7,11 +7,25 @@
     var centerbanner2X = banner2Width / 2;
     var minbanner2X = centerbanner2X - (innerbanner2Width / 2); 
     var maxbanner2X = centerbanner2X + (innerbanner2Width / 2);
-
+    var messageElement = document.getElementById('event_message');
 
     // event 종류 관련 변수
     var select_event = 0;
 
+    // 이미지 Preload
+    const images = [
+        "images/message_krun.png",
+        "images/message_krun.png",
+        "images/message_krun.png",
+        "images/message_fencing.png"
+    ];
+    const preload = (images) => {
+        images.forEach((image) => {
+            const img = new Image();
+            img.src = image;
+        });
+    };
+    preload(images);
 
 document.addEventListener('DOMContentLoaded', function() {
     var message = document.getElementById('event_sub');
@@ -111,8 +125,6 @@ document.addEventListener('DOMContentLoaded', function() {
         //var y = event.clientY;
         var x = event.pageX;
         var y = event.pageY;
-
-        var messageElement = document.getElementById('event_message');
 
         if (x >= kboat_minX && x <= kboat_maxX && y >= kboat_minY && y <= kboat_maxY) {
             messageElement.src ="images/message_krun.png";
