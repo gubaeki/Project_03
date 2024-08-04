@@ -45,7 +45,7 @@ let movingLeft = false;
 let movingRight = false;
 let isJumping = false; // 점프 여부
 let jumpVelocityY = -4; //점프 시 한번에 이동하는 픽셀 크기(점프 속도 결정)
-let jumpingGravity = 0.1; // 점프 중력
+let jumpingGravity = 0.07; // 점프 중력
 let movingSpeed = 2; // 이동속도
 let myposX = (meRect.width/2); //첫위치
 player1.style.left = myposX + 'px';
@@ -71,6 +71,9 @@ let enemyPresentScore = 0;
 let PresentRound = 1;
 let roundFinish = false;
 let gameFinish = false;
+
+//공격 세팅
+let isPressHitting = false;
 
 
 //애니메이션 세팅
@@ -138,8 +141,10 @@ function moveBall() {
         (posY >= gameCanvasContainer.clientHeight - wall.clientHeight - ball_radius)){
             if((previous_posY < (gameCanvasContainer.clientHeight - wall.clientHeight - ball_radius)) && (velocityY > 0)){
                 velocityY *= -1;
+                posY += velocityY;
             }else{
                 velocityX *= -1;
+                posX += velocityX;
             }
     }
  
@@ -195,79 +200,85 @@ function moveBall() {
 
     //충돌여부감지
     if(isCollisionCheck(posX, posY, myposX, myposY)){ // 내가 충돌했으면
-        switch (ballWithPlayerCollisionDir){
-            case 0:
-                velocityY *= -1;
-                posY += velocityY;
-                break;
-            case 1:
-                if(velocityX<0){
-                    if(leftBallrightPlayer){
-                        velocityX = velocityX - 1;
-                        velocityY *= -1;
+        if(isPressHitting){ // 공격버튼 눌렀으면 
+            velocityX = 8;
+            velocityY = 8;
+        }else{
+            switch (ballWithPlayerCollisionDir){
+                case 0:
+                    velocityY *= -1;
+                    posY += velocityY;
+                    break;
+                case 1:
+                    if(velocityX<0){
+                        if(leftBallrightPlayer){
+                            velocityX = velocityX - 1;
+                            velocityY *= -1;
+                        }else{
+                            velocityX *= -1;
+                            velocityY *= -1;
+                        }
                     }else{
-                        velocityX *= -1;
-                        velocityY *= -1;
+                        if(leftBallrightPlayer){
+                            velocityX *= -1;
+                            velocityY *= -1;
+                        }else{
+                            velocityX = velocityX + 1;
+                            velocityY *= -1;
+                        }
                     }
-                }else{
-                    if(leftBallrightPlayer){
-                        velocityX *= -1;
-                        velocityY *= -1;
+                    posX += velocityX;
+                    posY += velocityY;
+                    break;
+                case 2:
+                    if(velocityX<0){
+                        if(leftBallrightPlayer){
+                            velocityX = velocityX - 2;
+                            velocityY *= -1;
+                        }else{
+                            velocityX *= -1;
+                            velocityY *= -1;
+                        }
                     }else{
-                        velocityX = velocityX + 1;
-                        velocityY *= -1;
+                        if(leftBallrightPlayer){
+                            velocityX *= -1;
+                            velocityY *= -1;
+                        }else{
+                            velocityX = velocityX + 2;
+                            velocityY *= -1;
+                        }
                     }
-                }
-                posX += velocityX;
-                posY += velocityY;
-                break;
-            case 2:
-                if(velocityX<0){
-                    if(leftBallrightPlayer){
-                        velocityX = velocityX - 2;
-                        velocityY *= -1;
+                    posX += velocityX;
+                    posY += velocityY;
+                    break;
+                case 3:
+                    if(velocityX<0){
+                        if(leftBallrightPlayer){
+                            velocityX = velocityX - 1;
+                            velocityY *= -1;
+                        }else{
+                            velocityX *= -1;
+                            velocityY *= -1;
+                        }
                     }else{
-                        velocityX *= -1;
-                        velocityY *= -1;
+                        if(leftBallrightPlayer){
+                            velocityX *= -1;
+                            velocityY *= -1;
+                        }else{
+                            velocityX = velocityX + 1;
+                            velocityY *= -1;
+                        }
                     }
-                }else{
-                    if(leftBallrightPlayer){
-                        velocityX *= -1;
-                        velocityY *= -1;
-                    }else{
-                        velocityX = velocityX + 2;
-                        velocityY *= -1;
-                    }
-                }
-                posX += velocityX;
-                posY += velocityY;
-                break;
-            case 3:
-                if(velocityX<0){
-                    if(leftBallrightPlayer){
-                        velocityX = velocityX - 1;
-                        velocityY *= -1;
-                    }else{
-                        velocityX *= -1;
-                        velocityY *= -1;
-                    }
-                }else{
-                    if(leftBallrightPlayer){
-                        velocityX *= -1;
-                        velocityY *= -1;
-                    }else{
-                        velocityX = velocityX + 1;
-                        velocityY *= -1;
-                    }
-                }
-                posX += velocityX;
-                posY += velocityY;
-                break;
-            case 4:
-                velocityX *= -1;
-                posX += velocityX;
-                break;
+                    posX += velocityX;
+                    posY += velocityY;
+                    break;
+                case 4:
+                    velocityX *= -1;
+                    posX += velocityX;
+                    break;
+            }
         }
+        
     }else if(isCollisionCheck(posX, posY, enemyposX, enemyposY)){ // 상대가 충돌했으면
         switch (ballWithPlayerCollisionDir){
             case 0:
@@ -379,6 +390,18 @@ function stopSideMoving() {
 
 function startJumpMoving() {
     isJumping = true;
+}
+
+
+//------------------------공격 관련 함수
+function powerHitting() {
+    if(!isPressHitting){
+        isPressHitting = true;
+        setTimeout(function(){
+            isPressHitting = false;
+            },500);
+    }
+    
 }
 
 
@@ -506,8 +529,11 @@ function restart() {
     myPresentScore = 0;
     enemyPresentScore = 0;
     PresentRound = 1;
+    myscore.textContent = `${myPresentScore}`;
+    enemyscore.textContent = `${enemyPresentScore}`;
+    round.textContent = `Round ${PresentRound}`;
     }
-    
+
 bt_up.addEventListener('mousedown', startJumpMoving);
 bt_down.addEventListener('touchstart', () => {startSideMoving('down')});
 bt_down.addEventListener('touchend', stopSideMoving);
@@ -515,3 +541,4 @@ bt_left.addEventListener('touchstart', () => {startSideMoving('left')});
 bt_left.addEventListener('touchend', stopSideMoving);
 bt_right.addEventListener('touchstart', () => {startSideMoving('right')});
 bt_right.addEventListener('touchend', stopSideMoving);
+bt_spacebar.addEventListener('mousedown',powerHitting);
