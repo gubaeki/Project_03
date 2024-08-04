@@ -16,6 +16,7 @@ const blackmssk = document.getElementById('blackmask');
 const waiting_volleyball = document.getElementById('waiting_volleyball');
 const gameover = document.getElementById('gameover');
 const win = document.getElementById('win');
+const readygo = document.getElementById('readygo');
 
 //버튼
 const bt_up = document.getElementById('bt_up')
@@ -467,17 +468,29 @@ blackmssk.addEventListener('touchstart', () => {
         blackmssk.style.display = 'none';
         waiting_volleyball.style.display = 'none';
         clearPosition();
-        setTimeout(moveBall, 1000);
-        //gameover.style.display = 'none';
+        readygo.setAttribute('src', 'images/readygo.gif');
+        readygo.style.display = 'block';
+        setTimeout(function(){
+            readygo.style.display = 'none';
+            },1300);
+        setTimeout(moveBall, 1400);
     }
 
 });
 
 gameCanvasContainer.addEventListener('touchstart', () => {
+    if(roundFinish){
         //위치 초기화
+        roundFinish = false;
         clearPosition();
-        setTimeout(moveBall, 1000);
-    
+        readygo.setAttribute('src', '');
+        readygo.setAttribute('src', 'images/readygo.gif');
+        readygo.style.display = 'block';
+        setTimeout(function(){
+            readygo.style.display = 'none';
+            },1300);
+        setTimeout(moveBall, 1400);
+    }
 })
 
 
@@ -487,10 +500,14 @@ function restart() {
     waiting_volleyball.style.display = 'block';
     gameover.style.display = 'none';
     win.style.display = 'none';
+    readygo.setAttribute('src', '');
+    readygo.style.display = 'none';
     gameFinish = false;
-    
-    
+    myPresentScore = 0;
+    enemyPresentScore = 0;
+    PresentRound = 1;
     }
+    
 bt_up.addEventListener('mousedown', startJumpMoving);
 bt_down.addEventListener('touchstart', () => {startSideMoving('down')});
 bt_down.addEventListener('touchend', stopSideMoving);
