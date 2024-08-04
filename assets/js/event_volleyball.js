@@ -75,22 +75,31 @@ let gameFinish = false;
 //애니메이션 세팅
 let requestAni;
 
-//let moveInterval; 
-//let intervalTime = 100; //0.1초
 
 
-//canvas 세팅
-//const canvasID = document.getElementById('game-canvas');
-//const canvas = document.querySelector("#game-canvas");
-//let context = canvas.getContext('2d');
-
-//imgBeach = new image("images/beach.gif");
-//let imgBeach = new Image();
-//imgBeach.src = "../../images/bt_krace.png";
-//context.drawImage(imgBeach, 0, 0, 500, 500);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-
+// 이미지 Preload
+const images = [
+    "../../images/waiting_volleyball.gif",
+    "../../images/ball.gif",
+    "../../images/beach.gif",
+    "../../images/walking_volley.gif",
+    "../../images/walking_volley2.gif",
+    "../../images/type_down.png",
+    "../../images/type_left.png",
+    "../../images/type_right.png",
+    "../../images/type_spacebar.png",
+    "../../images/type_up.png",
+    "../../images/win.gif"
+];
+const preload = (images) => {
+    images.forEach((image) => {
+        const img = new Image();
+        img.src = image;
+    });
+};
+preload(images);
 
 
 
@@ -340,8 +349,6 @@ function moveBall() {
     previous_posX = posX;
     previous_posY = posY;
 
-
-
     requestAni = requestAnimationFrame(moveBall);
 }
 
@@ -444,9 +451,12 @@ function clearPosition(){
     ball.style.left = `${posX}px`;
     ball.style.top = `${posY}px`;
     player1.style.left = `${myposX}px`;
+    player1.style.top = myposY + 'px';
     player2.style.left = `${enemyposX}px`;
-    
+    player2.style.top = enemyposY + 'px';
 
+    isJumping = false;
+    jumpVelocityY = -4;
 }
 
 blackmssk.addEventListener('touchstart', () => {
