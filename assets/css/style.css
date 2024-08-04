@@ -218,16 +218,24 @@ span.check {
   display: inline;
 }
 #game-canvas-container {
-  position: relative;
+	width: 100%; 
+	height: 53%;
+	position: absolute;
+  top: 6%;
+	left: 0;
+  background-image: url("../../images/beach.gif");
+  background-size: cover;
 }
 #game-canvas {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: var(--canvas-width);
-  height: var(--canvas-height);
+  width: 100%;
+  height: 100%;
   image-rendering: pixelated;
 }
+
+
 #game-canvas.graphic-soft {
   image-rendering: auto;
 }

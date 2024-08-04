@@ -4071,7 +4071,7 @@
 	border: 5px solid;
 	border-color: #dfa812;
 	border-radius: 2%;
-	background-color: #439aea;
+	background-color: #2ddfa3;
 	position: absolute;
 }
 #banner3 .button_section_volleyball_up{
@@ -4080,7 +4080,7 @@
 	height: 90%;
 	margin-left: 10%;
 	background-image: url("../../images/type_up.png");
-	background-color: rgb(255, 0, 0); /* For demonstration */
+	background-color: #2ddfa3;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -4092,7 +4092,7 @@
 	height: 90%;
 	margin-left: 10%;
 	background-image: url("../../images/type_down.png");
-	background-color: rgb(53, 19, 19); /* For demonstration */
+	background-color: #2ddfa3;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -4104,7 +4104,7 @@
 	height: 90%;
 	margin-left: 20%;
 	background-image: url("../../images/type_left.png");
-	background-color: rgb(0, 255, 234); /* For demonstration */
+	background-color: #2ddfa3;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -4115,6 +4115,7 @@
 	width:83%;
 	height: 90%;
 	background-image: url("../../images/type_right.png");
+	background-color: #2ddfa3;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -4126,7 +4127,7 @@
 	height: 80%;
 	margin-top: 2%;
 	background-image: url("../../images/type_spacebar.png");
-	background-color: rgb(0, 0, 0); /* For demonstration */
+	background-color: #2ddfa3;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -4316,7 +4317,13 @@
     background-color: rgba(250, 3, 209, 0.932); /* 투명한 빨간색 */
     pointer-events: none; /* 이 영역이 클릭 이벤트를 방해하지 않도록 */
   }
-
+  .highlight_me_volley {
+    position: absolute;
+	z-index: 7;
+    background-color: rgba(228, 0, 0, 0.5); /* 투명한 빨간색 */
+    pointer-events: none; /* 이 영역이 클릭 이벤트를 방해하지 않도록 */
+	transform: translate(-50%, -50%);
+  }
 
 .masking {
   position: absolute;
@@ -4453,16 +4460,12 @@
 	height: 12%;
 	z-index: 10;
 	position: absolute;
-	top: 50%;
-	left: 50%;
 	transform: translate(-50%, -50%);
 }
 
 #player1{
 	position: absolute;
 	z-index: 1;
-	top:85%;
-	left:25%;
 	width:auto;
 	height:20%;
 	transform: translate(-50%, -50%);
@@ -4475,7 +4478,7 @@
 	left:51%;
 	width:2%;
 	height:25%;
-	background-color: #000;
+	/*background-color: #000; */ /*확인을 위해*/
 	transform: translate(-50%, -50%)
 }
 
