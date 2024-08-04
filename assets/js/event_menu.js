@@ -16,7 +16,7 @@
     const images = [
         "images/message_krun.png",
         "images/message_krun.png",
-        "images/message_krun.png",
+        "images/message_volleyball.png",
         "images/message_fencing.png"
     ];
     const preload = (images) => {
@@ -83,17 +83,6 @@ document.addEventListener('DOMContentLoaded', function() {
     highlightFencing.style.height = (fencing_maxY - fencing_minY) + 'px';
     */
 
-    // Click.gif 위치 정의
-    /*
-    moving_click1.style.left = kboat_minX + (innerbanner2Width * 5 /100) + 'px';
-    moving_click1.style.top = kboat_maxY - (banner2Height * 4 /100) + 'px';
-    moving_click2.style.left = krace_minX + (innerbanner2Width * 5 /100)+ 'px';
-    moving_click2.style.top = krace_maxY - (banner2Height * 4 /100)+ 'px';
-    moving_click3.style.left = krun_minX + (innerbanner2Width * 5 /100)+ 'px';
-    moving_click3.style.top = krun_maxY - (banner2Height * 4 /100)+ 'px';
-    */
-
-
     // 예/아니오 버튼 이벤트 핸들러 설정
     document.querySelector('#yes-btn').addEventListener('click', function(event) {
         if(select_event===1){
@@ -131,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
             message.style.display = 'block';
             select_event = 1;
         } else if (x >= krace_minX && x <= krace_maxX && y >= krace_minY && y <= krace_maxY) {
-            messageElement.src ="images/message_krun.png";
+            messageElement.src ="images/message_volleyball.png";
             message.style.display = 'block';
             select_event = 2;
         } else if (x >= krun_minX && x <= krun_maxX && y >= krun_minY && y <= krun_maxY) {
