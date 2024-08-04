@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 
-<html><head><title>백호돌이 어드벤처 by NJ</title><meta charset="utf-8"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="assets/css/main.css"></head><body>
+<html><head><title>백호돌이 어드벤처 by NJ</title><meta charset="utf-8"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css"><link rel="stylesheet" href="assets/css/style.css"></head><body>
 
 
 	
@@ -17,16 +19,34 @@
 					-->
 
 					<!--스코어 섹션-->
-					<div class="top_section_volleyball">
+					<div id="top_section_volleyball_id" class="top_section_volleyball">
 						<div class="volley_score">스코어섹션</div>
 					</div>
 
-					<!--메인 섹션-->
+					<!--메인 섹션 -기존 방식-->
+					<!-- 
 					<div id = "beach" class="beach">
 						<img id="ball" class="ball" src="images/ball.gif" />
 						<img id="player1" class="player1" src="images/walking_volley.gif" />
 						<div id="wall" ></div>
 					</div>
+					-->
+					
+					<div id="game-canvas-container">
+						<img id="player1" class="player1" src="images/walking_volley.gif" />
+						<img id="ball" class="ball" src="images/ball.gif" />
+						<div id="wall" ></div>
+						<div id="highlight_me_volley" class="highlight_me_volley"></div>
+						<canvas id="game-canvas">
+							
+							
+							
+						</canvas>
+					</div>
+
+
+
+
 
 					<!--버튼 섹션-->
 					<div class="button_section_volleyball">
