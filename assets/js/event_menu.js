@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if(select_event===1){
             location.href='krun.html';
         }else if(select_event===2){
-            location.href='krun.html';
+            location.href='volleyball.html';
         }else if(select_event===3){
             location.href='krun.html';
         }
