@@ -38,18 +38,18 @@ let game_finish = 0;
 
     // 이미지 Preload
     const images = [
-        "images/attack_high.png",
-        "images/attack_middle.png",
-        "images/attack_low.png",
-        "images/defense_high.png",
-        "images/defense_middle.png",
-        "images/defense_low.png",
-        "images/enemy_attack_action.png",
-        "images/enemy_defense_action.png",
-        "images/enemy_damaged_action.png",
-        "images/me_attack_action.png",
-        "images/me_defense_action.png",
-        "images/me_damaged_action.png"
+        "../../images/attack_high.png",
+        "../../images/attack_middle.png",
+        "../../images/attack_low.png",
+        "../../images/defense_high.png",
+        "../../images/defense_middle.png",
+        "../../images/defense_low.png",
+        "../../images/enemy_attack_action.png",
+        "../../images/enemy_defense_action.png",
+        "../../images/enemy_damaged_action.png",
+        "../../images/me_attack_action.png",
+        "../../images/me_defense_action.png",
+        "../../images/me_damaged_action.png"
     ];
     const preload = (images) => {
         images.forEach((image) => {
