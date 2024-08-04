@@ -14,10 +14,10 @@
 
     // 이미지 Preload
     const images = [
-        "images/message_krun.png",
-        "images/message_krun.png",
-        "images/message_volleyball.png",
-        "images/message_fencing.png"
+        "../../images/message_krun.png",
+        "../../images/message_krun.png",
+        "../../images/message_volleyball.png",
+        "../../images/message_fencing.png"
     ];
     const preload = (images) => {
         images.forEach((image) => {
