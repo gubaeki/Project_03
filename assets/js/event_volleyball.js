@@ -2,11 +2,20 @@
 const ball = document.getElementById('ball');
 const gameCanvasContainer = document.getElementById('game-canvas-container');
 const player1 = document.getElementById('player1');
+const player2 = document.getElementById('player2');
 const top_section_volleyball = document.getElementById('top_section_volleyball_id');
 let top_section_Rect = top_section_volleyball.getBoundingClientRect('top_section_volleyball');
 let beachRect = gameCanvasContainer.getBoundingClientRect('gameCanvasContainer');
 let meRect = player1.getBoundingClientRect('player1');
+let enemyRect = player2.getBoundingClientRect('player2');
+const myscore = document.getElementById('myscore');
+const enemyscore = document.getElementById('enemyscore');
+const round = document.getElementById('round');
 
+const blackmssk = document.getElementById('blackmask');
+const waiting_volleyball = document.getElementById('waiting_volleyball');
+const gameover = document.getElementById('gameover');
+const win = document.getElementById('win');
 
 //버튼
 const bt_up = document.getElementById('bt_up')
@@ -17,7 +26,7 @@ const bt_spacebar = document.getElementById('bt_spacebar')
 
 //공 세팅
 let posX = 50;//첫위치
-let posY = beachRect.height * 0.2; 
+let posY = beachRect.height * 0.15; 
 let previous_posX = 0;
 let previous_posY = 0;
 let velocityX = 4; //한번에 이동하는 픽셀 크기(공의 속도 결정)
@@ -37,18 +46,35 @@ let isJumping = false; // 점프 여부
 let jumpVelocityY = -4; //점프 시 한번에 이동하는 픽셀 크기(점프 속도 결정)
 let jumpingGravity = 0.1; // 점프 중력
 let movingSpeed = 2; // 이동속도
-let myposX = (meRect.width/2);//첫위치
+let myposX = (meRect.width/2); //첫위치
 player1.style.left = myposX + 'px';
-let myposY = beachRect.height - (meRect.height/2); // 절대좌표이므로 스코어섹션 높이도 포함시켜줘야함
+let myposY = beachRect.height - (meRect.height/2);
 player1.style.top = myposY + 'px';
-const highlightme = document.getElementById('highlight_me_volley');
+
+//상대 캐릭터 세팅
+let isEnemySideMoving = true; // 좌우이동 여부
+let EnemySideMovingDir = 0; // 0: 왼쪽방향이동 / 1: 오른쪽 방향이동
+let enemyMovingSpeed = 1; // 적 이동속도
+let enemyposX = beachRect.width - (enemyRect.width/2); //첫위치
+player2.style.left = enemyposX + 'px';
+let enemyposY = beachRect.height - (enemyRect.height/2);
+player2.style.top = enemyposY + 'px';
 
 //충돌 세팅
 let ballWithPlayerCollisionDir = 0; // 공과 플레이어의 충돌 방향(0~4)
 let leftBallrightPlayer = false; // 충돌 시 공이 왼쪽에서 맞았는가 
 
+//라운드 및 점수 세팅
+let myPresentScore = 0;
+let enemyPresentScore = 0;
+let PresentRound = 1;
+let roundFinish = false;
+let gameFinish = false;
+
 
 //애니메이션 세팅
+let requestAni;
+
 //let moveInterval; 
 //let intervalTime = 100; //0.1초
 
@@ -78,20 +104,25 @@ function moveBall() {
     // 양쪽 벽에 닿았을때
     if ((posX <= 0 + ball_radius) || (posX >= (gameCanvasContainer.clientWidth - ball_radius))) {
         velocityX *= -1;
+        posX += velocityX;
     }
     // 천장에 닿았을때
     if (posY <= 0 + ball_radius) {
         velocityY *= -1;
+        posY += velocityY;
     }
-    // 바닥에 닿았을때
+    // 바닥에 닿았을때(라운드 종료)
     if (posY >= (gameCanvasContainer.clientHeight - ball_radius)) {
         velocityY *= -1;
         posY += velocityY;
+        roundFinish = true;
+        roundResultCheck();
+        return;
+        
     }
 
 
     // 네트 옆면에 닿았을때
-
     if ((posX >= (gameCanvasContainer.clientWidth/2)-2 - ball_radius) && 
         (posX <= (gameCanvasContainer.clientWidth/2)+2 + ball_radius) && 
         (posY >= gameCanvasContainer.clientHeight - wall.clientHeight - ball_radius)){
@@ -100,8 +131,6 @@ function moveBall() {
             }else{
                 velocityX *= -1;
             }
-        
-        
     }
  
     //내 좌우위치
@@ -119,8 +148,6 @@ function moveBall() {
         }
         player1.style.left = `${myposX}px`;
     }
-
-
     //내 상하위치
     if(isJumping){
         jumpVelocityY += jumpingGravity;
@@ -135,8 +162,103 @@ function moveBall() {
         player1.style.top = `${myposY}px`;
     }
 
+
+    //적 좌우위치(시작하면 좌우로 반복이동)
+    if(isEnemySideMoving){
+        if(EnemySideMovingDir === 0){ // 왼쪽으로 이동중
+            enemyposX -= enemyMovingSpeed;
+            if(enemyposX < (gameCanvasContainer.clientWidth/2) + (enemyRect.width/2)){ //왼쪽 네트에 닿으면 반대방향으로 이동
+                enemyposX += enemyMovingSpeed;
+                EnemySideMovingDir = 1;
+            }
+        }else if(EnemySideMovingDir === 1){ // 오른쪽으로 이동중
+            enemyposX += enemyMovingSpeed;
+            if(enemyposX > ((gameCanvasContainer.clientWidth) - (enemyRect.width/2))){ // 오른쪽 벽에 닿으면 반대방향으로 이동
+                enemyposX -= enemyMovingSpeed;
+                EnemySideMovingDir = 0;
+            }
+    
+        }
+        player2.style.left = `${enemyposX}px`;
+    }
+
+
     //충돌여부감지
-    if(isCollisionCheck(posX, posY, myposX, myposY)){
+    if(isCollisionCheck(posX, posY, myposX, myposY)){ // 내가 충돌했으면
+        switch (ballWithPlayerCollisionDir){
+            case 0:
+                velocityY *= -1;
+                posY += velocityY;
+                break;
+            case 1:
+                if(velocityX<0){
+                    if(leftBallrightPlayer){
+                        velocityX = velocityX - 1;
+                        velocityY *= -1;
+                    }else{
+                        velocityX *= -1;
+                        velocityY *= -1;
+                    }
+                }else{
+                    if(leftBallrightPlayer){
+                        velocityX *= -1;
+                        velocityY *= -1;
+                    }else{
+                        velocityX = velocityX + 1;
+                        velocityY *= -1;
+                    }
+                }
+                posX += velocityX;
+                posY += velocityY;
+                break;
+            case 2:
+                if(velocityX<0){
+                    if(leftBallrightPlayer){
+                        velocityX = velocityX - 2;
+                        velocityY *= -1;
+                    }else{
+                        velocityX *= -1;
+                        velocityY *= -1;
+                    }
+                }else{
+                    if(leftBallrightPlayer){
+                        velocityX *= -1;
+                        velocityY *= -1;
+                    }else{
+                        velocityX = velocityX + 2;
+                        velocityY *= -1;
+                    }
+                }
+                posX += velocityX;
+                posY += velocityY;
+                break;
+            case 3:
+                if(velocityX<0){
+                    if(leftBallrightPlayer){
+                        velocityX = velocityX - 1;
+                        velocityY *= -1;
+                    }else{
+                        velocityX *= -1;
+                        velocityY *= -1;
+                    }
+                }else{
+                    if(leftBallrightPlayer){
+                        velocityX *= -1;
+                        velocityY *= -1;
+                    }else{
+                        velocityX = velocityX + 1;
+                        velocityY *= -1;
+                    }
+                }
+                posX += velocityX;
+                posY += velocityY;
+                break;
+            case 4:
+                velocityX *= -1;
+                posX += velocityX;
+                break;
+        }
+    }else if(isCollisionCheck(posX, posY, enemyposX, enemyposY)){ // 상대가 충돌했으면
         switch (ballWithPlayerCollisionDir){
             case 0:
                 velocityY *= -1;
@@ -220,10 +342,10 @@ function moveBall() {
 
 
 
-    requestAnimationFrame(moveBall);
+    requestAni = requestAnimationFrame(moveBall);
 }
 
-moveBall();
+//moveBall();
 
 
 
@@ -287,7 +409,78 @@ function isCollisionCheck(posX, posY, myposX, myposY) {
     return false;
   }
 
+function roundResultCheck(){
+    if(posX < (gameCanvasContainer.clientWidth)/2){ // 내 네트에 떨어지면
+        enemyPresentScore += 1;
+        PresentRound += 1;
+        enemyscore.textContent = `${enemyPresentScore}`;
+    }else{ // 상대 네트에 떨어지면
+        myPresentScore += 1;
+        PresentRound += 1;
+        myscore.textContent = `${myPresentScore}`; 
+    }
+    if(myPresentScore >= 15){
+        gameFinish = true;
+        blackmssk.style.display = 'block';
+        win.style.display = 'block';
+    }else if(enemyPresentScore >= 15){
+        gameFinish = true;
+        blackmssk.style.display = 'block';
+        gameover.style.display = 'block';
+    }
+    round.textContent = `Round ${PresentRound}`;
+}
 
+function clearPosition(){
+    posX = 50;
+    posY = beachRect.height * 0.2; 
+    myposX = (meRect.width/2);
+    myposY = beachRect.height - (meRect.height/2);
+    enemyposX = beachRect.width - (enemyRect.width/2);
+    enemyposY = beachRect.height - (enemyRect.height/2);
+    velocityX = 4;
+    velocityY = 4;
+
+    ball.style.left = `${posX}px`;
+    ball.style.top = `${posY}px`;
+    player1.style.left = `${myposX}px`;
+    player2.style.left = `${enemyposX}px`;
+    
+
+}
+
+blackmssk.addEventListener('touchstart', () => {
+    if(gameFinish){
+        restart();
+    }else{
+        // 첫 터치에 마스킹 지우기
+        blackmssk.style.display = 'none';
+        waiting_volleyball.style.display = 'none';
+        clearPosition();
+        setTimeout(moveBall, 1000);
+        //gameover.style.display = 'none';
+    }
+
+});
+
+gameCanvasContainer.addEventListener('touchstart', () => {
+        //위치 초기화
+        clearPosition();
+        setTimeout(moveBall, 1000);
+    
+})
+
+
+function restart() {
+    clearPosition();
+    blackmssk.style.display = 'block';
+    waiting_volleyball.style.display = 'block';
+    gameover.style.display = 'none';
+    win.style.display = 'none';
+    gameFinish = false;
+    
+    
+    }
 bt_up.addEventListener('mousedown', startJumpMoving);
 bt_down.addEventListener('touchstart', () => {startSideMoving('down')});
 bt_down.addEventListener('touchend', stopSideMoving);
