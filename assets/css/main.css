@@ -4120,6 +4120,7 @@
 	background-repeat: no-repeat;
 	background-position: center center;
 	text-align: center;
+	touch-action: none;
 }
 #banner3 .button_section_volleyball_left{
 	grid-area:2/2/3/3;
@@ -4494,6 +4495,7 @@
 	transform: translate(-50%, -50%);
 	transition: left 1.0 linear;
 }
+
 #player2{
 	position: absolute;
 	z-index: 1;
@@ -4512,6 +4514,7 @@
 	/*background-color: #000; */ /*확인을 위해*/
 	transform: translate(-50%, -50%)
 }
+
 
 .jump {
             animation: jump 0.4s 0s 2 ease-out alternate;
