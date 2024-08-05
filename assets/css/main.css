@@ -4084,10 +4084,9 @@
 
 #banner3 .button_section_volleyball {
 	display: grid;
-	grid-template-columns: 46% 18% 18% 18%;
-	grid-template-rows: 50% 50%;
+	grid-template-columns: 50% 50%;
+	grid-template-rows: 100%;
 	z-index: 3;
-	padding: 2% 1% 0% 5%;
 	top: 59%;
 	width: 100%;
 	height: 13%;
@@ -4097,6 +4096,7 @@
 	background-color: #f3ffd6;
 	position: absolute;
 }
+/*
 #banner3 .button_section_volleyball_up{
 	grid-area:1/3/2/4;
 	width:83%;
@@ -4144,18 +4144,44 @@
 	background-repeat: no-repeat;
 	background-position: center center;
 	text-align: center;
+}*/
+#joystick_container{
+	position: relative;
+	grid-area:1/2/2/3;
+	width:100%;
+	height: 100%;
+	background-image: url("../../images/joystick.png");
+	background-color: #f3ffd6;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-align: center;
+	touch-action: none;
 }
+#joystick {
+	z-index: 15;
+	position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: darkgray;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+	transform: translate(-50%, -50%);
+	touch-action: none; /* Prevent default touch actions */
+}
+
 #banner3 .button_section_volleyball_spacebar{
-	grid-area:2/1/3/2;
-	width:90%;
-	height: 80%;
-	margin-top: 2%;
+	grid-area:1/1/2/2;
+	width:100%;
+	height: 100%;
 	background-image: url("../../images/type_spacebar.png");
 	background-color: #f3ffd6;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center center;
 	text-align: center;
+	touch-action: none;
 }
 
 #banner3 .bottom_section_fencing  {
