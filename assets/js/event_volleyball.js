@@ -567,7 +567,6 @@ function restart() {
 joystickContainer.addEventListener('touchstart', (e) => {
     isDragging = true;
 
-
     e.preventDefault();
 });
 
@@ -577,9 +576,7 @@ joystickContainer.addEventListener('touchstart', (e) => {
             const x = touch.clientX - rect.left;
             const y = touch.clientY - rect.top;
 
-            console.log(x, y);
-            // 조이스틱 컨테이너를 벗어나지 않도록
-
+            // joystickContainer를 벗어나지 않도록
             joystick.style.left = Math.max(joystick.offsetWidth/2, Math.min(x, maxX)) + 'px';
             joystick.style.top = Math.max(joystick.offsetHeight/2, Math.min(y, maxY)) + 'px';
 
