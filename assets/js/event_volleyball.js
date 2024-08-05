@@ -13,6 +13,8 @@ const myscore = document.getElementById('myscore');
 const enemyscore = document.getElementById('enemyscore');
 const round = document.getElementById('round');
 
+
+
 const blackmssk = document.getElementById('blackmask');
 const waiting_volleyball = document.getElementById('waiting_volleyball');
 const gameover = document.getElementById('gameover');
@@ -77,10 +79,18 @@ let gameFinish = false;
 //공격 세팅
 let isPressHitting = false;
 
-
 //애니메이션 세팅
 let requestAni;
 
+//방향키 세팅(조이스틱)
+const joystickContainer = document.getElementById('joystick_container');
+const joystick = document.getElementById('joystick');
+const rect = joystickContainer.getBoundingClientRect();
+const maxX = rect.width - joystick.offsetWidth/2;
+const maxY = rect.height - joystick.offsetHeight/2;
+let centerX = rect.width/2;
+let centerY = rect.height/2;
+let isDragging = false; 
 
 
 
@@ -378,8 +388,10 @@ function startSideMoving(dir) {
     switch (direction){
         case 'left':
             movingLeft = true;
+            movingRight = false;
             break;
         case 'right':
+            movingLeft = false;
             movingRight = true;
             break;
         }
@@ -550,14 +562,64 @@ function restart() {
     round.textContent = `Round ${PresentRound}`;
     }
 
-bt_up.addEventListener('mousedown', startJumpMoving);
-//bt_down.addEventListener('touchstart', () => {startSideMoving('down')});
-bt_down.addEventListener('touchstart', (e) => {
-    e.preventDefault();    
+
+//조이스틱 관련 함수
+joystickContainer.addEventListener('touchstart', (e) => {
+    isDragging = true;
+
+
+    e.preventDefault();
 });
+
+    joystickContainer.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+            const touch = e.touches[0];
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+
+            console.log(x, y);
+            // 조이스틱 컨테이너를 벗어나지 않도록
+
+            joystick.style.left = Math.max(joystick.offsetWidth/2, Math.min(x, maxX)) + 'px';
+            joystick.style.top = Math.max(joystick.offsetHeight/2, Math.min(y, maxY)) + 'px';
+
+            if(centerX * 0.8 > x){
+                startSideMoving('left');
+            }else if(centerX * 1.2 < x){
+                startSideMoving('right');
+            }else if(centerY * 0.75 > y){
+                startJumpMoving();
+            }else{
+                isSideMoving = false;
+            }
+
+            e.preventDefault(); // Prevent default touch actions like scrolling
+        }
+    });
+
+    //터치를 멈추면 본래 자리로
+    joystickContainer.addEventListener('touchend', (e) => {
+        isDragging = false;
+        joystick.style.left = '50%';
+        joystick.style.top = '50%';
+        stopSideMoving();
+        e.preventDefault();
+    });
+
+    // Prevent scrolling when touching the joystick
+    joystickContainer.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+    });
+
+
+//bt_up.addEventListener('mousedown', startJumpMoving);
+//bt_down.addEventListener('touchstart', () => {startSideMoving('down')});
 //bt_down.addEventListener('touchend', stopSideMoving);
-bt_left.addEventListener('touchstart', () => {startSideMoving('left')});
-bt_left.addEventListener('touchend', stopSideMoving);
-bt_right.addEventListener('touchstart', () => {startSideMoving('right')});
-bt_right.addEventListener('touchend', stopSideMoving);
-bt_spacebar.addEventListener('mousedown',powerHitting);
+//bt_left.addEventListener('touchstart', () => {startSideMoving('left')});
+//bt_left.addEventListener('touchend', stopSideMoving);
+//bt_right.addEventListener('touchstart', () => {startSideMoving('right')});
+//bt_right.addEventListener('touchend', stopSideMoving);
+bt_spacebar.addEventListener('mousedown', (e) => {
+    powerHitting();
+    e.preventDefault();
+});
