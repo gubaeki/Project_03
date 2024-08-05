@@ -3,6 +3,7 @@ const ball = document.getElementById('ball');
 const gameCanvasContainer = document.getElementById('game-canvas-container');
 const player1 = document.getElementById('player1');
 const player2 = document.getElementById('player2');
+const player1_powerhitting = document.getElementById('player1_powerhitting');
 const top_section_volleyball = document.getElementById('top_section_volleyball_id');
 let top_section_Rect = top_section_volleyball.getBoundingClientRect('top_section_volleyball');
 let beachRect = gameCanvasContainer.getBoundingClientRect('gameCanvasContainer');
@@ -33,7 +34,8 @@ let previous_posY = 0;
 let velocityX = 4; //한번에 이동하는 픽셀 크기(공의 속도 결정)
 let velocityY = 4;
 let ball_radius = ball.clientWidth / 2; //공 반지름
-let gravity = 0.1; // 공 중력
+let gravity = 0.2; // 공 중력
+let isBoom = false; // 바닥 터지는 효과 활성화 여부
 
 //네트 세팅
 const wall = document.getElementById('wall');
@@ -128,6 +130,7 @@ function moveBall() {
     if (posY >= (gameCanvasContainer.clientHeight - ball_radius)) {
         velocityY *= -1;
         posY += velocityY;
+        isBoomCheck(); // 바닥 터지는 효과
         roundFinish = true;
         roundResultCheck();
         return;
@@ -397,13 +400,25 @@ function startJumpMoving() {
 function powerHitting() {
     if(!isPressHitting){
         isPressHitting = true;
+        player1.setAttribute('src', 'images/powerhitting.png');
         setTimeout(function(){
             isPressHitting = false;
+            player1.setAttribute('src', 'images/walking_volley.gif');
             },500);
     }
     
 }
 
+function isBoomCheck() {
+    if (isBoom){
+        ball.setAttribute('src', 'images/ball.gif');
+        isBoom = false;
+    }else{
+        ball.setAttribute('src', 'images/ball_end.png');
+        isBoom = true;
+    }
+    
+}
 
 
 // 공과 player 충돌
@@ -506,6 +521,7 @@ gameCanvasContainer.addEventListener('touchstart', () => {
         //위치 초기화
         roundFinish = false;
         clearPosition();
+        isBoomCheck();
         readygo.setAttribute('src', '');
         readygo.setAttribute('src', 'images/readygo.gif');
         readygo.style.display = 'block';
@@ -535,8 +551,11 @@ function restart() {
     }
 
 bt_up.addEventListener('mousedown', startJumpMoving);
-bt_down.addEventListener('touchstart', () => {startSideMoving('down')});
-bt_down.addEventListener('touchend', stopSideMoving);
+//bt_down.addEventListener('touchstart', () => {startSideMoving('down')});
+bt_down.addEventListener('touchstart', (e) => {
+    e.preventDefault();    
+});
+//bt_down.addEventListener('touchend', stopSideMoving);
 bt_left.addEventListener('touchstart', () => {startSideMoving('left')});
 bt_left.addEventListener('touchend', stopSideMoving);
 bt_right.addEventListener('touchstart', () => {startSideMoving('right')});
