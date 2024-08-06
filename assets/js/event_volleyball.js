@@ -580,12 +580,12 @@ joystickContainer.addEventListener('touchstart', (e) => {
             joystick.style.left = Math.max(joystick.offsetWidth/2, Math.min(x, maxX)) + 'px';
             joystick.style.top = Math.max(joystick.offsetHeight/2, Math.min(y, maxY)) + 'px';
 
-            if(centerX * 0.8 > x){
-                startSideMoving('left');
-            }else if(centerX * 1.2 < x){
-                startSideMoving('right');
-            }else if(centerY * 0.75 > y){
+            if(centerY * 0.4 > y && (centerX * 0.6 < x) && (x < centerX * 1.4)){
                 startJumpMoving();
+            }else if(centerX * 1.15 < x){
+                startSideMoving('right');
+            }else if(centerX * 0.85 > x){
+                startSideMoving('left');
             }else{
                 isSideMoving = false;
             }
@@ -616,7 +616,7 @@ joystickContainer.addEventListener('touchstart', (e) => {
 //bt_left.addEventListener('touchend', stopSideMoving);
 //bt_right.addEventListener('touchstart', () => {startSideMoving('right')});
 //bt_right.addEventListener('touchend', stopSideMoving);
-bt_spacebar.addEventListener('mousedown', (e) => {
+bt_spacebar.addEventListener('touchstart', (e) => {
     powerHitting();
     e.preventDefault();
 });
