@@ -3878,24 +3878,23 @@
 #banner3 .bg_river {
 	z-index: 2;
 	width: 200%; /* Background image width should be greater than 100% */
-	height: 50%;
+	top : 0%;
+	height: 75%;
 	background-image: url("../../images/river.png"); /* Replace with your image URL */
 	background-size: cover;
 	position: absolute;
-	top: 5%;
-	left: 0;
 
 }
 
 #banner3 .bg_road {
 	z-index: 3;
 	width: 200%; /* Background image width should be greater than 100% */
-	height: 75%;
+	top : 62%;
+	height: 36%;
 	background-image: url("../../images/road.png"); /* Replace with your image URL */
 	background-size: cover;
 	position: absolute;
-	top: -5%;
-	left: 0;
+
 
 }
 
@@ -3953,6 +3952,15 @@
 	background-color: rgb(111, 202, 255); /* For demonstration */
 }
 
+#banner3 .main_section {
+	display: block;
+	z-index: 1;
+	top: 10%;
+	width: 100%;
+	height: 60%;
+	position: absolute;
+}
+
 #banner3 .button_section {
 	display: flex;
 	text-align: center;
@@ -3970,6 +3978,7 @@
 	width: 100%;
 	height: 22%;
 	position: absolute;
+	border: 5px solid white;
 	max-width: 100%;
 	max-height: 100%;
 	background-color: rgb(223, 224, 210); /* For demonstration */
@@ -4182,6 +4191,7 @@
 	width: 100%;
 	height: 28%;
 	position: absolute;
+	border: 5px solid white;
 	max-width: 100%;
 	max-height: 100%;
 	background-color: rgb(223, 224, 210); /* For demonstration */
@@ -4371,35 +4381,34 @@
   background-color: rgba(0, 0, 0, 0.6); /* 투명한 검은색 */
 }
 
-#moving_hurdle{
+.moving_hurdle{
 	position: absolute;
 	z-index: 5;
-	top:53.5%;
-	left:100%;
-	height: 15%;
-	/*부드럽게 이동*/
-	transition: left 4.0s linear;
+	height: 23%;
+	transform: translate(-50%, -50%);
 }
-#moving_hurdle2{
-	display: none;
+.moving_hurdle3{
+	display: block;
 	position: absolute;
 	z-index: 5;
-	top:53.5%;
-	left:100%;
-	height: 15%;
-	/*부드럽게 이동*/
-	transition: left 4.0s linear;
+	height: 22%;
+	transform: translate(-50%, -50%);
 }
-#moving_hurdle3{
-	display: none;
+.moving_hurdle4{
+	display: block;
 	position: absolute;
 	z-index: 5;
-	top:49%;
-	left:100%;
-	height: 15%;
-	/*부드럽게 이동*/
-	transition: left 4.0s linear;
+	height: 30%;
+	transform: translate(-50%, -50%);
 }
+.moving_hurdle5{
+	display: block;
+	position: absolute;
+	z-index: 5;
+	height: 20%;
+	transform: translate(-50%, -50%);
+}
+
 
 #moving_tiger{
 	position: absolute;
@@ -4416,10 +4425,9 @@
 #running_tiger{
 	position: absolute;
 	z-index: 6;
-	top:45%;
-	left:10%;
-	max-width:50%;
-	max-height:50%;
+	width: auto;
+	height: 23%;
+	transform: translate(-50%, -50%);
 	/*부드럽게 이동*/
 	/*transition: top 1.0s ease-in, left 1.0s ease-in;*/
 }
@@ -4560,6 +4568,7 @@
 	margin-top: 1%;
 	margin-right: 2%;
 	z-index: 4;
+	touch-action: none;
 }
 #restart_bt{
 	position: relative;
@@ -4568,7 +4577,7 @@
 	margin-left: 2%;
 	margin-right: 2%;
 	z-index: 4;
-
+	touch-action: none;
 }
 
 
