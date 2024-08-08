@@ -5,7 +5,7 @@ const gameover = document.getElementById('gameover');
 const win = document.getElementById('win');
 const stage = document.getElementById('stage');
 const mainRect = stage.getBoundingClientRect();
-const touchAreaBanner = document.getElementById('banner3');
+const retry = document.getElementById('retry');
 
 
 //캐릭터세팅
@@ -66,6 +66,7 @@ let timeID = null;
 let remainingTime = document.getElementById('remainingTime');
 let second = 60; //남은시간(초)
 let game_finish = false;
+let touchCount = 0;
 
 //방향키 세팅(조이스틱)
 const joystickContainer = document.getElementById('joystick_container');
@@ -77,7 +78,6 @@ let centerX = rect.width/2;
 let centerY = rect.height/2;
 let isDragging = false; 
 
-//하이라이트_캐릭터중심좌표 확인용
     
 
 
@@ -85,9 +85,11 @@ let isDragging = false;
 
     // 이미지 Preload
     const images = [
+        "../../images/enemy.gif",
         "../../images/enemy_attack_action.png",
         "../../images/enemy_defense_action.png",
         "../../images/enemy_damaged_action.png",
+        "../../images/me.gif",
         "../../images/me_attack_action.png",
         "../../images/me_defense_action.png",
         "../../images/me_damaged_action.png"
@@ -149,6 +151,7 @@ function gameStart() {
                     isDamaged('enemy');
                 }
             }else if(isEnemyAttack){ //상대방이 공격중이었으면
+                if(isSideMoving && movingLeft){isMyDefense = true;} // 상대가 공격할때 내가 뒤로 이동중이었으면 방어
                 if(isMyDefense){ //나의 방어여부 검사
                     isEnemyAttack = false;
                     isDefense('me');
@@ -197,7 +200,7 @@ function enemyAction_function(){
         }
     }
     if(ourDis < 0.35){  // 일정거리 이상 가까워지면
-        if(Math.random() <= 0.70){// 70% 확률로 공격시도
+        if(Math.random() <= 0.70){// 50% 확률로 공격시도
             attack('enemy');
         }
     }else{
@@ -229,7 +232,6 @@ function startSideMoving(dir) {
     isSideMoving = true;
     switch (direction){
         case 'left':
-            isMyDefense = true; // 뒤로 이동할때 공격 받으면 방어
             movingLeft = true;
             movingRight = false;
             break;
@@ -338,7 +340,6 @@ function isCollisionCheck(myposX, myposY, enemyposX, enemyposY) {
     if (diffX <= me.width/3) {
       let diffY = Math.abs(enemyposY - myposY);
       if (diffY <= me.height/2) {
-        console.log('충돌');
         return true;
       }
     }
@@ -396,15 +397,17 @@ bt_spacebar.addEventListener('touchstart', (e) => {
     e.preventDefault();
 });
 
-
 function gamefinish(who){
     game_finish = true;
     if(who == 'me'){ //내가 이긴 경우
         blackmssk.style.display = 'block';
         win.style.display = 'block';
+        retry.style.display = 'block'
+        
     }else{ // 내가 진 경우
         blackmssk.style.display = 'block';
         gameover.style.display = 'block';
+        retry.style.display = 'block'
     }
     clearInterval(timeID);
     clearInterval(enemyAction);
@@ -414,18 +417,25 @@ function gamefinish(who){
 
 //마스킹 관련 함수
 blackmssk.addEventListener('touchstart', () => {
-    if(game_finish){
-        cancelAnimationFrame(requestAni);
-        restart();
-    }else{
+    if(touchCount === 1){
         // 첫 터치에 마스킹 지우기
         blackmssk.style.display = 'none';
         waiting_fencing.style.display = 'none';
         gameStart();
-        enemyAction = setInterval(enemyAction_function, 500);
+        enemyAction = setInterval(enemyAction_function, 1000);
         timeID = setInterval(timeID_function, 1000);
     }
+    touchCount++; 
 });
+
+retry.addEventListener('touchstart', (e) => {
+    if(game_finish){
+        cancelAnimationFrame(requestAni);
+        restart();
+    }
+    e.preventDefault();
+});
+
 
 //초기화
 
@@ -434,6 +444,7 @@ function restart() {
     waiting_fencing.style.display = 'block';
     gameover.style.display = 'none';
     win.style.display = 'none';
+    retry.style.display = 'none';
 
     me.src="images/me.gif";
     enemy.src="images/enemy.gif";
@@ -472,6 +483,7 @@ function restart() {
     remainingTime.textContent = second;
 
     game_finish = false;
+    touchCount = 0;
 
 
 }
