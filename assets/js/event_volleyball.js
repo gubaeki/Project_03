@@ -15,7 +15,7 @@ const round = document.getElementById('round');
 
 
 
-const blackmssk = document.getElementById('blackmask');
+const blackmask = document.getElementById('blackmask');
 const waiting_volleyball = document.getElementById('waiting_volleyball');
 const gameover = document.getElementById('gameover');
 const win = document.getElementById('win');
@@ -479,11 +479,11 @@ function roundResultCheck(){
     }
     if(myPresentScore >= 15){
         gameFinish = true;
-        blackmssk.style.display = 'block';
+        blackmask.style.display = 'block';
         win.style.display = 'block';
     }else if(enemyPresentScore >= 15){
         gameFinish = true;
-        blackmssk.style.display = 'block';
+        blackmask.style.display = 'block';
         gameover.style.display = 'block';
     }
     round.textContent = `Round ${PresentRound}`;
@@ -510,12 +510,12 @@ function clearPosition(){
     jumpVelocityY = -4;
 }
 
-blackmssk.addEventListener('touchstart', () => {
+blackmask.addEventListener('touchstart', () => {
     if(gameFinish){
         restart();
     }else{
         // 첫 터치에 마스킹 지우기
-        blackmssk.style.display = 'none';
+        blackmask.style.display = 'none';
         waiting_volleyball.style.display = 'none';
         clearPosition();
         readygo.setAttribute('src', 'images/readygo.gif');
@@ -547,7 +547,7 @@ gameCanvasContainer.addEventListener('touchstart', () => {
 
 function restart() {
     clearPosition();
-    blackmssk.style.display = 'block';
+    blackmask.style.display = 'block';
     waiting_volleyball.style.display = 'block';
     gameover.style.display = 'none';
     win.style.display = 'none';
