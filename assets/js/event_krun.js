@@ -1,7 +1,7 @@
 
 
 //마스킹
-const blackmssk = document.getElementById('blackmask');
+const blackmask = document.getElementById('blackmask');
 const countdown = document.getElementById('countdown');
 const gameover = document.getElementById('gameover');
 const waiting_krun = document.getElementById('waiting_krun');
@@ -318,8 +318,8 @@ function isCollisionCheck(hurdlePositionX, hurdlePositionY, myposX, myposY) {
       let diffY = Math.abs(hurdlePositionY - myposY);
       if (diffY <= tigerRect.height/2) {
         //초기화
-        blackmssk.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
-        blackmssk.style.display = 'block';
+        blackmask.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+        blackmask.style.display = 'block';
         gameover.style.display = 'block';
         countdown.setAttribute('src', '');
         game_finish = 1;
@@ -336,13 +336,13 @@ function isCollisionCheck(hurdlePositionX, hurdlePositionY, myposX, myposY) {
   }
 
 
-blackmssk.addEventListener('touchstart', (e) => {
+  blackmask.addEventListener('touchstart', (e) => {
     if(touchCount === 0){
         if(game_finish === 1){
             restart();
         }else{
             // 첫 터치에 마스킹 지우기
-            blackmssk.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+            blackmask.style.backgroundColor = 'rgba(0, 0, 0, 0)';
             countdown.setAttribute('src', 'images/countdown.gif');
             countdown.style.display = 'block';
             waiting_krun.style.display = 'none';
@@ -352,7 +352,7 @@ blackmssk.addEventListener('touchstart', (e) => {
             // 4초(카운트다운) 경과 후 아래함수 시작
             setTimeout(function(){
             countdown.style.display = 'none';
-            blackmssk.style.display = 'none';
+            blackmask.style.display = 'none';
             gameStart()
             },4000);
             touchCount++; 
@@ -369,8 +369,8 @@ restart_bt.addEventListener('touchstart', (e) => {
 
 function restart() {
     //초기화
-    blackmssk.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
-    blackmssk.style.display = 'block';
+    blackmask.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+    blackmask.style.display = 'block';
     waiting_krun.style.display = 'block';
     gameover.style.display = 'none';
     countdown.setAttribute('src', '');
