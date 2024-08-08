@@ -1,5 +1,5 @@
 //배경
-const blackmssk = document.getElementById('blackmask');
+const blackmask = document.getElementById('blackmask');
 const waiting_fencing = document.getElementById('waiting_fencing');
 const gameover = document.getElementById('gameover');
 const win = document.getElementById('win');
@@ -400,12 +400,12 @@ bt_spacebar.addEventListener('touchstart', (e) => {
 function gamefinish(who){
     game_finish = true;
     if(who == 'me'){ //내가 이긴 경우
-        blackmssk.style.display = 'block';
+        blackmask.style.display = 'block';
         win.style.display = 'block';
         retry.style.display = 'block'
         
     }else{ // 내가 진 경우
-        blackmssk.style.display = 'block';
+        blackmask.style.display = 'block';
         gameover.style.display = 'block';
         retry.style.display = 'block'
     }
@@ -416,10 +416,10 @@ function gamefinish(who){
 
 
 //마스킹 관련 함수
-blackmssk.addEventListener('touchstart', () => {
+blackmask.addEventListener('touchstart', () => {
     if(touchCount === 1){
         // 첫 터치에 마스킹 지우기
-        blackmssk.style.display = 'none';
+        blackmask.style.display = 'none';
         waiting_fencing.style.display = 'none';
         gameStart();
         enemyAction = setInterval(enemyAction_function, 1000);
@@ -440,7 +440,7 @@ retry.addEventListener('touchstart', (e) => {
 //초기화
 
 function restart() {
-    blackmssk.style.display = 'block';
+    blackmask.style.display = 'block';
     waiting_fencing.style.display = 'block';
     gameover.style.display = 'none';
     win.style.display = 'none';
