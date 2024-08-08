@@ -3987,11 +3987,11 @@
 #banner3 .top_section_fencing {
 	z-index: 4;
 	display: grid;
-	grid-template-columns: 25% 25% 25% 25%;
+	grid-template-columns: 25% 75%;
 	grid-template-rows: 100%;
 	top: 0;
 	width: 100%;
-	height: 6%;
+	height: 5%;
 	position: absolute;
 	font-family: "Dongle", sans-serif;
     font-weight: 700;
@@ -4050,28 +4050,64 @@
 	text-align: center;
 }
 
+/*progressBar*/
+progress {
+	width: 100%;
+	height: 30px;
+	-webkit-appearance: none;
+	appearance: none;
+}
+progress::-webkit-progress-bar {
+	background-color: #000000;
+
+}
+progress::-webkit-progress-value {
+	background-color: #ff0000;
+	border-radius: 5px;
+}
+progress::-moz-progress-bar {
+	background-color: #ff0000;
+	border-radius: 5px;
+}
+
+/*
 #banner3 .top_section_fencing .healthbar1{
 	grid-area:1/2/2/3;
 	width:100%;
 	border-right: 3px solid;
-	background-color: rgb(255, 0, 0); /* For demonstration */
+	background-color: rgb(255, 0, 0); 
 	text-align: center;
 }
 #banner3 .top_section_fencing .healthbar2{
 	grid-area:1/3/2/4;
 	width:100%;
 	border-right: 3px solid;
-	background-color: rgb(255, 0, 0); /* For demonstration */
+	background-color: rgb(255, 0, 0); 
 	text-align: center;
 }
 #banner3 .top_section_fencing .healthbar3{
 	grid-area:1/4/2/5;
 	width:100%;
-	background-color: rgb(255, 0, 0); /* For demonstration */
+	background-color: rgb(255, 0, 0); 
 	text-align: center;
+} */
+
+#banner3 .button_section_fencing {
+	display: grid;
+	grid-template-columns: 50% 50%;
+	grid-template-rows: 100%;
+	z-index: 3;
+	top: 59%;
+	width: 100%;
+	height: 13%;
+	border: 5px solid;
+	border-color: #dfa812;
+	border-radius: 2%;
+	background-color: #f3ffd6;
+	position: absolute;
 }
 
-
+/*
 #banner3 .button_section_fencing {
 	display: flex;
 	margin-top: 2%;
@@ -4082,7 +4118,7 @@
 	height: 8%;
 	position: absolute;
 }
-
+*/
 #banner3 .button_section_volleyball {
 	display: grid;
 	grid-template-columns: 50% 50%;
@@ -4097,6 +4133,8 @@
 	background-color: #f3ffd6;
 	position: absolute;
 }
+
+
 /*
 #banner3 .button_section_volleyball_up{
 	grid-area:1/3/2/4;
@@ -4172,6 +4210,31 @@
 	touch-action: none; /* Prevent default touch actions */
 }
 
+#me_temp {
+	z-index: 15;
+	position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: darkgray;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+	transform: translate(-50%, -50%);
+	touch-action: none; /* Prevent default touch actions */
+}
+#enemy_temp {
+	z-index: 15;
+	position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: darkgray;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+	transform: translate(-50%, -50%);
+	touch-action: none; /* Prevent default touch actions */
+}
+
 #banner3 .button_section_volleyball_spacebar{
 	grid-area:1/1/2/2;
 	width:100%;
@@ -4210,11 +4273,11 @@
 #banner3 .bottomhealth_section_fencing {
 	z-index: 4;
 	display: grid;
-	grid-template-columns: 25% 25% 25% 25%;
+	grid-template-columns: 25% 75%;
 	grid-template-rows: 100%;
-	top: 58%;
+	top: 54%;
 	width: 100%;
-	height: 6%;
+	height: 5%;
 	position: absolute;
 	font-family: "Dongle", sans-serif;
     font-weight: 700;
@@ -4232,27 +4295,28 @@
 	background-color: rgb(0, 236, 253); /* For demonstration */
 	text-align: center;
 }
+/*
 #banner3 .bottomhealth_section_fencing .healthbar1{
 	grid-area:1/2/2/3;
 	width:100%;
 	border-right: 3px solid;
-	background-color: rgb(255, 0, 0); /* For demonstration */
+	background-color: rgb(255, 0, 0); 
 	text-align: center;
 }
 #banner3 .bottomhealth_section_fencing .healthbar2{
 	grid-area:1/3/2/4;
 	width:100%;
 	border-right: 3px solid;
-	background-color: rgb(255, 0, 0); /* For demonstration */
+	background-color: rgb(255, 0, 0);
 	text-align: center;
 }
 #banner3 .bottomhealth_section_fencing .healthbar3{
 	grid-area:1/4/2/5;
 	width:100%;
-	background-color: rgb(253, 0, 0); /* For demonstration */
+	background-color: rgb(253, 0, 0); 
 	text-align: center;
 }
-
+*/
 #banner3 .stage {
 	z-index: 2;
 	width: 100%;
@@ -4260,7 +4324,7 @@
 	background-image: url("../../images/stage.png");
 	background-size: cover;
 	position: absolute;
-	top: 6%;
+	top: 4%;
 	left: 0;
 }
 
@@ -4434,38 +4498,33 @@
 #me{
 	position: absolute;
 	z-index: 6;
-	top:32.5%;
-	left:0%;
-	max-width:60%;
-	max-height:60%;
-	transition: left 1.0s linear;
+	width:auto;
+	height: 13%;
+	transform: translate(-50%, -50%);
 }
 
 #enemy{
 	position: absolute;
 	z-index: 6;
-	top:32.5%;
-	left:41%;
 	width:auto;
-	height:21%;
-	transition: left 1.0s linear;
+	height:13%;
+	transform: translate(-50%, -50%);
 }
 
-#info{
-	display: none;
+#remainingTime{
 	position: absolute;
 	z-index: 7;
-	top:11%;
-	left:10%;
+	top:20%;
+	left:50%;
 	width: 80%;
 	height: 20%;
 	font-family: "Dongle", sans-serif;
   	font-weight: 700;
   	font-style: normal;
-  	font-size: 2.5rem;
+  	font-size: 4rem;
 	color : white;
 	text-shadow: 0px 0px 10px rgb(4, 0, 255);
-	transition: left 1.0s ease-in;
+	transform: translate(-50%, -50%);
 }
 #attack_icon{
 	position: absolute;
@@ -4698,7 +4757,23 @@
 	text-align: center;
 }
 
-#event_message{
+#event_message_krun{
+	position: relative;
+	text-align: center;
+	width: 60vw;
+	height: auto;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+#event_message_fencing{
+	position: relative;
+	text-align: center;
+	width: 60vw;
+	height: auto;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+#event_message_volleyball{
 	position: relative;
 	text-align: center;
 	width: 60vw;
