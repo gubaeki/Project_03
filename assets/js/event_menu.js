@@ -7,7 +7,9 @@
     var centerbanner2X = banner2Width / 2;
     var minbanner2X = centerbanner2X - (innerbanner2Width / 2); 
     var maxbanner2X = centerbanner2X + (innerbanner2Width / 2);
-    var messageElement = document.getElementById('event_message');
+    var messageElementKrun = document.getElementById('event_message_krun');
+    var messageElementFencing = document.getElementById('event_message_fencing');
+    var messageElementVolleyball = document.getElementById('event_message_volleyball');
 
     // event 종류 관련 변수
     var select_event = 0;
@@ -116,53 +118,37 @@ document.addEventListener('DOMContentLoaded', function() {
         var y = event.pageY;
 
         if (x >= kboat_minX && x <= kboat_maxX && y >= kboat_minY && y <= kboat_maxY) {
-            messageElement.src ="images/message_krun.png";
+            
+            //messageElement.src ="images/message_krun.png";
+            messageElementFencing.style.display = 'none';
+            messageElementVolleyball.style.display = 'none';
+            messageElementKrun.style.display = 'block';
             message.style.display = 'block';
             select_event = 1;
         } else if (x >= krace_minX && x <= krace_maxX && y >= krace_minY && y <= krace_maxY) {
-            messageElement.src ="images/message_volleyball.png";
+            //messageElement.src ="images/message_volleyball.png";
+            messageElementFencing.style.display = 'none';
+            messageElementVolleyball.style.display = 'block';
+            messageElementKrun.style.display = 'none';
             message.style.display = 'block';
             select_event = 2;
         } else if (x >= krun_minX && x <= krun_maxX && y >= krun_minY && y <= krun_maxY) {
-            messageElement.src ="images/message_krun.png";
+            messageElementFencing.style.display = 'none';
+            messageElementVolleyball.style.display = 'none';
+            messageElementKrun.style.display = 'block';
+            //messageElement.src ="images/message_krun.png";
             message.style.display = 'block';
             select_event = 3;
         }else if (x >= fencing_minX && x <= fencing_maxX && y >= fencing_minY && y <= fencing_maxY) {
-            messageElement.src ="images/message_fencing.png";
+            messageElementFencing.style.display = 'block';
+            messageElementVolleyball.style.display = 'none';
+            messageElementKrun.style.display = 'none';
+            //messageElement.src ="images/message_fencing.png";
             message.style.display = 'block';
             select_event = 4;
         } else {
             message.style.display = 'none';
         }
 
-
-        /* // moving_tiger 이용하는 경우
-        moving_tiger.style.left = x + 'px';
-        moving_tiger.style.top = y + 'px';
-
-        setTimeout(function() {
-            //var gifRect = moving_tiger.getBoundingClientRect();
-            var gifRectCenterX = (gifRect.left + gifRect.right) / 2;
-            var gifRectCenterY = (gifRect.top + gifRect.bottom) / 2;
-            var messageElement = document.getElementById('event_message');
-
-            if (gifRectCenterX >= kboat_minX && gifRectCenterX <= kboat_maxX && gifRectCenterY >= kboat_minY && gifRectCenterY <= kboat_maxY) {
-                messageElement.textContent = `Kboat(경정)에 도전하시겠습니까?`;
-                message.style.display = 'block';
-                select_event = 1;
-            } else if (gifRectCenterX >= krace_minX && gifRectCenterX <= krace_maxX && gifRectCenterY >= krace_minY && gifRectCenterY <= krace_maxY) {
-                messageElement.textContent = `Krace(경륜)에 도전하시겠습니까?`;
-                message.style.display = 'block';
-                select_event = 2;
-            } else if (gifRectCenterX >= krun_minX && gifRectCenterX <= krun_maxX && gifRectCenterY >= krun_minY && gifRectCenterY <= krun_maxY) {
-                messageElement.textContent = `국민체력100(달리기)에 도전하시겠습니까?`;
-                message.style.display = 'block';
-                select_event = 3;
-            } else {
-                message.style.display = 'none';
-            }
-
-        }, 2100); // 2100ms 후 검사
-        */
     });
 });
