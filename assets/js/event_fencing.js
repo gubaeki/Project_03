@@ -1,49 +1,90 @@
-const touchAreaBanner = document.getElementById('banner3');
-const attack_icon = document.getElementById('attack_icon');
-const my_choice_text = document.getElementById('my_choice_text');
-const enemy_choice_text = document.getElementById('enemy_choice_text');
-
-const healthbar_enemy1 = document.getElementById('healthbar_enemy1')
-const healthbar_enemy2 = document.getElementById('healthbar_enemy2')
-const healthbar_enemy3 = document.getElementById('healthbar_enemy3')
-const healthbar_me1 = document.getElementById('healthbar_me1')
-const healthbar_me2 = document.getElementById('healthbar_me2')
-const healthbar_me3 = document.getElementById('healthbar_me3')
-
+//배경
 const blackmssk = document.getElementById('blackmask');
 const waiting_fencing = document.getElementById('waiting_fencing');
 const gameover = document.getElementById('gameover');
 const win = document.getElementById('win');
-const info = document.getElementById('info');
+const stage = document.getElementById('stage');
+const mainRect = stage.getBoundingClientRect();
+const touchAreaBanner = document.getElementById('banner3');
 
+
+//캐릭터세팅
 const me = document.getElementById('me');
 const enemy = document.getElementById('enemy');
+let myposX = (me.width)/2; //내 첫위치
+me.style.left = myposX + 'px';
+let myposY = (mainRect.height * 0.8);
+me.style.top = myposY + 'px';
+let enemyposX = mainRect.width - (enemy.width/2); //상대 첫위치
+enemy.style.left = enemyposX + 'px';
+let enemyposY = (mainRect.height * 0.8);
+enemy.style.top = enemyposY + 'px';
 
-const attack_high_bt = document.getElementById('attack_high');
-const attack_middle_bt = document.getElementById('attack_middle');
-const attack_low_bt = document.getElementById('attack_low');
+//하이라이트(캐릭터 중심좌표 확인용)
+/*
+let me_temp = document.getElementById('me_temp');
+let enemy_temp = document.getElementById('enemy_temp');
+me_temp.style.left = myposX + 'px';
+me_temp.style.top = myposY + 'px';
+enemy_temp.style.left = enemyposX + 'px';
+enemy_temp.style.top = enemyposY + 'px';
+
+me_temp.style.left = myposX + 'px';
+me_temp.style.top = myposY + 'px';
+enemy_temp.style.left = enemyposX + 'px';
+enemy_temp.style.top = enemyposY + 'px';
+*/
+
+//액션 관련 세팅(공격, 이동 및 속도 등)
+let isSideMoving = false; // 좌우이동 여부
+let movingLeft = false;
+let movingRight = false;
+let isEnemySideMoving = false; // 상대방 좌우이동 여부
+let enemymovingLeft = false;
+let enemymovingRight = false;
+let movingSpeed = 1.5; // 이동속도
+let isPressHitting = false; //스페이스바 누름여부
+let attackAttempt = false; // 나&상대방 공격 시도 여부
+let isMyAttack = false; // 나의 공격
+let isEnemyAttack = false; // 상대방의 공격
+let isMyDamaged = false;
+let isEnemyDamaged = false;
+let isMyDefense = false;
+let isEnemyDefense = false;
+let ourMaxDistance = enemyposX - myposX;
+let enemyAction = null;
+
+//체력
+const myHealthBar = document.getElementById('myHealthBar');
+const enemyHealthBar = document.getElementById('enemyHealthBar');
+let myHealth = 100;
+let enemyHealth = 100;
+
+//애니메이션 세팅
+let requestAni;
+let timeID = null;
+let remainingTime = document.getElementById('remainingTime');
+let second = 60; //남은시간(초)
+let game_finish = false;
+
+//방향키 세팅(조이스틱)
+const joystickContainer = document.getElementById('joystick_container');
+const joystick = document.getElementById('joystick');
+const rect = joystickContainer.getBoundingClientRect();
+const maxX = rect.width - joystick.offsetWidth/2;
+const maxY = rect.height - joystick.offsetHeight/2;
+let centerX = rect.width/2;
+let centerY = rect.height/2;
+let isDragging = false; 
+
+//하이라이트_캐릭터중심좌표 확인용
+    
 
 
-
-
-let mychoice = 3; // 3 상단, 2 중단, 1 하단으로 정의
-let enemychoice = 3;
-
-let mydamage = 0; // damage 3이상 누적되면 게임오버
-let enemydamage = 0;
-
-let priority = 'enemy'; // 공격우선권
-let game_finish = 0;
-
+//---------------------------------------------------------------
 
     // 이미지 Preload
     const images = [
-        "../../images/attack_high.png",
-        "../../images/attack_middle.png",
-        "../../images/attack_low.png",
-        "../../images/defense_high.png",
-        "../../images/defense_middle.png",
-        "../../images/defense_low.png",
         "../../images/enemy_attack_action.png",
         "../../images/enemy_defense_action.png",
         "../../images/enemy_damaged_action.png",
@@ -59,248 +100,378 @@ let game_finish = 0;
     };
     preload(images);
 
+//--------------------------------------------------------------
 
-function attack_high() {
-    mychoice = 3;
-    attack_high_bt.disabled = true;
-    attack_middle_bt.disabled = true;
-    attack_low_bt.disabled = true;
-    if(priority=='me'){
-        my_choice_text.src ="images/attack_high.png";
-        me.style.left = 10 + '%';
-    }else{
-        my_choice_text.src ="images/defense_high.png";
-        enemy.style.left = 31 + '%';
-    }
-    setTimeout(function(){
-        attack_result();
-    }, 1500);
-}
-function attack_middle() {
-    mychoice = 2;
-    attack_high_bt.disabled = true;
-    attack_middle_bt.disabled = true;
-    attack_low_bt.disabled = true;
-    if(priority=='me'){
-        my_choice_text.src ="images/attack_middle.png";
-        me.style.left = 10 + '%';
-    }else{
-        my_choice_text.src ="images/defense_middle.png";
-        enemy.style.left = 31 + '%';
-    }
-    setTimeout(function(){
-        attack_result();
-    }, 1500);
-}
-function attack_low() {
-    mychoice = 1;
-    attack_high_bt.disabled = true;
-    attack_middle_bt.disabled = true;
-    attack_low_bt.disabled = true;
-    if(priority=='me'){
-        my_choice_text.src ="images/attack_low.png";
-        me.style.left = 10 + '%';
-    }else{
-        my_choice_text.src ="images/defense_low.png";
-        enemy.style.left = 31 + '%';
-    }
-    setTimeout(function(){
-        attack_result();
-    }, 1500);
-}
-
-function set_position(){
-    me.src="images/me.gif";
-    enemy.src="images/enemy.gif";
-    me.style.left = 0 + '%';
-    enemy.style.left = 41 + '%';
-    my_choice_text.style.display = 'none';
-    enemy_choice_text.style.display = 'none';
-    attack_high_bt.disabled = false;
-    attack_middle_bt.disabled = false;
-    attack_low_bt.disabled = false;
-}
-
-
-
-//공격/방어 결과확인 함수
-function attack_result() {
-
-    // 상대방 공격 랜덤선택(1~3)
-    enemychoice = Math.floor(Math.random()*3) + 1;
-    if(enemychoice === 3){
-        if(priority=='enemy'){
-            enemy_choice_text.src ="images/attack_high.png";
-        }else{
-            enemy_choice_text.src ="images/defense_high.png";
-        }
-    }else if(enemychoice === 2){
-        if(priority=='enemy'){
-            enemy_choice_text.src ="images/attack_middle.png";
-        }else{
-            enemy_choice_text.src ="images/defense_middle.png";
-        }
-    }else{
-        if(priority=='enemy'){
-            enemy_choice_text.src ="images/attack_low.png";
-        }else{
-            enemy_choice_text.src ="images/defense_low.png";
-        }
-    }
-
-    my_choice_text.style.display = 'block';
-    enemy_choice_text.style.display = 'block';
-
-    //양쪽 선택이 같을 경우(공격실패, 방어성공)
-    if(mychoice === enemychoice){
-        //공격우선권이 나에게 있으면
-        if(priority == 'me'){
-            //나:공격 이미지, 상대방:방어성공 이미지 표출
-            me.src="images/me_attack_action.png";
-            enemy.src="images/enemy_defense_action.png";
-
-            priority = 'enemy'; // 우선권 넘김
-            setTimeout(function(){
-                set_position();
-                attack_icon.style.left = 75 + '%';
-                info.textContent = '방어할 차례입니다.';
-                info.style.textShadow = '0px 0px 10px rgb(4, 0, 255)'; // 파란색 그림자
-            },1500);
-            
-        } else{ //공격우선권이 상대방에게 있으면
-            //나:방어성공 이미지, 상대방:공격 이미지 표출
-            me.src="images/me_defense_action.png";
-            enemy.src="images/enemy_attack_action.png";        
-
-            priority = 'me'; // 우선권 가져오기
-            setTimeout(function(){
-                set_position();
-                attack_icon.style.left = 13 + '%';
-                info.textContent = '공격할 차례입니다.';
-                info.style.textShadow = '0px 0px 10px rgb(255, 0, 0)'; //빨간색 그림자
-            },1500);
-            
-        }
-    }else{ //양쪽 선택이 다를경우(공격성공, 방어실패)
-            //공격우선권이 나에게 있으면
-            if(priority == 'me'){
-                //나:공격 이미지, 상대방:데미지 이미지 표출
-                me.src="images/me_attack_action.png";
-                enemy.src="images/enemy_damaged_action.png";
-                enemy.style.left = 51 + '%';
-                //상대방 게이지 깎기
-                switch(enemydamage){
-                    case 0:
-                        healthbar_enemy3.style.backgroundColor = 'rgb(0, 0, 0)';
-                        break;
-                    case 1:
-                        healthbar_enemy2.style.backgroundColor = 'rgb(0, 0, 0)';
-                        break;
-                    case 2:
-                        healthbar_enemy1.style.backgroundColor = 'rgb(0, 0, 0)';
-                        //승리 이미지 표출
-                        setTimeout(function(){
-                            blackmssk.style.display = 'block';
-                            gameover.style.display = 'none';
-                            win.style.display = 'block';
-                            game_finish = 1;
-                            info.style.display = 'none';
-                        },1500);
-                        break;
-                }
-                enemydamage++;
-                priority = 'enemy'; // 우선권 넘김
-                setTimeout(function(){
-                    set_position();
-                    attack_icon.style.left = 75 + '%';
-                    info.textContent = '방어할 차례입니다.';
-                    info.style.textShadow = '0px 0px 10px rgb(4, 0, 255)'; // 파란색 그림자
-                },1500);
-                
-            } else{ //공격우선권이 상대방에게 있으면
-                //나:데미지 이미지, 상대방:공격 이미지 표출
-                me.src="images/me_damaged_action.png";
-                enemy.src="images/enemy_attack_action.png";
-                me.style.left = -10 + '%';
-                //내 게이지 깎기
-                switch(mydamage){
-                    case 0:
-                        healthbar_me3.style.backgroundColor = 'rgb(0, 0, 0)';
-                        break;
-                    case 1:
-                        healthbar_me2.style.backgroundColor = 'rgb(0, 0, 0)';
-                        break;
-                    case 2:
-                        healthbar_me1.style.backgroundColor = 'rgb(0, 0, 0)';
-                        //패배이미지 표출
-                        setTimeout(function(){
-                            blackmssk.style.display = 'block';
-                            gameover.style.display = 'block';
-                            win.style.display = 'none';
-                            info.style.display = 'none';
-                            game_finish = 1;
-                        },1500);
-                        break;
-                }
-                mydamage++;
-                priority = 'me'; // 우선권 가져오기
-                setTimeout(function(){
-                    set_position();
-                    attack_icon.style.left = 13 + '%';
-                    info.textContent = '공격할 차례입니다.';
-                    info.style.textShadow = '0px 0px 10px rgb(255, 0, 0)'; //빨간색 그림자
-                },1500);
-                
+function gameStart() {
+    //내 좌우위치
+    if(isSideMoving){ // 좌우 방향키 누르고 있는 중이면 이동
+        if(movingLeft && !movingRight){ // 왼쪽 
+            myposX -= movingSpeed;
+            if(myposX < 0 + (me.width/2)){ //왼쪽 벽에 닿으면 멈춤
+                myposX += movingSpeed;
             }
+        }else if(!movingLeft && movingRight){ 
+            myposX += movingSpeed;
+            if(myposX > enemyposX){ // 오른쪽 상대에게 닿으면 닿으면 멈춤
+                myposX -= movingSpeed;
+            }
+        }
+        me.style.left = `${myposX}px`;
+    }
+
+    //상대방 좌우위치
+    if(isEnemySideMoving){ // 좌우 방향키 누르고 있는 중이면 이동
+        if(enemymovingLeft){ // 왼쪽 
+            enemyposX -= movingSpeed;
+            if(myposX > enemyposX){ //왼쪽 나에게 닿으면 멈춤
+                enemyposX += movingSpeed;
+            }
+        }else if(enemymovingRight){ 
+            enemyposX += movingSpeed;
+            if(enemyposX > mainRect.width - (enemy.width/2)){ // 오른쪽 벽에게 닿으면 닿으면 멈춤
+                enemyposX -= movingSpeed;
+            }
+        }
+        enemy.style.left = `${enemyposX}px`;
+    }
+
+    
+    //공격 성공여부 판단
+    if(attackAttempt){ //누군가 공격시도중이면
+        if(isCollisionCheck(myposX, myposY, enemyposX, enemyposY)){ //충돌여부 검사
+            if(isMyAttack){ //내가 공격중이었으면
+                if(Math.random()<=0.45){isEnemyDefense=true;} // 상대는 45%의 확률로 방어
+                if(isEnemyDefense){ //상대방의 방어여부 검사
+                    isMyAttack = false;
+                    isDefense('enemy');
+                }else{
+                    isMyAttack = false;
+                    isDamaged('enemy');
+                }
+            }else if(isEnemyAttack){ //상대방이 공격중이었으면
+                if(isMyDefense){ //나의 방어여부 검사
+                    isEnemyAttack = false;
+                    isDefense('me');
+                }else{
+                    isEnemyAttack = false;
+                    isDamaged('me');
+                }
+
+            }
+        }
+    }
+
+    requestAni = requestAnimationFrame(gameStart);
+}
+
+// 주기적으로 상대의 행동 결정
+function enemyAction_function(){
+    let ourDis = (enemyposX - myposX) / ourMaxDistance;
+    if((ourDis) >= 0.5){ //둘 사이의 거리가 멀면
+        if(Math.random() <= 0.70){ // 70% 확률로 움직이고
+            isEnemySideMoving = true;
+            if(Math.random() <= 0.70){ //70% 확률로 다가간다.
+                enemymovingLeft = true;
+            }else{
+                enemymovingRight = true; //30% 확률로 멀어진다.
+            }
+            setTimeout(function(){ //0.3초 후에 멈춤
+                isEnemySideMoving = false;
+                enemymovingLeft = false;
+                enemymovingRight = false;
+            },300);
+        }
+    }else{ //둘 사이의 거리가 가까우면
+        if(Math.random() <= 0.70){ // 70% 확률로 움직이고
+            isEnemySideMoving = true;
+            if(Math.random() <= 0.30){ //30% 확률로 다가간다.
+                enemymovingLeft = true;
+            }else{
+                enemymovingRight = true; //70% 확률로 멀어진다.
+            }
+            setTimeout(function(){ //0.3초 후에 멈춤
+                isEnemySideMoving = false;
+                enemymovingLeft = false;
+                enemymovingRight = false;
+            },300);
+        }
+    }
+    if(ourDis < 0.35){  // 일정거리 이상 가까워지면
+        if(Math.random() <= 0.70){// 70% 확률로 공격시도
+            attack('enemy');
+        }
+    }else{
+        if(Math.random() <= 0.30){// 30% 확률로 공격시도
+            attack('enemy');
+        }
+    }
+}
+
+//남은시간표시
+function timeID_function(){
+    remainingTime.textContent = second;
+    second -= 1;
+    if(second < 0){
+        second = 60;
+        if(myHealth > enemyHealth){
+            gamefinish('me');
+        }else{
+            gamefinish('enemy');
+        }
+        clearInterval(timeID);
     }
 }
 
 
-blackmssk.addEventListener('touchstart', () => {
-            
-    
-        if(game_finish === 1){
-            restart();
-        }else{
-            // 첫 터치에 마스킹 지우기
-            blackmssk.style.display = 'none';
-            waiting_fencing.style.display = 'none';
-            info.textContent = '방어할 차례입니다.';
-            info.style.textShadow = '0px 0px 10px rgb(4, 0, 255)'; // 파란색 그림자
-            info.style.display = 'block';
-            //gameover.style.display = 'none';
+// -----------------좌우이동 관련 함수
+function startSideMoving(dir) {
+    direction = dir;
+    isSideMoving = true;
+    switch (direction){
+        case 'left':
+            isMyDefense = true; // 뒤로 이동할때 공격 받으면 방어
+            movingLeft = true;
+            movingRight = false;
+            break;
+        case 'right':
+            isMyDefense = false;
+            movingLeft = false;
+            movingRight = true;
+            break;
         }
+        
+}
+function stopSideMoving() {
+    isMyDefense = false;
+    isSideMoving = false;
+    movingLeft = false;
+    movingRight = false; 
+}
+
+
+//------------------------공격 관련 함수
+function attack(who) {
+    if(who == 'me'){
+        if(!isPressHitting && !isMyDamaged && !isMyDefense){
+            isPressHitting = true;
+            attackAttempt = true;
+            isMyAttack = true;
+            me.setAttribute('src', 'images/me_attack_action.png'); //공격모션으로 변경
+            setTimeout(function(){
+                isPressHitting = false;
+                attackAttempt = false;
+                isMyAttack = false;
+                me.setAttribute('src', 'images/me.gif'); //0.3초 후에 원래모션으로 돌아오기
+                },300);
+        }
+    }else if(who == 'enemy'){
+        attackAttempt = true;
+        isEnemyAttack = true;
+        enemy.setAttribute('src', 'images/enemy_attack_action.png'); //공격모션으로 변경
+        setTimeout(function(){
+        attackAttempt = false;
+        isEnemyAttack = false;
+        enemy.setAttribute('src', 'images/enemy.gif'); //0.3초 후에 원래모션으로 돌아오기
+        },300);
+    }
     
+}
+
+function isDamaged(who){
+    if(who == 'me'){
+        isMyDamaged = true;
+        me.setAttribute('src', 'images/me_damaged_action.png');
+        setHealth('me', 10);
+        setTimeout(function(){
+            isMyDamaged = false;
+            me.setAttribute('src', 'images/me.gif'); //0.3초 후에 원래모션으로 돌아오기
+            },300);
+    }else if(who == 'enemy'){
+        isEnemyDamaged = true;
+        enemy.setAttribute('src', 'images/enemy_damaged_action.png');
+        setHealth('enemy', 10);
+        setTimeout(function(){
+            isMyDamaged = false;
+            enemy.setAttribute('src', 'images/enemy.gif'); //0.3초 후에 원래모션으로 돌아오기
+            },300);    
+    }
+}
+
+function isDefense(who){
+    if(who == 'me'){
+        me.setAttribute('src', 'images/me_defense_action.png');
+        setTimeout(function(){
+            isMyDefense = false;
+            me.setAttribute('src', 'images/me.gif'); //0.3초 후에 원래모션으로 돌아오기
+            },300);
+    }else if(who == 'enemy'){
+        enemy.setAttribute('src', 'images/enemy_defense_action.png');
+        setTimeout(function(){
+            isEnemyDefense = false;
+            enemy.setAttribute('src', 'images/enemy.gif'); //0.3초 후에 원래모션으로 돌아오기
+            },300);  
+    }
+}
+
+//체력바 조절
+function setHealth(who, value) {
+    if(who == 'me'){
+        myHealth -= value;
+        myHealthBar.value = myHealth;
+        if(myHealth <= 0){
+            gamefinish('enemy');
+        }
+        
+    }else if(who == 'enemy'){
+        enemyHealth -= value;
+        enemyHealthBar.value = enemyHealth;
+        if(enemyHealth <= 0){
+            gamefinish('me');
+        }
+    }
+}
+
+
+// 충돌감지
+function isCollisionCheck(myposX, myposY, enemyposX, enemyposY) {
+    let diffX = Math.abs(enemyposX - myposX);
+    if (diffX <= me.width/3) {
+      let diffY = Math.abs(enemyposY - myposY);
+      if (diffY <= me.height/2) {
+        console.log('충돌');
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+//------------------------조이스틱 관련 함수
+joystickContainer.addEventListener('touchstart', (e) => {
+    isDragging = true;
+
+    e.preventDefault();
+});
+
+joystickContainer.addEventListener('touchmove', (e) => {
+    if (isDragging) {
+        const touch = e.touches[0];
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+
+        // joystickContainer를 벗어나지 않도록
+        joystick.style.left = Math.max(joystick.offsetWidth/2, Math.min(x, maxX)) + 'px';
+        joystick.style.top = Math.max(joystick.offsetHeight/2, Math.min(y, maxY)) + 'px';
+
+
+        if(centerX * 1.15 < x){
+            startSideMoving('right');
+        }else if(centerX * 0.85 > x){
+            startSideMoving('left');
+        }else{
+            isSideMoving = false;
+        }
+
+        e.preventDefault(); // Prevent default touch actions like scrolling
+    }
+});
+
+//터치를 멈추면 본래 자리로
+joystickContainer.addEventListener('touchend', (e) => {
+    isDragging = false;
+    joystick.style.left = '50%';
+    joystick.style.top = '50%';
+    stopSideMoving();
+    e.preventDefault();
+});
+
+    // Prevent scrolling when touching the joystick
+joystickContainer.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+});
+
+
+bt_spacebar.addEventListener('touchstart', (e) => {
+    attack('me');
+    e.preventDefault();
+});
+
+
+function gamefinish(who){
+    game_finish = true;
+    if(who == 'me'){ //내가 이긴 경우
+        blackmssk.style.display = 'block';
+        win.style.display = 'block';
+    }else{ // 내가 진 경우
+        blackmssk.style.display = 'block';
+        gameover.style.display = 'block';
+    }
+    clearInterval(timeID);
+    clearInterval(enemyAction);
+    cancelAnimationFrame(requestAni);
+}
+
+
+//마스킹 관련 함수
+blackmssk.addEventListener('touchstart', () => {
+    if(game_finish){
+        cancelAnimationFrame(requestAni);
+        restart();
+    }else{
+        // 첫 터치에 마스킹 지우기
+        blackmssk.style.display = 'none';
+        waiting_fencing.style.display = 'none';
+        gameStart();
+        enemyAction = setInterval(enemyAction_function, 500);
+        timeID = setInterval(timeID_function, 1000);
+    }
 });
 
 //초기화
+
 function restart() {
+    blackmssk.style.display = 'block';
+    waiting_fencing.style.display = 'block';
+    gameover.style.display = 'none';
+    win.style.display = 'none';
 
-blackmssk.style.display = 'block';
-waiting_fencing.style.display = 'block';
-gameover.style.display = 'none';
-win.style.display = 'none';
-my_choice_text.style.display = 'none';
-enemy_choice_text.style.display = 'none';
+    me.src="images/me.gif";
+    enemy.src="images/enemy.gif";
+    myposX = (me.width)/2; //내 첫위치
+    me.style.left = myposX + 'px';
+    myposY = (mainRect.height * 0.8);
+    me.style.top = myposY + 'px';
+    enemyposX = mainRect.width - (enemy.width/2); //상대 첫위치
+    enemy.style.left = enemyposX + 'px';
+    enemyposY = (mainRect.height * 0.8);
+    enemy.style.top = enemyposY + 'px';
 
-mychoice = 3; // 3 상단, 2 중단, 1 하단으로 정의
-enemychoice = 3;
-mydamage = 0; 
-enemydamage = 0;
-priority = 'enemy'; // 공격우선권
-attack_icon.style.left = 75 + '%';
-healthbar_enemy1.style.backgroundColor = 'rgb(255, 0, 0)';
-healthbar_enemy2.style.backgroundColor = 'rgb(255, 0, 0)';
-healthbar_enemy3.style.backgroundColor = 'rgb(255, 0, 0)';
-healthbar_me1.style.backgroundColor = 'rgb(255, 0, 0)';
-healthbar_me2.style.backgroundColor = 'rgb(255, 0, 0)';
-healthbar_me3.style.backgroundColor = 'rgb(255, 0, 0)';
-me.src="images/me.gif";
-enemy.src="images/enemy.gif";
-me.style.left = 0 + '%';
-enemy.style.left = 41 + '%';
-info.style.display = 'none';
-game_finish = 0;
+    isSideMoving = false; // 좌우이동 여부
+    movingLeft = false;
+    movingRight = false;
+    isEnemySideMoving = false; // 상대방 좌우이동 여부
+    enemymovingLeft = false;
+    enemymovingRight = false;
+    movingSpeed = 1.5; // 이동속도
+    isPressHitting = false; //스페이스바 누름여부
+    attackAttempt = false; // 나&상대방 공격 시도 여부
+    isMyAttack = false; // 나의 공격
+    isEnemyAttack = false; // 상대방의 공격
+    isMyDamaged = false;
+    isEnemyDamaged = false;
+    isMyDefense = false;
+    isEnemyDefense = false;
+    enemyAction = null;
+
+    myHealth = 100;
+    myHealthBar.value = myHealth;
+    enemyHealth = 100;
+    enemyHealthBar.value = enemyHealth;
+
+    second = 60; //남은시간(초)
+    remainingTime.textContent = second;
+
+    game_finish = false;
 
 
 }
