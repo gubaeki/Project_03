@@ -67,7 +67,7 @@ let hurdlePosition4Y = mainRect.height - (mainRect.height*0.10) - (moving_hurdle
 moving_hurdle4.style.top = hurdlePosition4Y + 'px';
 let hurdlePosition5X = mainRect.width + (moving_hurdle5.width)/2 + randomBirdDistance;
 moving_hurdle5.style.left = hurdlePosition5X + 'px';
-let hurdlePosition5Y = mainRect.height - (mainRect.height*0.4) - (moving_hurdle4.height)/2;
+let hurdlePosition5Y = mainRect.height - (mainRect.height*0.5) - (moving_hurdle4.height)/2;
 moving_hurdle5.style.top = hurdlePosition5Y + 'px';
 
 
