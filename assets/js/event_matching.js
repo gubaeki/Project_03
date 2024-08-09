@@ -15,12 +15,18 @@ let score = 0;
 let highscore = 0;
 
 // 버튼 관련 세팅
-const startTimer = document.getElementById('startTimer');
 const start_bt = document.getElementById('start_bt');
 const hint_bt = document.getElementById('hint_bt');
 let remainingTime = 9;
 let timer = null;
 let isStart = false; // 게임이 진행중인지 확인
+
+// 애니메이션 세팅
+const startTimer = document.getElementById('startTimer');
+const face = document.getElementById('face');
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -90,6 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isMatch) { //매칭되었을 경우
             score += 30;
             scoreRect.textContent = '현재점수: ' + score + '점';
+
+            startTimer.textContent = '정답!';
+            face.setAttribute('src', 'images/good.gif'); //good 액션으로 변경
+
             /* // 라운드 끝일때로 이동시켜야함
             if(score >= highscore){
                 highscore = score;
@@ -99,6 +109,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             score -= 5;
             scoreRect.textContent = '현재점수: ' + score + '점';
+
+            startTimer.textContent = '오답!';
+            face.setAttribute('src', 'images/sad.gif'); //sad 액션으로 변경
+
             card1.classList.remove('front');
             card1.classList.add('flipped');
             card2.classList.remove('front');
@@ -117,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('동작중');
     }else{
         isStart = true;
-        start_bt.addEventListener('touchstart', () => {
+        start_bt.addEventListener('touchstart', (e) => {
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => { // 모든 카드 오픈
                 card.classList.remove('flipped');
@@ -143,20 +157,23 @@ document.addEventListener('DOMContentLoaded', () => {
         
             }, 10000);
         
+            e.preventDefault();
             });
     }
     
 
     //'힌트보기' 버튼 클릭 시
-    hint_bt.addEventListener('touchstart', () => {
+    hint_bt.addEventListener('touchstart', (e) => {
         console.log('힌트보기');
        
+        e.preventDefault();
+
         });
 
 
     function restart(){
         console.log('재시작');
-        
+
         initializeGame();
         remainingTime = 9;
         isStart = false;
