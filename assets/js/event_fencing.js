@@ -55,7 +55,9 @@ let ourMaxDistance = enemyposX - myposX;
 let enemyAction = null;
 let groundStandard = myposY; // 땅에 닿았음을 판단하는 기준
 let isJumping = false; // 점프 여부
+let isEnemyJumping = false;
 let jumpVelocityY = -8; //점프 시 한번에 이동하는 픽셀 크기(점프 속도 결정)
+let jumpEnemyVelocityY = -8;
 let jumpingGravity = 0.4; // 점프 중력
 
 //체력
@@ -68,7 +70,7 @@ let enemyHealth = 100;
 let requestAni;
 let timeID = null;
 let remainingTime = document.getElementById('remainingTime');
-let second = 60; //남은시간(초)
+let second = 59; //남은시간(초)
 let game_finish = false;
 let touchCount = 0;
 
@@ -177,6 +179,19 @@ function gameStart() {
         }
         enemy.style.left = `${enemyposX}px`;
     }
+    //상대방 상하위치
+    if(isEnemyJumping){
+        jumpEnemyVelocityY += jumpingGravity;
+        enemyposY += jumpEnemyVelocityY
+
+        if(enemyposY > groundStandard){ //착지하면 초기화
+            enemyposY -= jumpEnemyVelocityY;
+            isEnemyJumping = false;
+            jumpEnemyVelocityY = -8;
+        }
+        
+        enemy.style.top = `${enemyposY}px`;
+    }
 
     
     //공격 성공여부 판단
@@ -249,6 +264,9 @@ function enemyAction_function(){
             attack('enemy');
         }
     }
+    if(Math.random() <= 0.20){// 20% 확률로 점프
+        isEnemyJumping = true;
+    }
 }
 
 //남은시간표시
@@ -256,7 +274,7 @@ function timeID_function(){
     remainingTime.textContent = second;
     second -= 1;
     if(second < 0){
-        second = 60;
+        second = 59;
         if(myHealth > enemyHealth){
             gamefinish('me');
         }else{
@@ -291,10 +309,14 @@ function stopSideMoving() {
     movingRight = false; 
 }
 
-
 function startJumpMoving() {
     isJumping = true;
 }
+function startEnemyJumpMoving() {
+    isEnemyJumping = true;
+}
+
+
 //------------------------공격 관련 함수
 function attack(who) {
     if(who == 'me'){
@@ -519,14 +541,17 @@ function restart() {
     isEnemyDefense = false;
     enemyAction = null;
     isJumping = false;
+    isEnemyJumping = false;
+    jumpVelocityY = -8;
+    jumpEnemyVelocityY = -8;
 
     myHealth = 100;
     myHealthBar.value = myHealth;
     enemyHealth = 100;
     enemyHealthBar.value = enemyHealth;
 
-    second = 60; //남은시간(초)
-    remainingTime.textContent = second;
+    second = 59; //남은시간(초)
+    remainingTime.textContent = 60;
 
     game_finish = false;
     touchCount = 0;
