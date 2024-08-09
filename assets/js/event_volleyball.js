@@ -51,19 +51,27 @@ let isJumping = false; // 점프 여부
 let jumpVelocityY = -4; //점프 시 한번에 이동하는 픽셀 크기(점프 속도 결정)
 let jumpingGravity = 0.07; // 점프 중력
 let movingSpeed = 2; // 이동속도
-let myposX = (meRect.width/2); //첫위치
+let myposX = (meRect.width); //첫위치
 player1.style.left = myposX + 'px';
 let myposY = beachRect.height - (meRect.height/2);
 player1.style.top = myposY + 'px';
 
 //상대 캐릭터 세팅
 let isEnemySideMoving = true; // 좌우이동 여부
-let EnemySideMovingDir = 0; // 0: 왼쪽방향이동 / 1: 오른쪽 방향이동
+let EnemySideMovingDir = 0 // 0: 왼쪽방향이동 / 1: 오른쪽 방향이동
 let enemyMovingSpeed = 1; // 적 이동속도
-let enemyposX = beachRect.width - (enemyRect.width/2); //첫위치
+let enemyposX = beachRect.width - (enemyRect.width); //첫위치
 player2.style.left = enemyposX + 'px';
 let enemyposY = beachRect.height - (enemyRect.height/2);
 player2.style.top = enemyposY + 'px';
+let jumpEnemyVelocityY = -4;
+let isEnemyJumping = false;
+
+if(Math.random()<=0.50){
+    EnemySideMovingDir = 0;
+}else{
+    EnemySideMovingDir = 1;
+}
 
 //충돌 세팅
 let ballWithPlayerCollisionDir = 0; // 공과 플레이어의 충돌 방향(0~4)
@@ -81,6 +89,7 @@ let isPressHitting = false;
 
 //애니메이션 세팅
 let requestAni;
+let enemyAction = null;
 
 //방향키 세팅(조이스틱)
 const joystickContainer = document.getElementById('joystick_container');
@@ -122,7 +131,6 @@ preload(images);
 document.addEventListener("DOMContentLoaded", function() {
     var images = document.images;
     var totalImages = images.length;
-    console.log(totalImages);
     var loadedImages = 0;
     function imageLoaded() {
         loadedImages++;
@@ -232,10 +240,23 @@ function moveBall() {
         }
         player2.style.left = `${enemyposX}px`;
     }
+    //적 상하위치
+    if(isEnemyJumping){
+        jumpEnemyVelocityY += jumpingGravity;
+        enemyposY += jumpEnemyVelocityY
 
+        if(enemyposY > (gameCanvasContainer.clientHeight) - (enemyRect.height/2)){ //착지하면 초기화
+            enemyposY -= jumpEnemyVelocityY;
+            isEnemyJumping = false;
+            jumpEnemyVelocityY = -4;
+        }
+        
+        player2.style.top = `${enemyposY}px`;
+    }
 
     //충돌여부감지
     if(isCollisionCheck(posX, posY, myposX, myposY)){ // 내가 충돌했으면
+      
         if(isPressHitting){ // 공격버튼 눌렀으면 
             velocityX = 8;
             velocityY = 8;
@@ -251,11 +272,13 @@ function moveBall() {
                             velocityX = velocityX - 1;
                             velocityY *= -1;
                         }else{
+                            velocityX = velocityX + 1;
                             velocityX *= -1;
                             velocityY *= -1;
                         }
                     }else{
                         if(leftBallrightPlayer){
+                            velocityX = velocityX - 1;
                             velocityX *= -1;
                             velocityY *= -1;
                         }else{
@@ -272,11 +295,18 @@ function moveBall() {
                             velocityX = velocityX - 2;
                             velocityY *= -1;
                         }else{
+                            if(Math.abs(velocityY)>=9){
+                                velocityY = velocityY - 1;
+                            }
                             velocityX *= -1;
                             velocityY *= -1;
+        
                         }
                     }else{
                         if(leftBallrightPlayer){
+                            if(Math.abs(velocityY)>=9){
+                                velocityY = velocityY - 1;
+                            }
                             velocityX *= -1;
                             velocityY *= -1;
                         }else{
@@ -327,11 +357,13 @@ function moveBall() {
                         velocityX = velocityX - 1;
                         velocityY *= -1;
                     }else{
+                        velocityX = velocityX + 1;
                         velocityX *= -1;
                         velocityY *= -1;
                     }
                 }else{
                     if(leftBallrightPlayer){
+                        velocityX = velocityX - 1;
                         velocityX *= -1;
                         velocityY *= -1;
                     }else{
@@ -348,11 +380,17 @@ function moveBall() {
                         velocityX = velocityX - 2;
                         velocityY *= -1;
                     }else{
+                        if(Math.abs(velocityY)>=9){
+                            velocityY = velocityY - 1;
+                        }
                         velocityX *= -1;
                         velocityY *= -1;
                     }
                 }else{
                     if(leftBallrightPlayer){
+                        if(Math.abs(velocityY)>=9){
+                            velocityY = velocityY - 1;
+                        }
                         velocityX *= -1;
                         velocityY *= -1;
                     }else{
@@ -400,7 +438,13 @@ function moveBall() {
     requestAni = requestAnimationFrame(moveBall);
 }
 
-//moveBall();
+// 주기적으로 상대의 행동 결정
+function enemyAction_function(){
+    if(Math.random() <= 0.35){// 35% 확률로 점프
+        isEnemyJumping = true;
+    }
+}
+
 
 
 
@@ -510,14 +554,15 @@ function roundResultCheck(){
         gameover.style.display = 'block';
     }
     round.textContent = `Round ${PresentRound}`;
+    clearInterval(enemyAction);
 }
 
 function clearPosition(){
     posX = 50;
     posY = beachRect.height * 0.2; 
-    myposX = (meRect.width/2);
+    myposX = (meRect.width);
     myposY = beachRect.height - (meRect.height/2);
-    enemyposX = beachRect.width - (enemyRect.width/2);
+    enemyposX = beachRect.width - (enemyRect.width);
     enemyposY = beachRect.height - (enemyRect.height/2);
     velocityX = 4;
     velocityY = 4;
@@ -546,6 +591,7 @@ blackmask.addEventListener('touchstart', () => {
         setTimeout(function(){
             readygo.style.display = 'none';
             },1300);
+        enemyAction = setInterval(enemyAction_function, 1000);
         setTimeout(moveBall, 1400);
     }
 
@@ -563,6 +609,7 @@ gameCanvasContainer.addEventListener('touchstart', () => {
         setTimeout(function(){
             readygo.style.display = 'none';
             },1300);
+        enemyAction = setInterval(enemyAction_function, 1000);
         setTimeout(moveBall, 1400);
     }
 })
@@ -580,9 +627,17 @@ function restart() {
     myPresentScore = 0;
     enemyPresentScore = 0;
     PresentRound = 1;
+
+    isJumping = false;
+    jumpVelocityY = -4;
+    jumpEnemyVelocityY = -4;
+    isEnemyJumping = false;
+
     myscore.textContent = `${myPresentScore}`;
     enemyscore.textContent = `${enemyPresentScore}`;
     round.textContent = `Round ${PresentRound}`;
+
+    clearInterval(enemyAction);
     }
 
 
