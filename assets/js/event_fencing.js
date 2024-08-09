@@ -112,7 +112,6 @@ let isDragging = false;
 document.addEventListener("DOMContentLoaded", function() {
     var images = document.images;
     var totalImages = images.length;
-    
     var loadedImages = 0;
     function imageLoaded() {
         loadedImages++;

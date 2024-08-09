@@ -95,6 +95,7 @@ let isDragging = false;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
 // 이미지 Preload
 const images = [
     "../../images/waiting_volleyball.gif",
@@ -116,8 +117,30 @@ const preload = (images) => {
     });
 };
 preload(images);
+*/
+//이미지 Preload
+document.addEventListener("DOMContentLoaded", function() {
+    var images = document.images;
+    var totalImages = images.length;
+    console.log(totalImages);
+    var loadedImages = 0;
+    function imageLoaded() {
+        loadedImages++;
+        if (loadedImages === totalImages) {
+            restart();
+        }
+    }
+    for (var i = 0; i < totalImages; i++) {
+        if (images[i].complete) {
+            imageLoaded();
+        } else {
+            images[i].addEventListener('load', imageLoaded);
+            images[i].addEventListener('error', imageLoaded);
+        }
+    }
+});
 
-
+//--------------------------------------------------------------------
 
 
 function moveBall() {
