@@ -53,6 +53,10 @@ let isMyDefense = false;
 let isEnemyDefense = false;
 let ourMaxDistance = enemyposX - myposX;
 let enemyAction = null;
+let groundStandard = myposY; // 땅에 닿았음을 판단하는 기준
+let isJumping = false; // 점프 여부
+let jumpVelocityY = -8; //점프 시 한번에 이동하는 픽셀 크기(점프 속도 결정)
+let jumpingGravity = 0.4; // 점프 중력
 
 //체력
 const myHealthBar = document.getElementById('myHealthBar');
@@ -121,6 +125,19 @@ function gameStart() {
         me.style.left = `${myposX}px`;
     }
 
+    //내 상하위치
+    if(isJumping){
+        jumpVelocityY += jumpingGravity;
+        myposY += jumpVelocityY
+
+        if(myposY > groundStandard){ //착지하면 초기화
+            myposY -= jumpVelocityY;
+            isJumping = false;
+            jumpVelocityY = -8;
+        }
+        
+        me.style.top = `${myposY}px`;
+    }
     //상대방 좌우위치
     if(isEnemySideMoving){ // 좌우 방향키 누르고 있는 중이면 이동
         if(enemymovingLeft){ // 왼쪽 
@@ -251,6 +268,9 @@ function stopSideMoving() {
 }
 
 
+function startJumpMoving() {
+    isJumping = true;
+}
 //------------------------공격 관련 함수
 function attack(who) {
     if(who == 'me'){
@@ -364,8 +384,9 @@ joystickContainer.addEventListener('touchmove', (e) => {
         joystick.style.left = Math.max(joystick.offsetWidth/2, Math.min(x, maxX)) + 'px';
         joystick.style.top = Math.max(joystick.offsetHeight/2, Math.min(y, maxY)) + 'px';
 
-
-        if(centerX * 1.15 < x){
+        if(centerY * 0.4 > y && (centerX * 0.6 < x) && (x < centerX * 1.4)){
+            startJumpMoving();
+        }else if(centerX * 1.15 < x){
             startSideMoving('right');
         }else if(centerX * 0.85 > x){
             startSideMoving('left');
@@ -473,6 +494,7 @@ function restart() {
     isMyDefense = false;
     isEnemyDefense = false;
     enemyAction = null;
+    isJumping = false;
 
     myHealth = 100;
     myHealthBar.value = myHealth;
