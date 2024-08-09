@@ -4945,7 +4945,14 @@ progress::-moz-progress-bar {
 	background-size: contain;
 	background-repeat: no-repeat;
 }
-
+#event_message_matching{
+	position: relative;
+	text-align: center;
+	width: 60vw;
+	height: auto;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
 .btn-gradient {
   all: initial;
   text-decoration: none;
