@@ -10,13 +10,14 @@
     var messageElementKrun = document.getElementById('event_message_krun');
     var messageElementFencing = document.getElementById('event_message_fencing');
     var messageElementVolleyball = document.getElementById('event_message_volleyball');
+    var messageElementMatching = document.getElementById('event_message_matching');
 
     // event 종류 관련 변수
     var select_event = 0;
 
     // 이미지 Preload
     const images = [
-        "../../images/message_krun.png",
+        "../../images/message_matching.png",
         "../../images/message_krun.png",
         "../../images/message_volleyball.png",
         "../../images/message_fencing.png"
@@ -88,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 예/아니오 버튼 이벤트 핸들러 설정
     document.querySelector('#yes-btn').addEventListener('click', function(event) {
         if(select_event===1){
-            location.href='krun.html';
+            location.href='matching.html';
         }else if(select_event===2){
             location.href='volleyball.html';
         }else if(select_event===3){
@@ -119,20 +120,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (x >= kboat_minX && x <= kboat_maxX && y >= kboat_minY && y <= kboat_maxY) {
             
-            //messageElement.src ="images/message_krun.png";
+            //messageElement.src ="images/message_matching.png";
+            messageElementMatching.style.display = 'block';
             messageElementFencing.style.display = 'none';
             messageElementVolleyball.style.display = 'none';
-            messageElementKrun.style.display = 'block';
+            messageElementKrun.style.display = 'none';
             message.style.display = 'block';
             select_event = 1;
         } else if (x >= krace_minX && x <= krace_maxX && y >= krace_minY && y <= krace_maxY) {
             //messageElement.src ="images/message_volleyball.png";
+            messageElementMatching.style.display = 'none';
             messageElementFencing.style.display = 'none';
             messageElementVolleyball.style.display = 'block';
             messageElementKrun.style.display = 'none';
             message.style.display = 'block';
             select_event = 2;
         } else if (x >= krun_minX && x <= krun_maxX && y >= krun_minY && y <= krun_maxY) {
+            messageElementMatching.style.display = 'none';
             messageElementFencing.style.display = 'none';
             messageElementVolleyball.style.display = 'none';
             messageElementKrun.style.display = 'block';
@@ -140,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
             message.style.display = 'block';
             select_event = 3;
         }else if (x >= fencing_minX && x <= fencing_maxX && y >= fencing_minY && y <= fencing_maxY) {
+            messageElementMatching.style.display = 'none';
             messageElementFencing.style.display = 'block';
             messageElementVolleyball.style.display = 'none';
             messageElementKrun.style.display = 'none';
