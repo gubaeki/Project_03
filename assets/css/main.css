@@ -4451,7 +4451,7 @@ progress::-moz-progress-bar {
 
 #startTimer{
 	grid-area:1/1/2/2;
-	text-shadow: 0 3px 0 rgb(255, 255, 255);
+	text-shadow: -3px 0 #ffffff, 0 3px #ffffff, 3px 0 #ffffff, 0 -3px #ffffff;
 	color: #000000;
 	background-image: url('../../images/cloud.png');
 	background-size: contain;
@@ -4814,6 +4814,16 @@ progress::-moz-progress-bar {
 	max-width:90%;
 	max-height:auto;
 }
+#warning{
+	display: none;
+	text-align: center;
+	position: absolute;
+	top : 10%;
+	left : 5%;
+	z-index: 10;
+	max-width:90%;
+	max-height:auto;
+}
 #retry{
 	display: none;
 	text-align: center;
@@ -4939,6 +4949,9 @@ progress::-moz-progress-bar {
 .card.flipped {
     background-position: 0 -150px;
     transform: rotateY(0);
+}
+.card.glass {
+    background-position: -50px -150px;
 }
 
 
