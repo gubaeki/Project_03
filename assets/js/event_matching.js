@@ -1,11 +1,17 @@
 
 //배경 세팅
+const blackmask = document.getElementById('blackmask'); blackmask.style.display ='none';
+const win = document.getElementById('win');
+const warning = document.getElementById('warning');
 const gameBoard = document.getElementById('game-board')
 const boardRect = gameBoard.getBoundingClientRect();
 const cardClass = document.querySelectorAll('.card');
 let newmargins = (boardRect.width - 350) / 12; // game-board 내에 위치한 카드가 한 행에 6개씩 나오도록 margin을 계산(단일카드 넓이 50px 기준)
+let isSmallWindow = false;
 if(boardRect.width <= 350){
-    console.log('최소화면넓이 불충족');
+    blackmask.style.display ='block';
+    warning.style.display = 'block';
+    isSmallWindow = true;
 }
 
 // 점수 세팅
@@ -13,6 +19,7 @@ const scoreRect = document.getElementById('score');
 const highscoreRect = document.getElementById('highscore')
 let score = 0;
 let highscore = 0;
+let roundFinish = false;
 
 // 버튼 관련 세팅
 const start_bt = document.getElementById('start_bt');
@@ -20,6 +27,8 @@ const hint_bt = document.getElementById('hint_bt');
 let remainingTime = 9;
 let timer = null;
 let isStart = false; // 게임이 진행중인지 확인
+let isHintCheck = false;
+hint_bt.disabled = true; // 힌트 한번 사용시 잠김여부 설정
 
 // 애니메이션 세팅
 const startTimer = document.getElementById('startTimer');
@@ -75,18 +84,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cards.forEach(card => {
             card.addEventListener('click', () => {
-                if (flippedCards.length < 2 && !card.classList.contains('front') && !matchedCards.includes(card)) {
-                    card.classList.remove('flipped');
-                    card.classList.add('front');
-                    flippedCards.push(card);
-                    if (flippedCards.length === 2) {
-                        setTimeout(() => checkMatch(flippedCards, matchedCards), 1000);
+                if(!isHintCheck){ // 힌트보기가 아닐때
+                    if (flippedCards.length < 2 && !card.classList.contains('front') && !matchedCards.includes(card)) {
+                        card.classList.remove('flipped');
+                        card.classList.add('front');
+                        flippedCards.push(card);
+                        if (flippedCards.length === 2) {
+                            //카드 두개 오픈 즉시 확인하는 버전
+                            checkMatch(flippedCards, matchedCards);
+                            //카드 두개 오픈 후 1초 뒤에 확인하는 버전
+                            //setTimeout(() => checkMatch(flippedCards, matchedCards), 1000);
+                        }
+                    }
+                }else{ // 힌트보기일때
+                    if (!card.classList.contains('front') && !matchedCards.includes(card) && (card.classList.contains('glass'))){
+                        card.classList.remove('flipped');
+                        card.classList.remove('glass');
+                        card.classList.add('front');
+                        setTimeout(() => {
+                            card.classList.remove('front');
+                            card.classList.add('flipped');
+                            cards.forEach(card => {
+                                if(card.classList.contains('glass')){
+                                    card.classList.remove('glass');
+                                }
+                            });
+                        }, 1000);
+                        isHintCheck = false;
+
                     }
                 }
+
             });
+                          
         });
     }
-
+    
+    
+    
 
     // 카드 매칭 검사 함수
     function checkMatch(flippedCards, matchedCards) {
@@ -97,26 +132,44 @@ document.addEventListener('DOMContentLoaded', () => {
             score += 30;
             scoreRect.textContent = '현재점수: ' + score + '점';
 
-            startTimer.textContent = '정답!';
+            startTimer.style.color = 'blue';
+            startTimer.textContent = '+30점';
             face.setAttribute('src', 'images/good.gif'); //good 액션으로 변경
 
-            /* // 라운드 끝일때로 이동시켜야함
-            if(score >= highscore){
-                highscore = score;
-                highscoreRect.textContent = '최고점수: ' + highscore + '점';
-            } */
             matchedCards.push(card1, card2);
+
+            //24개 카드르 모두 맞추면 게임종료
+            if(matchedCards.length===24){ 
+                setTimeout(function(){
+                    roundFinish = true;
+                    if(score >= highscore){
+                        highscore = score;
+                        highscoreRect.textContent = '최고점수: ' + highscore + '점';
+                    }
+                    //블랙마스크 띄우기
+                    blackmask.style.display = 'block';
+                    win.style.display = 'block';
+                    
+                },1000)
+                
+
+            }
+
         } else {
             score -= 5;
             scoreRect.textContent = '현재점수: ' + score + '점';
 
-            startTimer.textContent = '오답!';
+            startTimer.style.color = 'red';
+            startTimer.textContent = '-5점';
             face.setAttribute('src', 'images/sad.gif'); //sad 액션으로 변경
 
-            card1.classList.remove('front');
-            card1.classList.add('flipped');
-            card2.classList.remove('front');
-            card2.classList.add('flipped');
+            setTimeout(() => {
+                card1.classList.remove('front');
+                card1.classList.add('flipped');
+                card2.classList.remove('front');
+                card2.classList.add('flipped');
+            }, 1000);
+            
         }
 
         flippedCards.length = 0; // 배열 초기화
@@ -124,59 +177,118 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 게임 초기화
     initializeGame();
-
-
+    
     //'시작하기' 버튼 클릭 시
-    if(isStart){
-        console.log('동작중');
-    }else{
-        isStart = true;
-        start_bt.addEventListener('touchstart', (e) => {
+    
+    start_bt.addEventListener('touchstart', (e) => {
+        if(isStart){
+        }else{
+            isStart = true;
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => { // 모든 카드 오픈
                 card.classList.remove('flipped');
                 card.classList.add('front');
             });
-        
+            
             timer = setInterval(function(){ // 카운트다운 시작
-                startTimer.textContent = remainingTime + '초';
-                remainingTime -= 1;
                 if(remainingTime < 0){
+                    startTimer.textContent = '시작!';
                     remainingTime = 9;
                     clearInterval(timer);
-                    }
-                }, 1000); //10초
-            
+                }else{
+                    startTimer.textContent = remainingTime + '초';
+                    remainingTime -= 1;
+                }
+                
+            }, 1000); //10초
+                
             setTimeout(() => { // 시간 종료 시 모든 카드 뒷면으로
                 cards.forEach(card => {
                     card.classList.remove('front');
                     card.classList.add('flipped');
+                    hint_bt.disabled = false;
                 });
-                
-                addCardClickListeners(); // 카드 매칭 이벤트 받기 시작
-        
-            }, 10000);
-        
+                    
+            addCardClickListeners(); // 카드 매칭 이벤트 받기 시작
+            
+            }, 11000);
+            
             e.preventDefault();
-            });
-    }
+
+        }
+                
+        
+    });
+    
     
 
     //'힌트보기' 버튼 클릭 시
     hint_bt.addEventListener('touchstart', (e) => {
-        console.log('힌트보기');
-       
+        isHintCheck = true;
+        hint_bt.disabled = true;
+
+        score -= 15;
+        scoreRect.textContent = '현재점수: ' + score + '점';
+
+        startTimer.style.color = 'red';
+        startTimer.textContent = '-15점';
+
+        const cards = document.querySelectorAll('.card'); // 돋보기 그림으로 변경
+        cards.forEach(card => {
+            if(!card.classList.contains('front')){
+                //card.classList.remove('flipped');
+                card.classList.add('glass');
+            }   
+            
+        });
+
+
+
+
         e.preventDefault();
 
         });
 
 
+    //마스킹 관련 함수
+    blackmask.addEventListener('touchstart', () => {
+        if(isSmallWindow){
+            blackmask.style.display = 'none';
+            warning.style.display = 'none';
+            isSmallWindow = false;
+        }else{
+            // 첫 터치에 마스킹 지우기
+            blackmask.style.display = 'none';
+            win.style.display = 'none';
+            restart();
+        }
+        
+           
+    });
+
+
+
     function restart(){
-        console.log('재시작');
+        //게임보드 비우기(자식노득 전부 지우기)
+        while(gameBoard.firstChild){
+            gameBoard.removeChild(gameBoard.firstChild);
+        }
 
         initializeGame();
+
+        score = 0;
+        scoreRect.textContent = '현재점수: ' + score + '점';
+        roundFinish = false;
+
         remainingTime = 9;
+        timer = null;
         isStart = false;
+        isHintCheck = false;
+        hint_bt.disabled = true; // 힌트 한번 사용시 잠김여부 설정
+        startTimer.style.color = 'black';
+        startTimer.textContent = '10초';
+        face.setAttribute('src', 'images/hello.gif');
+
     }
 
 
