@@ -633,6 +633,16 @@ function restart() {
     jumpEnemyVelocityY = -4;
     isEnemyJumping = false;
 
+    myposX = (meRect.width); //첫위치
+    player1.style.left = myposX + 'px';
+    myposY = beachRect.height - (meRect.height/2);
+    player1.style.top = myposY + 'px';
+    enemyposX = beachRect.width - (enemyRect.width); //첫위치
+    player2.style.left = enemyposX + 'px';
+    enemyposY = beachRect.height - (enemyRect.height/2);
+    player2.style.top = enemyposY + 'px';
+
+
     myscore.textContent = `${myPresentScore}`;
     enemyscore.textContent = `${enemyPresentScore}`;
     round.textContent = `Round ${PresentRound}`;
