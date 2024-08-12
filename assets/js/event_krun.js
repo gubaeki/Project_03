@@ -95,14 +95,6 @@ let game_finish = 0;
 
 //-------------------------------------------------------------
 
-// 페이지가 처음 로드되었을 때만 새로고침을 하기 위한 플래그 설정
-if (!localStorage.getItem('firstLoad')) {
-    localStorage.setItem('firstLoad', 'true');
-    window.location.reload();
-    console.log('reload');
-} else {
-    localStorage.removeItem('firstLoad');
-}
 
 //이미지 Preload
 document.addEventListener("DOMContentLoaded", function() {
@@ -125,7 +117,14 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-
+// 페이지가 처음 로드되었을 때만 새로고침을 하기 위한 플래그 설정
+if (!localStorage.getItem('firstLoad')) {
+    localStorage.setItem('firstLoad', 'true');
+    window.location.reload();
+    console.log('reload');
+} else {
+    localStorage.removeItem('firstLoad');
+}
 
 
 function gameStart() {
