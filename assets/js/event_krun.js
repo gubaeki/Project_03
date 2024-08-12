@@ -96,6 +96,30 @@ let game_finish = 0;
 //-------------------------------------------------------------
 
 
+//이미지 Preload
+document.addEventListener("DOMContentLoaded", function() {
+    var images = document.images;
+    var totalImages = images.length;
+    var loadedImages = 0;
+    function imageLoaded() {
+        loadedImages++;
+        if (loadedImages === totalImages) {
+            restart();
+        }
+    }
+    for (var i = 0; i < totalImages; i++) {
+        if (images[i].complete) {
+            imageLoaded();
+        } else {
+            images[i].addEventListener('load', imageLoaded);
+            images[i].addEventListener('error', imageLoaded);
+        }
+    }
+});
+
+
+
+
 function gameStart() {
 
     // 배경 움직이기
@@ -302,7 +326,7 @@ function startJumpMoving() {
             isDoubleJumping = true;
             jumpVelocityY = -8;
             jumpVelocityY += jumpingGravity;
-            myposY += jumpVelocityY
+            myposY += jumpVelocityY;
         }
     }else{
         isJumping = true;
