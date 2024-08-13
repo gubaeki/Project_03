@@ -4709,6 +4709,14 @@ progress::-moz-progress-bar {
 	/*background-color: #000; */ /*확인을 위해*/
 	transform: translate(-50%, -50%)
 }
+#shockwave{
+	position: absolute;
+	display: none;
+	z-index: 10;
+	width:auto;
+	height:5%;
+	transform: translate(-50%, -50%)
+}
 
 
 
@@ -4956,53 +4964,6 @@ progress::-moz-progress-bar {
     background-position: -50px -150px;
 }
 
-/*
-
-
-.card[data-image="1"] {
-    background-position: 0 0;
-}
-.card[data-image="2"] {
-    background-position: -250px 0;
-}
-.card[data-image="3"] {
-    background-position: -500px 0;
-}
-.card[data-image="4"] {
-    background-position: -750px 0;
-}
-.card[data-image="5"] {
-    background-position: -1000px 0;
-}
-.card[data-image="6"] {
-    background-position: -1250px 0;
-}
-.card[data-image="7"] {
-    background-position: 0 -375px;
-}
-.card[data-image="8"] {
-    background-position: -250px -375px;
-}
-.card[data-image="9"] {
-    background-position: -500px -375px;
-}
-.card[data-image="10"] {
-    background-position: -750px -375px;
-}
-.card[data-image="11"] {
-    background-position: -1000px -375px;
-}
-.card[data-image="12"] {
-    background-position: -1250px -375px;
-}
-.card.flipped {
-    background-position: 0 -750px;
-    transform: rotateY(0);
-}
-.card.glass {
-    background-position: -250px -750px;
-}
-*/
 
 #event_sub {
     position: absolute;
