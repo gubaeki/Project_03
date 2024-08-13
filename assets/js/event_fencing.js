@@ -372,8 +372,8 @@ function startShockWaveMoving() {
 function attack(who) {
     
     if(who == 'me'){
-        if(!isPressHitting && !isMyDamaged && !isMyDefense){
-            if(isShockwaveRight){
+        if(!isPressHitting && !isMyDamaged && !isMyDefense && !isShockwaveAction){
+            if(isShockwaveRight && !isShockwaveEmitting){
                 isShockwaveRight = false;
                 isShockwaveAction = true;
                 isShockwaveEmitting = true;
