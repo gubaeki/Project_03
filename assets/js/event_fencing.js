@@ -59,6 +59,17 @@ let isEnemyJumping = false;
 let jumpVelocityY = -8; //점프 시 한번에 이동하는 픽셀 크기(점프 속도 결정)
 let jumpEnemyVelocityY = -8;
 let jumpingGravity = 0.4; // 점프 중력
+let isShockwaveDown = false;
+let isShockwaveRight = false;
+let isShockwaveAction = false;
+let isShockwaveEmitting = false;
+const shockwave = document.getElementById('shockwave');
+let shockwaveSpeed = 2.5;
+shockwave.style.left = myposX;
+shockwave.style.top = myposY;
+let waveX = myposX;
+let waveY = myposY;
+
 
 //체력
 const myHealthBar = document.getElementById('myHealthBar');
@@ -131,6 +142,14 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+// 페이지가 처음 로드되었을 때만 새로고침을 하기 위한 플래그 설정
+if (!localStorage.getItem('firstLoad')) {
+    localStorage.setItem('firstLoad', 'true');
+    window.location.reload();
+    console.log('reload');
+} else {
+    localStorage.removeItem('firstLoad');
+}
 
 //--------------------------------------------------------------
 
@@ -193,6 +212,12 @@ function gameStart() {
         enemy.style.top = `${enemyposY}px`;
     }
 
+    //에너지파 위치
+    if(isShockwaveEmitting){
+        waveX += shockwaveSpeed; 
+        shockwave.style.left = `${waveX}px`;
+    }
+
     
     //공격 성공여부 판단
     if(attackAttempt){ //누군가 공격시도중이면
@@ -216,6 +241,21 @@ function gameStart() {
                     isDamaged('me');
                 }
 
+            }
+        }
+    }
+    //에너지파 공격성공여부 판단
+    if(isShockwaveEmitting){
+        if(isWaveCollisionCheck(waveX, waveY, enemyposX, enemyposY)){
+            if(Math.random()<=0.85){isEnemyDefense=true;} // 상대는 85%의 확률로 방어
+            if(isEnemyDefense){ //상대방의 방어여부 검사
+                isShockwaveEmitting = false;
+                isDefense('enemy');
+                shockwave.style.display = 'none';
+            }else{
+                isShockwaveEmitting = false;
+                isDamaged('enemy');
+                shockwave.style.display = 'none';
             }
         }
     }
@@ -316,21 +356,50 @@ function startEnemyJumpMoving() {
     isEnemyJumping = true;
 }
 
+function startShockWaveMoving() {
+    if(!isShockwaveDown){
+        isShockwaveDown = true;
+        setTimeout(function(){
+            isShockwaveDown = false;
+        },300) // 에너지파 동작을 위해 0.3초간 오른쪽 화살표 입력대기
+    }
+}
+
+
+
 
 //------------------------공격 관련 함수
 function attack(who) {
+    
     if(who == 'me'){
         if(!isPressHitting && !isMyDamaged && !isMyDefense){
-            isPressHitting = true;
-            attackAttempt = true;
-            isMyAttack = true;
-            me.setAttribute('src', 'images/me_attack_action.png'); //공격모션으로 변경
-            setTimeout(function(){
-                isPressHitting = false;
-                attackAttempt = false;
-                isMyAttack = false;
-                me.setAttribute('src', 'images/me.gif'); //0.3초 후에 원래모션으로 돌아오기
+            if(isShockwaveRight){
+                isShockwaveRight = false;
+                isShockwaveAction = true;
+                isShockwaveEmitting = true;
+                me.setAttribute('src', 'images/me_wave_action.png'); //에너지파 액션으로 변경 예정
+                shockwave.style.display = 'block';
+                waveX = myposX;
+                waveY = myposY;
+                shockwave.style.left = waveX + 'px';
+                shockwave.style.top = waveY + 'px';
+                setTimeout(function(){
+                    isShockwaveAction = false;
+                    me.setAttribute('src', 'images/me.gif'); //0.3초 후에 원래모션으로 돌아오기
                 },300);
+            }else{
+                isPressHitting = true;
+                attackAttempt = true;
+                isMyAttack = true;
+                me.setAttribute('src', 'images/me_attack_action.png'); //공격모션으로 변경
+                setTimeout(function(){
+                    isPressHitting = false;
+                    attackAttempt = false;
+                    isMyAttack = false;
+                    me.setAttribute('src', 'images/me.gif'); //0.3초 후에 원래모션으로 돌아오기
+                    },300);
+            }
+            
         }
     }else if(who == 'enemy'){
         attackAttempt = true;
@@ -411,6 +480,16 @@ function isCollisionCheck(myposX, myposY, enemyposX, enemyposY) {
     }
     return false;
   }
+function isWaveCollisionCheck(waveX, waveY, enemyposX, enemyposY) {
+    let diffX = Math.abs(enemyposX - waveX);
+    if (diffX <= me.width/6) {
+      let diffY = Math.abs(enemyposY - waveY);
+      if (diffY <= me.height/2) {
+        return true;
+      }
+    }
+    return false;
+  }
 
 
 //------------------------조이스틱 관련 함수
@@ -433,9 +512,18 @@ joystickContainer.addEventListener('touchmove', (e) => {
         if(centerY * 0.4 > y && (centerX * 0.6 < x) && (x < centerX * 1.4)){
             startJumpMoving();
         }else if(centerX * 1.15 < x){
+            if(isShockwaveDown){
+                isShockwaveDown = false;
+                isShockwaveRight = true;
+                setTimeout(function(){
+                    isShockwaveRight = false;
+                },300) 
+            }
             startSideMoving('right');
         }else if(centerX * 0.85 > x){
             startSideMoving('left');
+        }else if(centerY * 1.3 < y && (centerX * 0.7 < x) && (x < centerX * 1.3)){
+            startShockWaveMoving();
         }else{
             isSideMoving = false;
         }
@@ -544,6 +632,14 @@ function restart() {
     isEnemyJumping = false;
     jumpVelocityY = -8;
     jumpEnemyVelocityY = -8;
+    isShockwaveDown = false;
+    isShockwaveRight = false;
+    isShockwaveAction = false;
+    isShockwaveEmitting = false;
+    waveX = myposX;
+    waveY = myposY;
+    shockwave.style.display = 'none';
+
 
     myHealth = 100;
     myHealthBar.value = myHealth;
