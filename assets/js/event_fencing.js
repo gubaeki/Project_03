@@ -53,6 +53,7 @@ let isMyDefense = false;
 let isEnemyDefense = false;
 let ourMaxDistance = enemyposX - myposX;
 let enemyAction = null;
+let enemyShockwaveAction = null;
 let groundStandard = myposY; // 땅에 닿았음을 판단하는 기준
 let isJumping = false; // 점프 여부
 let isEnemyJumping = false;
@@ -63,12 +64,19 @@ let isShockwaveDown = false;
 let isShockwaveRight = false;
 let isShockwaveAction = false;
 let isShockwaveEmitting = false;
+let isEnemyShockwaveAction = false;
+let isEnemyShockwaveEmitting = false;
 const shockwave = document.getElementById('shockwave');
+const enemyShockwave = document.getElementById('shockwave_enemy');
 let shockwaveSpeed = 2.5;
 shockwave.style.left = myposX;
 shockwave.style.top = myposY;
 let waveX = myposX;
 let waveY = myposY;
+enemyShockwave.style.left = enemyposX;
+enemyShockwave.style.top = enemyposY;
+let enemywaveX = enemyposX;
+let enemywaveY = enemyposY;
 
 
 //체력
@@ -217,6 +225,11 @@ function gameStart() {
         waveX += shockwaveSpeed; 
         shockwave.style.left = `${waveX}px`;
     }
+    if(isEnemyShockwaveEmitting){
+        enemywaveX -= shockwaveSpeed; 
+        enemyShockwave.style.left = `${enemywaveX}px`;
+    }
+    
 
     
     //공격 성공여부 판단
@@ -244,7 +257,7 @@ function gameStart() {
             }
         }
     }
-    //에너지파 공격성공여부 판단
+    //나의 에너지파 공격성공여부 판단
     if(isShockwaveEmitting){
         if(isWaveCollisionCheck(waveX, waveY, enemyposX, enemyposY)){
             if(Math.random()<=0.85){isEnemyDefense=true;} // 상대는 85%의 확률로 방어
@@ -259,11 +272,26 @@ function gameStart() {
             }
         }
     }
+    //상대방의 에너지파 공격성공여부 판단
+    if(isEnemyShockwaveEmitting){
+        if(isWaveCollisionCheck(enemywaveX, enemywaveY, myposX, myposY)){
+            if(isSideMoving && movingLeft){isMyDefense = true;} // 상대가 공격할때 내가 뒤로 이동중이었으면 방어
+            if(isMyDefense){ //나의 방어여부 검사
+                isEnemyShockwaveEmitting = false;
+                isDefense('me');
+                enemyShockwave.style.display = 'none';
+            }else{
+                isEnemyShockwaveEmitting = false;
+                isDamaged('me');
+                enemyShockwave.style.display = 'none';
+            }
+        }
+    }
 
     requestAni = requestAnimationFrame(gameStart);
 }
 
-// 주기적으로 상대의 행동 결정
+// 주기적으로(1초 간격) 상대의 행동 결정
 function enemyAction_function(){
     let ourDis = (enemyposX - myposX) / ourMaxDistance;
     if((ourDis) >= 0.5){ //둘 사이의 거리가 멀면
@@ -307,7 +335,29 @@ function enemyAction_function(){
     if(Math.random() <= 0.20){// 20% 확률로 점프
         isEnemyJumping = true;
     }
+    if(Math.random() <= 0.20){// 20% 확률로 점프
+        isEnemyJumping = true;
+    }
 }
+
+//주기적으로(0.5초 간격) 상대방의 에너지파 액션 결정
+function enemyShockwaveAction_function(){
+    if(Math.random() <= 0.10){// 10% 확률로 
+        isEnemyShockwaveAction = true;
+        isEnemyShockwaveEmitting = true;
+        enemyShockwave.style.display = 'block';
+        enemywaveX = enemyposX;
+        enemywaveY = enemyposY;
+        enemyShockwave.style.left = enemywaveX + 'px';
+        enemyShockwave.style.top = enemywaveY + 'px';
+        enemy.setAttribute('src', 'images/enemy_wave_action.png'); //공격모션으로 변경
+        setTimeout(function(){
+            isEnemyShockwaveAction = false;
+        enemy.setAttribute('src', 'images/enemy.gif'); //0.3초 후에 원래모션으로 돌아오기
+        },300);
+    }
+}
+
 
 //남은시간표시
 function timeID_function(){
@@ -377,7 +427,7 @@ function attack(who) {
                 isShockwaveRight = false;
                 isShockwaveAction = true;
                 isShockwaveEmitting = true;
-                me.setAttribute('src', 'images/me_wave_action.png'); //에너지파 액션으로 변경 예정
+                me.setAttribute('src', 'images/me_wave_action.png'); //에너지파 액션으로 변경
                 shockwave.style.display = 'block';
                 waveX = myposX;
                 waveY = myposY;
@@ -566,6 +616,7 @@ function gamefinish(who){
     }
     clearInterval(timeID);
     clearInterval(enemyAction);
+    clearInterval(enemyShockwaveAction);
     cancelAnimationFrame(requestAni);
 }
 
@@ -579,6 +630,7 @@ blackmask.addEventListener('touchstart', () => {
         gameStart();
         enemyAction = setInterval(enemyAction_function, 1000);
         timeID = setInterval(timeID_function, 1000);
+        enemyShockwaveAction = setInterval(enemyShockwaveAction_function, 500);
     }
     touchCount++; 
 });
@@ -628,6 +680,7 @@ function restart() {
     isMyDefense = false;
     isEnemyDefense = false;
     enemyAction = null;
+    enemyShockwaveAction = null;
     isJumping = false;
     isEnemyJumping = false;
     jumpVelocityY = -8;
@@ -636,10 +689,14 @@ function restart() {
     isShockwaveRight = false;
     isShockwaveAction = false;
     isShockwaveEmitting = false;
+    isEnemyShockwaveAction = false;
+    isEnemyShockwaveEmitting = false;
     waveX = myposX;
     waveY = myposY;
     shockwave.style.display = 'none';
-
+    enemywaveX = enemyposX;
+    enemywaveY = enemyposY;
+    enemyShockwave.style.display = 'none';
 
     myHealth = 100;
     myHealthBar.value = myHealth;
