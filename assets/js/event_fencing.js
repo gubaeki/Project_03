@@ -148,16 +148,18 @@ document.addEventListener("DOMContentLoaded", function() {
             images[i].addEventListener('error', imageLoaded);
         }
     }
+
+    // 페이지가 처음 로드되었을 때만 새로고침을 하기 위한 플래그 설정
+    if (!localStorage.getItem('firstLoad')) {
+        localStorage.setItem('firstLoad', 'true');
+        window.location.reload();
+        console.log('reload');
+    } else {
+        localStorage.removeItem('firstLoad');
+    }
 });
 
-// 페이지가 처음 로드되었을 때만 새로고침을 하기 위한 플래그 설정
-if (!localStorage.getItem('firstLoad')) {
-    localStorage.setItem('firstLoad', 'true');
-    window.location.reload();
-    console.log('reload');
-} else {
-    localStorage.removeItem('firstLoad');
-}
+
 
 //--------------------------------------------------------------
 
@@ -224,10 +226,18 @@ function gameStart() {
     if(isShockwaveEmitting){
         waveX += shockwaveSpeed; 
         shockwave.style.left = `${waveX}px`;
+        if(waveX > mainRect.width){
+            shockwave.style.display = 'none';
+            isShockwaveEmitting = false;
+        }
     }
     if(isEnemyShockwaveEmitting){
         enemywaveX -= shockwaveSpeed; 
         enemyShockwave.style.left = `${enemywaveX}px`;
+        if(enemywaveX < 0){
+            enemyShockwave.style.display = 'none';
+            isEnemyShockwaveEmitting = false;
+        }
     }
     
 
@@ -335,9 +345,7 @@ function enemyAction_function(){
     if(Math.random() <= 0.20){// 20% 확률로 점프
         isEnemyJumping = true;
     }
-    if(Math.random() <= 0.20){// 20% 확률로 점프
-        isEnemyJumping = true;
-    }
+    
 }
 
 //주기적으로(0.5초 간격) 상대방의 에너지파 액션 결정
