@@ -33,7 +33,8 @@ let randomBirdDistance = Math.random() * (max - min) + min;
 
 
 //버튼
-const restart_bt = document.getElementById('restart_bt');
+//const restart_bt = document.getElementById('restart_bt');
+const speedup_bt = document.getElementById('speedup_bt');
 
 //애니메이션
 let requestAni;
@@ -67,7 +68,7 @@ let hurdlePosition4Y = mainRect.height - (mainRect.height*0.10) - (moving_hurdle
 moving_hurdle4.style.top = hurdlePosition4Y + 'px';
 let hurdlePosition5X = mainRect.width + (moving_hurdle5.width)/2 + randomBirdDistance;
 moving_hurdle5.style.left = hurdlePosition5X + 'px';
-let hurdlePosition5Y = mainRect.height - (mainRect.height*0.5) - (moving_hurdle4.height)/2;
+let hurdlePosition5Y = mainRect.height - (mainRect.height*0.45) - (moving_hurdle4.height)/2;
 moving_hurdle5.style.top = hurdlePosition5Y + 'px';
 
 
@@ -173,7 +174,7 @@ function gameStart() {
         if(isCollisionCheck(hurdlePositionX, hurdlePositionY, myposX, myposY)){return};
         if(isCollisionCheck(hurdlePosition2X, hurdlePosition2Y, myposX, myposY)){return};
     }else if(gameDifficulty === 3){
-        roadSpeed = 4;
+        if(roadSpeed<4){roadSpeed = 4;}
         if(hurdlePositionX <= 0 - (moving_hurdle1.width/2)){
             hurdle1IntervalCount += 1 ;
             moving_hurdle1.style.display = 'none';   
@@ -261,7 +262,7 @@ function gameStart() {
         if(isCollisionCheck(hurdlePosition4X, hurdlePosition4Y, myposX, myposY)){return};
     }
     else if(gameDifficulty === 7){
-        roadSpeed = 5;
+        if(roadSpeed<5){roadSpeed = 5;}
         if(isBird){
             if(hurdlePosition5X <= 0 - (moving_hurdle5.width/2)){
                 hurdlePosition5X = mainRect.width + (moving_hurdle5.width)/2;
@@ -298,7 +299,7 @@ function gameStart() {
     }
 
     // 이동거리 증가
-    distanceStandard += 1;
+    distanceStandard += roadSpeed/2;
     currentDistance = Math.round((distanceStandard/100)*10)/10;
     current_distance.textContent = `${currentDistance} m`;
 
@@ -393,9 +394,16 @@ function isCollisionCheck(hurdlePositionX, hurdlePositionY, myposX, myposY) {
     e.preventDefault();
 });
 
+/*
 restart_bt.addEventListener('touchstart', (e) => {
     cancelAnimationFrame(requestAni);
     restart();
+    e.preventDefault();
+});
+*/
+
+speedup_bt.addEventListener('touchstart', (e) => {
+    roadSpeed += 1;
     e.preventDefault();
 });
 
@@ -447,7 +455,7 @@ function restart() {
     moving_hurdle4.style.top = hurdlePosition4Y + 'px';
     hurdlePosition5X = mainRect.width + (moving_hurdle5.width)/2 + randomBirdDistance;
     moving_hurdle5.style.left = hurdlePosition5X + 'px';
-    hurdlePosition5Y = mainRect.height - (mainRect.height*0.4) - (moving_hurdle4.height)/2;
+    hurdlePosition5Y = mainRect.height - (mainRect.height*0.45) - (moving_hurdle4.height)/2;
     moving_hurdle5.style.top = hurdlePosition5Y + 'px';
 
     myposX = (running_tiger.width)/2 + 50; //첫위치
