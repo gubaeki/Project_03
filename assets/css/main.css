@@ -4773,6 +4773,15 @@ progress::-moz-progress-bar {
 	z-index: 4;
 	touch-action: none;
 }
+#speedup_bt{
+	position: relative;
+	flex : 1;
+	margin-top: 1%;
+	margin-left: 2%;
+	margin-right: 2%;
+	z-index: 4;
+	touch-action: none;
+}
 
 
 .message_yes_bt{
